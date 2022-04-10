@@ -1,9 +1,10 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { UserRepository } from '@/user/repository';
 import * as argon2 from 'argon2';
-import { SignupRequestDto } from '@/auth/dto';
+import { SigninRequestDto, SignupRequestDto } from '@/auth/dto';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { IsNull, Not } from 'typeorm';
 
 @Injectable()
 export class AuthService {
@@ -13,26 +14,41 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  async signup(dto: SignupRequestDto) {
+  async signupLocal(dto: SignupRequestDto) {
+    //TODO: 이거 바꿀 예정
     dto.password = await this.hashData(dto.password);
     const user = this.userRepository.create(dto);
     this.userRepository.save(user);
   }
 
-  async login() {
+  async signinLocal(dto: SigninRequestDto) {
+    const user = await this.userRepository.findByEmail(dto.email);
+    if (!user) throw new HttpException('NOT FOUND', 404);
+    const passwordMatches = await this.compareData(dto.password, user.password);
+    if (!passwordMatches) throw new HttpException('UNAUTHORIZED', 401);
+
+    const tokens = await this.getTokens(user.id, user.email);
+    await this.updateRtHash(user.id, tokens.refresh_token);
+    return tokens;
+  }
+
+  async signinGithub() {
     return;
   }
 
-  async githubLogin() {
+  async signinGoogle() {
     return;
   }
 
-  async googleLogin() {
-    return;
-  }
-
-  async logout() {
-    return;
+  async logout(userId: number) {
+    const user = await this.userRepository.findOne({
+      where: {
+        id: userId,
+        hashedRt: Not(IsNull()),
+      },
+    });
+    if (!user) throw new HttpException('NOT FOUND', 404);
+    await this.userRepository.save({ ...user, hashedRt: null });
   }
 
   async refreshTokens(userId: number, refresh_token: string) {
