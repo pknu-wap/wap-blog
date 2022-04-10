@@ -1,6 +1,6 @@
 import { AuthService } from '@/auth/service/auth.service';
 import { UserService } from '@/user/service';
-import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Req } from '@nestjs/common';
 import { SignupRequestDto } from '@/auth/dto';
 
 @Controller('/auth')
@@ -12,9 +12,10 @@ export class AuthController {
 
   @Post('/signup')
   async register(@Body() body: SignupRequestDto) {
+    console.log(body)
     return this.authService.signup(body);
   }
-
+  
   @Post('/login')
   async login() {
     return;
