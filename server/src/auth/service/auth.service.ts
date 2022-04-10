@@ -24,7 +24,7 @@ export class AuthService {
   async signinLocal(dto: SigninRequestDto) {
     const user = await this.userRepository.findByEmail(dto.email);
     if (!user) throw new HttpException('NOT FOUND', 404);
-    const passwordMatches = await this.compareData(dto.password, user.password);
+    const passwordMatches = await this.compareData(user.password, dto.password);
     if (!passwordMatches) throw new HttpException('UNAUTHORIZED', 401);
 
     const tokens = await this.getTokens(user.id, user.email);
