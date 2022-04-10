@@ -1,8 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from '@/config/configuration';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from '@/user/user.module';
+import { AuthModule } from '@/auth/auth.module';
+import { APP_PIPE } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -25,8 +27,8 @@ import { UserModule } from '@/user/user.module';
       }),
     }),
     UserModule,
+    AuthModule,
   ],
-  controllers: [],
   providers: [
     {
       provide: APP_PIPE,
