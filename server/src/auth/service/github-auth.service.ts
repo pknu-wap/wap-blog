@@ -83,10 +83,9 @@ export class GithubService {
     const user = {
       email: id,
       username: name ?? login ?? email,
-      password: node_id,
     };
 
     this.userRepository.create(user);
-    return (await this.userRepository.findById(id)).id;
+    return (await this.userRepository.findByEmail(email)).id;
   }
 }
