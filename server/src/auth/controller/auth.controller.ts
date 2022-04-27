@@ -11,11 +11,15 @@ import {
 import { SignupRequestDto, SigninRequestDto } from '@/auth/dto';
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
+import { GithubService } from '../service/github-auth.service';
+import { GoogleService } from '../service/goolge-auth.service';
 
 @Controller('/auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
+    private readonly githubService: GithubService,
+    private readonly googleService: GoogleService,
     private readonly configService: ConfigService,
   ) {}
 
@@ -57,7 +61,7 @@ export class AuthController {
     @Query('code') code: string,
     @Res({ passthrough: true }) res: Response,
   ) {
-    await this.authService.githubCallback(code, res);
+    await this.githubService.githubCallback(code, res);
     res.redirect(this.configService.get<string>('client'));
   }
 
@@ -75,7 +79,7 @@ export class AuthController {
     @Query('code') code: string,
     @Res({ passthrough: true }) res: Response,
   ) {
-    await this.authService.googleCallback(code, res);
+    await this.googleService.googleCallback(code, res);
     res.redirect(this.configService.get<string>('client'));
   }
 

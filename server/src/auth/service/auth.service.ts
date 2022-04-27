@@ -32,14 +32,6 @@ export class AuthService {
     return tokens;
   }
 
-  async githubCallback(code: string, @Res() res: Response) {
-    return;
-  }
-
-  async googleCallback(code: string, @Res() res: Response) {
-    return;
-  }
-
   async logout(userId: number) {
     const user = await this.userRepository.findOne({
       where: {
