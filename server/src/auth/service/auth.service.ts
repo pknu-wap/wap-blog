@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, Injectable, Res } from '@nestjs/common';
 import { UserRepository } from '@/user/repository';
 import * as argon2 from 'argon2';
 import { SigninRequestDto, SignupRequestDto } from '@/auth/dto';
@@ -30,14 +30,6 @@ export class AuthService {
     const tokens = await this.getTokens(user.id, user.email);
     await this.updateRtHash(user.id, tokens.refresh_token);
     return tokens;
-  }
-
-  async signinGithub() {
-    return;
-  }
-
-  async signinGoogle() {
-    return;
   }
 
   async logout(userId: number) {
