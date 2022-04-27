@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, Injectable, Res } from '@nestjs/common';
 import { UserRepository } from '@/user/repository';
 import * as argon2 from 'argon2';
 import { SigninRequestDto, SignupRequestDto } from '@/auth/dto';
@@ -32,11 +32,11 @@ export class AuthService {
     return tokens;
   }
 
-  async signinGithub() {
+  async githubCallback(code: string, @Res() res: Response) {
     return;
   }
 
-  async signinGoogle() {
+  async googleCallback(code: string, @Res() res: Response) {
     return;
   }
 

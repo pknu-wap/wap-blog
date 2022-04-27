@@ -10,7 +10,7 @@ async function bootstrap() {
   app.use(cookieParser());
   const logger = new Logger();
   const configService = app.get(ConfigService);
-  const port = +configService.get<number>('SERVER_PORT');
+  const port = +configService.get<number>('server.port');
   setupSwagger(app);
   await app.listen(port);
   logger.verbose(`Listening On Port ${port}`);
