@@ -36,11 +36,11 @@ export class AuthController {
       body,
     );
     res.cookie('access_token', access_token, {
-      maxAge: 1000 * 10, // 10s
+      maxAge: 1000 * 60 * 60 * 1, // 1h
       httpOnly: true,
     });
     res.cookie('refresh_token', refresh_token, {
-      maxAge: 1000 * 60 * 60 * 24 * 7, // 7d
+      maxAge: 1000 * 60 * 60 * 24 * 30, // 30d
       httpOnly: true,
     });
     return { access_token, refresh_token };
@@ -53,7 +53,7 @@ export class AuthController {
 
     const url = `https://github.com/login/oauth/authorize?scope=user:email&client_id=${GITHUB_ID}&redirect_uri=${REDIRECT_URI}`;
 
-    res.redirect(url);
+    res.redirect(encodeURI(url));
   }
 
   @Get('/github/callback')
@@ -61,8 +61,9 @@ export class AuthController {
     @Query('code') code: string,
     @Res({ passthrough: true }) res: Response,
   ) {
+    const redirect = this.configService.get<string>('client');
     await this.githubService.githubCallback(code, res);
-    res.redirect(this.configService.get<string>('client'));
+    res.redirect(encodeURI(redirect));
   }
 
   //TODO: 여기는 url이 변경될 필요가 있음
@@ -85,7 +86,7 @@ export class AuthController {
       ],
       //TODO: 여기 state를 넣을 지 말 지 모르겠음
     });
-    res.redirect(url);
+    res.redirect(encodeURI(url));
   }
 
   @Get('/google/callback')
@@ -93,8 +94,9 @@ export class AuthController {
     @Query('code') code: string,
     @Res({ passthrough: true }) res: Response,
   ) {
+    const redirect = this.configService.get<string>('client');
     await this.googleService.googleCallback(code, res);
-    res.redirect(this.configService.get<string>('client'));
+    res.redirect(encodeURI(redirect));
   }
 
   @Delete('/logout')

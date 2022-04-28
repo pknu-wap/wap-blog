@@ -32,11 +32,11 @@ export class GithubService {
         'email',
       );
       res.cookie('access_token', access_token, {
-        maxAge: 1000 * 10, // 10s
+        maxAge: 1000 * 60 * 60 * 1, // 1h
         httpOnly: true,
       });
       res.cookie('refresh_token', refresh_token, {
-        maxAge: 1000 * 60 * 60 * 24 * 7, // 7d
+        maxAge: 1000 * 60 * 60 * 24 * 30, // 30d
         httpOnly: true,
       });
     } catch (e) {
