@@ -1,8 +1,8 @@
 import { UserRepository } from '@/user/repository';
 import { ConfigService } from '@nestjs/config';
-import { AuthService } from '@/auth/service/auth.service';
 import { HttpException, Injectable, Res } from '@nestjs/common';
 import axios from 'axios';
+import { AuthService } from '@/auth/service';
 import { Response } from 'express';
 
 @Injectable()

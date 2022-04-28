@@ -1,16 +1,14 @@
 import { UserRepository } from '@/user/repository';
-import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { HttpException, Injectable, Res } from '@nestjs/common';
 import { google } from 'googleapis';
-import { AuthService } from './auth.service';
+import { AuthService } from '@/auth/service';
 import { Response } from 'express';
 
 @Injectable()
 export class GoogleService {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
     private readonly authService: AuthService,
   ) {}
