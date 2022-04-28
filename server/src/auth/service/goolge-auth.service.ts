@@ -29,18 +29,8 @@ export class GoogleService {
       const userId = await this.getGoogleUserId(userInfo);
       if (!userId) throw new HttpException('로그인 실패', 400);
       //TODO:: 일단 임시로 email 파라미터에 그냥 넣어놓음 수정 필요
-      const { access_token, refresh_token } = await this.authService.getTokens(
-        userId,
-        'email',
-      );
-      res.cookie('access_token', access_token, {
-        maxAge: 1000 * 60 * 60 * 1, // 1h
-        httpOnly: true,
-      });
-      res.cookie('refresh_token', refresh_token, {
-        maxAge: 1000 * 60 * 60 * 24 * 30, // 30d
-        httpOnly: true,
-      });
+      const tokens = await this.authService.getTokens(userId, 'email');
+      this.authService.setTokenCookie(res, tokens);
     } catch (e) {
       throw new HttpException(e.message, 500);
     }

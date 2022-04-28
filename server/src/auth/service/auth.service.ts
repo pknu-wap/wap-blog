@@ -5,6 +5,7 @@ import { SigninRequestDto, SignupRequestDto } from '@/auth/dto';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { IsNull, Not } from 'typeorm';
+import { Response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -85,5 +86,19 @@ export class AuthService {
   async updateRtHash(userId: number, rt: string) {
     const hash = await this.hashData(rt);
     return this.userRepository.update({ id: userId }, { hashedRt: hash });
+  }
+
+  setTokenCookie(
+    res: Response,
+    tokens: { access_token: string; refresh_token: string },
+  ) {
+    res.cookie('access_token', tokens.access_token, {
+      maxAge: 1000 * 60 * 60 * 1, // 1h
+      httpOnly: true,
+    });
+    res.cookie('refresh_token', tokens.refresh_token, {
+      maxAge: 1000 * 60 * 60 * 24 * 30, // 30d
+      httpOnly: true,
+    });
   }
 }

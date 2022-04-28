@@ -28,6 +28,7 @@ export class JwtAuthMiddleware implements NestMiddleware {
       }
       const decodedData = await this.jwtService.verify(accessToken);
       const diff = decodedData.exp * 1000 - new Date().getTime();
+      // refresh token의 만료시간이 30분 밑으로 남았을 때
       if (diff < 1000 * 60 * 30 && refreshToken) {
         //TODO: 구현하던가 불러오던가 해야함
         await refreshToken(refreshToken);

@@ -32,18 +32,8 @@ export class AuthController {
     @Body() body: SigninRequestDto,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { access_token, refresh_token } = await this.authService.signinLocal(
-      body,
-    );
-    res.cookie('access_token', access_token, {
-      maxAge: 1000 * 60 * 60 * 1, // 1h
-      httpOnly: true,
-    });
-    res.cookie('refresh_token', refresh_token, {
-      maxAge: 1000 * 60 * 60 * 24 * 30, // 30d
-      httpOnly: true,
-    });
-    return { access_token, refresh_token };
+    const tokens = await this.authService.signinLocal(body);
+    this.authService.setTokenCookie(res, tokens);
   }
 
   @Get('/signin/github')
