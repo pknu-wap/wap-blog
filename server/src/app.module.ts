@@ -9,9 +9,10 @@ import configuration from '@/config/configuration';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from '@/user/user.module';
 import { AuthModule } from '@/auth/auth.module';
-import { APP_PIPE } from '@nestjs/core';
+import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { ArticleModule } from './article/article.module';
-import { JwtAuthMiddleware } from './middleware';
+import { JwtAuthMiddleware } from '@/middleware';
+import { AuthGuard } from '@/common/guard';
 
 @Module({
   imports: [
@@ -41,6 +42,10 @@ import { JwtAuthMiddleware } from './middleware';
     {
       provide: APP_PIPE,
       useClass: ValidationPipe,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
     },
   ],
 })
