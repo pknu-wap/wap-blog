@@ -21,6 +21,7 @@ import { JwtModule } from '@nestjs/jwt';
       isGlobal: true,
       load: [configuration],
     }),
+    JwtModule.register({}),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -38,7 +39,6 @@ import { JwtModule } from '@nestjs/jwt';
     UserModule,
     AuthModule,
     ArticleModule,
-    JwtModule.register({}),
   ],
   providers: [
     {
