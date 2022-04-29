@@ -1,4 +1,9 @@
-import { Module, ValidationPipe } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from '@/config/configuration';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -6,6 +11,7 @@ import { UserModule } from '@/user/user.module';
 import { AuthModule } from '@/auth/auth.module';
 import { APP_PIPE } from '@nestjs/core';
 import { ArticleModule } from './article/article.module';
+import { JwtAuthMiddleware } from './middleware';
 
 @Module({
   imports: [
@@ -38,4 +44,9 @@ import { ArticleModule } from './article/article.module';
     },
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    //TODO: 이게 맞는 지 모르겠음
+    consumer.apply(JwtAuthMiddleware).exclude('/auth/logout').forRoutes('*');
+  }
+}

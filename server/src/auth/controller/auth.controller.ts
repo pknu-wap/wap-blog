@@ -24,7 +24,7 @@ export class AuthController {
 
   @Post('/signup/local')
   async signupLocal(@Body() body: SignupRequestDto) {
-    return this.authService.signupLocal(body);
+    this.authService.signupLocal(body);
   }
 
   @Post('/signin/local')
@@ -93,7 +93,6 @@ export class AuthController {
   async logout(@Res({ passthrough: true }) res: Response) {
     //TODO: 여기 @GetCurrentUserId() userId: number 전용 decoration 적용 예정
     //TODO: await this.authService.logout(userId);
-    res.clearCookie('access_token');
-    res.clearCookie('refresh_token');
+    this.authService.clearTokenCookie(res);
   }
 }

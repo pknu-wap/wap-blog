@@ -44,15 +44,28 @@ export class AuthService {
     await this.userRepository.save({ ...user, hashedRt: null });
   }
 
-  async refreshTokens(userId: number, refresh_token: string) {
-    const user = await this.userRepository.findById(userId);
+  // async refreshTokens(userId: number, refresh_token: string) {
+  //   const user = await this.userRepository.findById(userId);
+  //   if (!user || !user.hashedRt) throw new HttpException('BAD REQUEST', 404);
+  //   const rtmatches = await this.compareData(user.hashedRt, refresh_token);
+  //   if (!rtmatches) throw new HttpException('BAD REQUEST', 404);
+
+  //   const tokens = await this.getTokens(user.id, user.email);
+  //   await this.updateRtHash(user.id, tokens.refresh_token);
+  //   return tokens;
+  // }
+
+  async refresh(res: Response, refresh_token: string) {
+    const refreshTokenData = await this.jwtService.verify(refresh_token);
+    const user = await this.userRepository.findById(refreshTokenData.userId);
     if (!user || !user.hashedRt) throw new HttpException('BAD REQUEST', 404);
     const rtmatches = await this.compareData(user.hashedRt, refresh_token);
     if (!rtmatches) throw new HttpException('BAD REQUEST', 404);
 
     const tokens = await this.getTokens(user.id, user.email);
     await this.updateRtHash(user.id, tokens.refresh_token);
-    return tokens;
+    this.setTokenCookie(res, tokens);
+    return user.id;
   }
 
   hashData(data: string) {
@@ -100,5 +113,9 @@ export class AuthService {
       maxAge: 1000 * 60 * 60 * 24 * 30, // 30d
       httpOnly: true,
     });
+  }
+  clearTokenCookie(res: Response) {
+    res.clearCookie('access_token');
+    res.clearCookie('refresh_token');
   }
 }
