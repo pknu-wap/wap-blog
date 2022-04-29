@@ -16,7 +16,6 @@ export class AuthService {
   ) {}
 
   async signupLocal(dto: SignupRequestDto) {
-    //TODO: 이거 바꿀 예정
     dto.password = await this.hashData(dto.password);
     const user = this.userRepository.create(dto);
     this.userRepository.save(user);

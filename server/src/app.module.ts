@@ -4,7 +4,7 @@ import {
   NestModule,
   ValidationPipe,
 } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import configuration from '@/config/configuration';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from '@/user/user.module';
@@ -14,6 +14,7 @@ import { ArticleModule } from './article/article.module';
 import { JwtAuthMiddleware } from '@/middleware';
 import { AuthGuard } from '@/common/guard';
 import { JwtModule } from '@nestjs/jwt';
+import { DatabaseConfigService } from './config/database.config';
 
 @Module({
   imports: [
@@ -23,18 +24,7 @@ import { JwtModule } from '@nestjs/jwt';
     }),
     JwtModule.register({}),
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'mysql',
-        host: configService.get<string>('mysql.host'),
-        port: +configService.get<number>('mysql.port'),
-        username: configService.get<string>('mysql.username'),
-        password: configService.get<string>('mysql.password'),
-        database: configService.get<string>('mysql.database'),
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: true,
-      }),
+      useClass: DatabaseConfigService,
     }),
     UserModule,
     AuthModule,
@@ -53,7 +43,6 @@ import { JwtModule } from '@nestjs/jwt';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    //TODO: 이게 맞는 지 모르겠음
     consumer.apply(JwtAuthMiddleware).forRoutes('*');
   }
 }
