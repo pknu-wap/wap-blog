@@ -12,7 +12,9 @@ import { SignupRequestDto, SigninRequestDto } from '@/auth/dto';
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { google } from 'googleapis';
+import { isPublic } from '@/common/decorator';
 
+@isPublic()
 @Controller('/auth')
 export class AuthController {
   constructor(
