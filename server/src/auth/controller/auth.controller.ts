@@ -61,7 +61,6 @@ export class AuthController {
     res.redirect(encodeURI(redirect));
   }
 
-  //TODO: 여기는 url이 변경될 필요가 있음
   @Public()
   @Get('/signin/google')
   async signinGoogle(@Res({ passthrough: true }) res: Response) {

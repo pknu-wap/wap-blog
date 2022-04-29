@@ -4,7 +4,7 @@ import { User } from '@/user/entity/user.entity';
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
   async findById(id: number): Promise<User> {
-    const user = await this.findById(id);
+    const user = await this.findOne({ id });
     return user;
   }
 

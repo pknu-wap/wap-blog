@@ -16,7 +16,6 @@ export class AuthService {
   ) {}
 
   async signupLocal(dto: SignupRequestDto) {
-    //TODO: 이거 바꿀 예정
     dto.password = await this.hashData(dto.password);
     const user = this.userRepository.create(dto);
     this.userRepository.save(user);
@@ -43,17 +42,6 @@ export class AuthService {
     if (!user) throw new HttpException('NOT FOUND', 404);
     await this.userRepository.save({ ...user, hashedRt: null });
   }
-
-  // async refreshTokens(userId: number, refresh_token: string) {
-  //   const user = await this.userRepository.findById(userId);
-  //   if (!user || !user.hashedRt) throw new HttpException('BAD REQUEST', 404);
-  //   const rtmatches = await this.compareData(user.hashedRt, refresh_token);
-  //   if (!rtmatches) throw new HttpException('BAD REQUEST', 404);
-
-  //   const tokens = await this.getTokens(user.id, user.email);
-  //   await this.updateRtHash(user.id, tokens.refresh_token);
-  //   return tokens;
-  // }
 
   async refresh(res: Response, refresh_token: string) {
     const refreshTokenData = await this.jwtService.verify(refresh_token, {
