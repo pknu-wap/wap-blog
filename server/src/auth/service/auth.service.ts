@@ -52,9 +52,31 @@ export class AuthService {
     const rtmatches = await this.compareData(user.hashedRt, refresh_token);
     if (!rtmatches) throw new HttpException('BAD REQUEST', 404);
 
-    const tokens = await this.getTokens(user.id, user.email);
-    await this.updateRtHash(user.id, tokens.refresh_token);
-    this.setTokenCookie(res, tokens);
+    // 15일보다 적게 남았을 경우 refresh token 갱신
+    const now = new Date().getTime();
+    const diff = refreshTokenData.exp * 1000 - now;
+    if (diff < 1000 * 60 * 60 * 24 * 15) {
+      refresh_token = await this.jwtService.signAsync(
+        {
+          userId: user.id,
+          email: user.email,
+          sub: 'refresh_token',
+        },
+        {
+          secret: this.configService.get<string>('auth.refresh_token_secret'),
+          expiresIn: '30d',
+        },
+      );
+      await this.updateRtHash(user.id, refresh_token);
+    }
+    const access_token = await this.jwtService.signAsync(
+      { userId: user.id, email: user.email, sub: 'access_token' },
+      {
+        secret: this.configService.get<string>('auth.access_token_secret'),
+        expiresIn: '1h',
+      },
+    );
+    this.setTokenCookie(res, { access_token, refresh_token });
     return user.id;
   }
 
