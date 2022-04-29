@@ -56,7 +56,9 @@ export class AuthService {
   // }
 
   async refresh(res: Response, refresh_token: string) {
-    const refreshTokenData = await this.jwtService.verify(refresh_token);
+    const refreshTokenData = await this.jwtService.verify(refresh_token, {
+      secret: this.configService.get('auth.refresh_token_secret'),
+    });
     const user = await this.userRepository.findById(refreshTokenData.userId);
     if (!user || !user.hashedRt) throw new HttpException('BAD REQUEST', 404);
     const rtmatches = await this.compareData(user.hashedRt, refresh_token);

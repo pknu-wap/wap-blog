@@ -13,6 +13,7 @@ import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { ArticleModule } from './article/article.module';
 import { JwtAuthMiddleware } from '@/middleware';
 import { AuthGuard } from '@/common/guard';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { AuthGuard } from '@/common/guard';
     UserModule,
     AuthModule,
     ArticleModule,
+    JwtModule.register({}),
   ],
   providers: [
     {
@@ -52,6 +54,6 @@ import { AuthGuard } from '@/common/guard';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     //TODO: 이게 맞는 지 모르겠음
-    consumer.apply(JwtAuthMiddleware).exclude('/auth/logout').forRoutes('*');
+    consumer.apply(JwtAuthMiddleware).forRoutes('*');
   }
 }
