@@ -11,32 +11,37 @@ import { ArticleService } from '../service/article.service';
 import { CreateArticleDto } from '../dto/create-article.dto';
 import { UpdateArticleDto } from '../dto/update-article.dto';
 
-@Controller('article')
+@Controller('/article')
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
-  @Post()
-  create(@Body() createArticleDto: CreateArticleDto) {
-    return this.articleService.create(createArticleDto);
-  }
-
   @Get()
-  findAll() {
-    return this.articleService.findAll();
+  allarticle() {
+    return this.articleService.allarticle();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.articleService.findOne(+id);
+  @Get("/:id")
+  async article(@Param('id') id: number) {
+    return this.articleService.article(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateArticleDto: UpdateArticleDto) {
+  @Post("/create")
+  async create(@Body() body: CreateArticleDto) {
+    return this.articleService.create(body);
+  }
+
+  @Patch('/update:id')
+  update(@Param('id') id: number, @Body() updateArticleDto: UpdateArticleDto) {
     return this.articleService.update(+id, updateArticleDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete('/delete:id')
+  remove(@Param('id') id: number) {
     return this.articleService.remove(+id);
+  }
+
+  @Patch('/restore:id')
+  restore(@Param('id') id: number){
+    return this.articleService.restore(+id);
   }
 }
