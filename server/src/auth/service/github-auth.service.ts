@@ -1,8 +1,8 @@
 import { UserRepository } from '@/user/repository';
 import { ConfigService } from '@nestjs/config';
-import { AuthService } from '@/auth/service/auth.service';
 import { HttpException, Injectable, Res } from '@nestjs/common';
 import axios from 'axios';
+import { AuthService } from '@/auth/service';
 import { Response } from 'express';
 
 @Injectable()
@@ -27,18 +27,8 @@ export class GithubService {
       const userId = await this.getGithubUserId(userInfo);
       if (!userId) throw new HttpException('로그인 실패', 400);
       //TODO:: 일단 임시로 email 파라미터에 그냥 넣어놓음 수정 필요
-      const { access_token, refresh_token } = await this.authService.getTokens(
-        userId,
-        'email',
-      );
-      res.cookie('access_token', access_token, {
-        maxAge: 1000 * 10, // 10s
-        httpOnly: true,
-      });
-      res.cookie('refresh_token', refresh_token, {
-        maxAge: 1000 * 60 * 60 * 24 * 7, // 7d
-        httpOnly: true,
-      });
+      const tokens = await this.authService.getTokens(userId, 'email');
+      this.authService.setTokenCookie(res, tokens);
     } catch (e) {
       throw new HttpException(e.message, 500);
     }

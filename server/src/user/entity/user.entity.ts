@@ -3,7 +3,6 @@ import { IsEmail } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -12,7 +11,7 @@ import {
 @Entity()
 export class User {
   @ApiProperty()
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @ApiProperty()
@@ -33,14 +32,10 @@ export class User {
   hashedRt: string;
 
   @ApiProperty()
-  @CreateDateColumn()
+  @CreateDateColumn('timestampz')
   createdAt: Date;
 
   @ApiProperty()
-  @UpdateDateColumn()
+  @UpdateDateColumn('timestampz')
   updateAt: Date;
-
-  @ApiProperty()
-  @DeleteDateColumn()
-  deletedAt: Date;
 }

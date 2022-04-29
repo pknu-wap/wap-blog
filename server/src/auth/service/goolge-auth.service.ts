@@ -1,16 +1,14 @@
 import { UserRepository } from '@/user/repository';
-import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { HttpException, Injectable, Res } from '@nestjs/common';
 import { google } from 'googleapis';
-import { AuthService } from './auth.service';
+import { AuthService } from '@/auth/service';
 import { Response } from 'express';
 
 @Injectable()
 export class GoogleService {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
     private readonly authService: AuthService,
   ) {}
@@ -26,23 +24,13 @@ export class GoogleService {
         GOOGLE_SECRET,
         REDIRECT_URI,
       );
-      if (!accessToken) throw new HttpException('액서스 토큰 받기 실패', 400);
+      if (!accessToken) throw new HttpException('access_token 받기 실패', 400);
       const userInfo = await this.getGoogleUserInfo(accessToken);
       const userId = await this.getGoogleUserId(userInfo);
       if (!userId) throw new HttpException('로그인 실패', 400);
       //TODO:: 일단 임시로 email 파라미터에 그냥 넣어놓음 수정 필요
-      const { access_token, refresh_token } = await this.authService.getTokens(
-        userId,
-        'email',
-      );
-      res.cookie('access_token', access_token, {
-        maxAge: 1000 * 10, // 10s
-        httpOnly: true,
-      });
-      res.cookie('refresh_token', refresh_token, {
-        maxAge: 1000 * 60 * 60 * 24 * 7, // 7d
-        httpOnly: true,
-      });
+      const tokens = await this.authService.getTokens(userId, 'email');
+      this.authService.setTokenCookie(res, tokens);
     } catch (e) {
       throw new HttpException(e.message, 500);
     }
