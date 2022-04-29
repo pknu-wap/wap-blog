@@ -12,6 +12,7 @@ import { SignupRequestDto, SigninRequestDto } from '@/auth/dto';
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { google } from 'googleapis';
+import { Public, GetCurrentUserId } from '@/common/decorator';
 
 @Controller('/auth')
 export class AuthController {
@@ -22,11 +23,13 @@ export class AuthController {
     private readonly configService: ConfigService,
   ) {}
 
+  @Public()
   @Post('/signup/local')
   async signupLocal(@Body() body: SignupRequestDto) {
     this.authService.signupLocal(body);
   }
 
+  @Public()
   @Post('/signin/local')
   async signinLocal(
     @Body() body: SigninRequestDto,
@@ -36,6 +39,7 @@ export class AuthController {
     this.authService.setTokenCookie(res, tokens);
   }
 
+  @Public()
   @Get('/signin/github')
   async signinGithub(@Res({ passthrough: true }) res: Response) {
     const GITHUB_ID = this.configService.get('auth.github.id');
@@ -46,6 +50,7 @@ export class AuthController {
     res.redirect(encodeURI(url));
   }
 
+  @Public()
   @Get('/github/callback')
   async githubCallback(
     @Query('code') code: string,
@@ -57,6 +62,7 @@ export class AuthController {
   }
 
   //TODO: 여기는 url이 변경될 필요가 있음
+  @Public()
   @Get('/signin/google')
   async signinGoogle(@Res({ passthrough: true }) res: Response) {
     const GOOGLE_ID = this.configService.get('auth.google.id');
@@ -79,6 +85,7 @@ export class AuthController {
     res.redirect(encodeURI(url));
   }
 
+  @Public()
   @Get('/google/callback')
   async googleCallback(
     @Query('code') code: string,
@@ -90,9 +97,11 @@ export class AuthController {
   }
 
   @Delete('/logout')
-  async logout(@Res({ passthrough: true }) res: Response) {
-    //TODO: 여기 @GetCurrentUserId() userId: number 전용 decoration 적용 예정
-    //TODO: await this.authService.logout(userId);
+  async logout(
+    @Res({ passthrough: true }) res: Response,
+    @GetCurrentUserId() userId: number,
+  ) {
+    await this.authService.logout(userId);
     this.authService.clearTokenCookie(res);
   }
 }

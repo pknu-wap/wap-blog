@@ -32,10 +32,10 @@ export class User {
   hashedRt: string;
 
   @ApiProperty()
-  @CreateDateColumn('timestampz')
+  @CreateDateColumn()
   createdAt: Date;
 
   @ApiProperty()
-  @UpdateDateColumn('timestampz')
+  @UpdateDateColumn()
   updateAt: Date;
 }
