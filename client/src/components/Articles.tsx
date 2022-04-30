@@ -7,14 +7,19 @@ const ArticleList = styled.li``;
 const Article = styled.ul``;
 
 const Articles = () => {
-  const { data: articleListData } = useQuery('articleList', ArticleAPI.getAll);
-  console.log(articleListData);
+  const { data: articleListData } = useQuery('articleList', ArticleAPI.getAll, {
+    suspense: true,
+  });
   return (
     <>
       <ArticleContainer>
         <ArticleList>
-          {articleListData?.articles?.map(data => (
-            <Article key={data?.id}>{data?.id}</Article>
+          {articleListData?.articles.map(data => (
+            <Article key={data.id}>
+              <div>{data.id}</div>
+              <div>{data.title}</div>
+              <div>{data.body}</div>
+            </Article>
           ))}
         </ArticleList>
       </ArticleContainer>
