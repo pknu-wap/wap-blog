@@ -65,7 +65,8 @@ export class GithubService {
     return response.data;
   }
 
-  async getGithubUserId({ id, node_id, avatar_url, name, login, email }) {
+  // ({ id, node_id, avatar_url, name, login, email })
+  async getGithubUserId({ id, name, login, email }) {
     const existUser = await this.userRepository.findByEmail(id);
     if (existUser) return existUser.id;
 
@@ -74,7 +75,6 @@ export class GithubService {
       username: name ?? login ?? email,
     };
 
-    this.userRepository.create(user);
-    return (await this.userRepository.findByEmail(email)).id;
+    return await this.userRepository.createUserAndGetUserId(user);
   }
 }

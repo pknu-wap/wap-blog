@@ -98,7 +98,7 @@ export class AuthController {
   @Delete('/logout')
   async logout(
     @Res({ passthrough: true }) res: Response,
-    @GetCurrentUserId() userId: number,
+    @GetCurrentUserId() userId: string,
   ) {
     await this.authService.logout(userId);
     this.authService.clearTokenCookie(res);

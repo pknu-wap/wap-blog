@@ -12,7 +12,7 @@ import {
 export class User {
   @ApiProperty()
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @ApiProperty()
   @Column({ unique: true })
