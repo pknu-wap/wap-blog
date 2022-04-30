@@ -12,7 +12,7 @@ export interface IArticle {
 }
 
 export interface IArticleList {
-  artilces: IArticle[];
+  articles: IArticle[];
 }
 
 export interface IArticleRequest {
