@@ -20,12 +20,12 @@ export class ArticleController {
     return this.articleService.allarticle();
   }
 
-  @Get("/:id")
+  @Get('/:id')
   async article(@Param('id') id: number) {
     return this.articleService.article(+id);
   }
 
-  @Post("/create")
+  @Post('/create')
   async create(@Body() body: CreateArticleDto) {
     return this.articleService.create(body);
   }
@@ -41,7 +41,7 @@ export class ArticleController {
   }
 
   @Patch('/restore:id')
-  restore(@Param('id') id: number){
+  restore(@Param('id') id: number) {
     return this.articleService.restore(+id);
   }
 }
