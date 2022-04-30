@@ -29,11 +29,16 @@ footer, header, hgroup, menu, nav, section {
 body {
 	font-family: 'Roboto', sans-serif;
 	line-height: 1;
-    color: ${props => props.theme.textColor}
+    color: ${props => props.theme.textColor};
+	padding : 40px;
 }
 a{
 	text-decoration:none;
 	color:inherit;
+	:hover{
+		color: ${props => props.theme.accentColor}
+	}
+	background-color: ${props => props.theme.bgColor}
 }
 *{
 	box-sizing:border-box;
