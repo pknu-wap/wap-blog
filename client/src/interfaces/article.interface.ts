@@ -1,6 +1,8 @@
+import { IAuthor } from './author.interface';
+
 export interface IArticle {
   id: number;
-  writer: string;
+  author: IAuthor;
   title: string;
   description: string;
   body: string;
@@ -15,7 +17,6 @@ export interface IArticleList {
 
 export interface IArticleRequest {
   article: {
-    author: string;
     title: string;
     description: string;
     body: string;
