@@ -7,7 +7,7 @@
           "id": 1,
           "username": "홍길동"
         },
-        "title": "제목",
+        "title": "제목1",
         "description": "요약",
         "body": "내용",
         "createdAt": 20,
@@ -17,10 +17,10 @@
       {
         "id": 2,
         "author": {
-          "id": 1,
+          "id": 2,
           "username": "홍길동"
         },
-        "title": "제목",
+        "title": "제목2",
         "description": "요약",
         "body": "내용",
         "createdAt": 20,
@@ -30,10 +30,10 @@
       {
         "id": 3,
         "author": {
-          "id": 1,
+          "id": 3,
           "username": "홍길동"
         },
-        "title": "제목",
+        "title": "제목3",
         "description": "요약",
         "body": "내용",
         "createdAt": 20,
