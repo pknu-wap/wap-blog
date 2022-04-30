@@ -1,7 +1,10 @@
 import create from 'zustand';
+import UserAPI from '../api/user';
 
 export const useStore = create((set: Function) => ({
-  num: 0,
-  increaseNum: () => set((state: { num: number }) => ({ num: state.num + 1 })),
-  resetNum: () => set({ num: 0 }),
+  user: null,
+  setUser: async () => {
+    const user = await UserAPI.getCurrentUser();
+    set({ user: user });
+  },
 }));
