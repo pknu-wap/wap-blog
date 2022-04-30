@@ -7,7 +7,9 @@ const ArticleList = styled.li``;
 const Article = styled.ul``;
 
 const Articles = () => {
-  const { data: articleListData } = useQuery('articleList', ArticleAPI.getAll);
+  const { data: articleListData } = useQuery('articleList', ArticleAPI.getAll, {
+    suspense: true,
+  });
   console.log(articleListData);
   return (
     <>
