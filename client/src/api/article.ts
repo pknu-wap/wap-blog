@@ -7,7 +7,7 @@ import client from '../utils/axios';
 
 const ArticleAPI = {
   getAll: async (): Promise<IArticleList> => {
-    const response = await client.get(`/articles`);
+    const response = await client.get(`/article`);
     return response.data;
   },
   getById: async (id: number): Promise<IArticle> => {

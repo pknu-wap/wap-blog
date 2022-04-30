@@ -1,10 +1,19 @@
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import ArticleAPI from '../api/article';
+import tw from 'tailwind-styled-components';
+import { Link } from 'react-router-dom';
 
-const ArticleContainer = styled.div``;
-const ArticleList = styled.li``;
-const Article = styled.ul``;
+const ArticleContainer = tw.div`
+w-full 
+`;
+
+const ArticleList = tw.ul`
+w-full
+divide-y-2
+divide-solid
+`;
+const Article = styled.li``;
 
 const Articles = () => {
   const { data: articleListData } = useQuery('articleList', ArticleAPI.getAll, {
@@ -16,9 +25,9 @@ const Articles = () => {
         <ArticleList>
           {articleListData?.articles.map(data => (
             <Article key={data.id}>
-              <div>{data.id}</div>
-              <div>{data.title}</div>
-              <div>{data.body}</div>
+              <Link key={data.id} to={data.id + ''}>
+                <div>{data.title}</div>
+              </Link>
             </Article>
           ))}
         </ArticleList>
