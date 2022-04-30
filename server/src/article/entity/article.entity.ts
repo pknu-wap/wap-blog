@@ -4,9 +4,11 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Comment } from './comment.entity'
 
 @Entity()
 export class Article {
@@ -20,7 +22,7 @@ export class Article {
 
   @ApiProperty()
   @Column()
-  classify: string;
+  tag: string;
 
   @ApiProperty()
   @Column()
@@ -41,4 +43,7 @@ export class Article {
   @ApiProperty()
   @DeleteDateColumn()
   deletedAt: Date;
+
+  @OneToMany(() => Comment, (comment) => comment.article)
+  comments : Comment;
 }

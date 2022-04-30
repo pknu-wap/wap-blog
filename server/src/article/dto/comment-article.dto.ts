@@ -1,20 +1,17 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
+import { Article } from '../entity';
 
-export class CreateArticleDto {
+export class CommentArticleDto {
   @ApiProperty()
   @IsNotEmpty()
-  writer: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  tag: string;
+  commentor: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  title: string;
+  comment: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  description: string;
+  article_id: Article;
 }
