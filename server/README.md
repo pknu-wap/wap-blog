@@ -23,5 +23,5 @@
 - [ ] jenkins
 - [ ] docker
 - [ ] nodemailer or sengrid
-- [ ] sentry
 - [ ] redis
+- [ ] sentry
