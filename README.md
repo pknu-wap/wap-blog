@@ -14,7 +14,7 @@
 ### Front
 
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![React 18](https://img.shields.io/badge/react_18-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)
@@ -56,12 +56,22 @@ GOOGLE_REDIRECT_URI=http://localhost:3000/auth/google/callback
 
 <br/><br/>
 
+## `Links`
+
+### [시작발표](https://docs.google.com/presentation/d/11UNfdN_Zp-fdB2hRkDI0qdbfMkyr5wkl/edit?usp=sharing&ouid=109400640189587377184&rtpof=true&sd=true)
+
+### [중간발표]()
+
+### [종료발표]()
+
+<br/><br/>
+
 ## `Contributors`
 
-### BACK-[최선효](https://github.com/cornpip)<small>(정보통신공학전공 17학번)</small>
+### BACK-[최선효](https://github.com/cornpip)<span style="font-size:60%">(정보통신공학전공 17학번)</small>
 
-### BACK-[김민수](https://github.com/neko113)<small>(컴퓨터공학전공 19학번)</small>
+### BACK-[김민수](https://github.com/neko113)<span style="font-size:60%">(컴퓨터공학전공 19학번)</small>
 
-### FRONT-[성준영](https://github.com/sjyoung428)<small>(소프트웨어·인공지능전공 16학번)</small>
+### FRONT-[성준영](https://github.com/sjyoung428)<span style="font-size:60%">(소프트웨어·인공지능전공 16학번)</small>
 
-### FRONT-[김재환](https://github.com/jh980608)<small>(소프트웨어·인공지능전공 18학번)</small>
+### FRONT-[김재환](https://github.com/jh980608)<span style="font-size:60%">(소프트웨어·인공지능전공 18학번)</span>
