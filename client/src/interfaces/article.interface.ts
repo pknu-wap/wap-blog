@@ -12,3 +12,13 @@ export interface IArticle {
 export interface IArticleList {
   artilces: IArticle[];
 }
+
+export interface IArticleRequest {
+  article: {
+    author: string;
+    title: string;
+    description: string;
+    body: string;
+    tagList: string[];
+  };
+}
