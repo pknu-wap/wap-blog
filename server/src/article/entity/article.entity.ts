@@ -10,35 +10,35 @@ import {
 
 @Entity()
 export class Article {
-    @ApiProperty()
-    @PrimaryGeneratedColumn()
-    id: number;
+  @ApiProperty()
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @ApiProperty()
-    @Column()
-    writer: string;
+  @ApiProperty()
+  @Column()
+  writer: string;
 
-    @ApiProperty()
-    @Column()
-    classify: string;
+  @ApiProperty()
+  @Column()
+  classify: string;
 
-    @ApiProperty()
-    @Column()
-    title: string;
+  @ApiProperty()
+  @Column()
+  title: string;
 
-    @ApiProperty()
-    @Column()
-    description: string;
+  @ApiProperty()
+  @Column()
+  description: string;
 
-    @ApiProperty()
-    @CreateDateColumn()
-    createdAt: Date;
+  @ApiProperty()
+  @CreateDateColumn()
+  createdAt: Date;
 
-    @ApiProperty()
-    @UpdateDateColumn()
-    updateddAt: Date;
+  @ApiProperty()
+  @UpdateDateColumn()
+  updateddAt: Date;
 
-    @ApiProperty()
-    @DeleteDateColumn()
-    deletedAt: Date;
+  @ApiProperty()
+  @DeleteDateColumn()
+  deletedAt: Date;
 }

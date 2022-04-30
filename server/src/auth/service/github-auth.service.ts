@@ -26,8 +26,7 @@ export class GithubService {
       const userInfo = await this.getGithubUserInfo(accessToken);
       const userId = await this.getGithubUserId(userInfo);
       if (!userId) throw new HttpException('로그인 실패', 400);
-      //TODO:: 일단 임시로 email 파라미터에 그냥 넣어놓음 수정 필요
-      const tokens = await this.authService.getTokens(userId, 'email');
+      const tokens = await this.authService.getTokens(userId, userInfo.email);
       this.authService.setTokenCookie(res, tokens);
     } catch (e) {
       throw new HttpException(e.message, 500);
@@ -66,7 +65,8 @@ export class GithubService {
     return response.data;
   }
 
-  async getGithubUserId({ id, node_id, avatar_url, name, login, email }) {
+  // ({ id, node_id, avatar_url, name, login, email })
+  async getGithubUserId({ id, name, login, email }) {
     const existUser = await this.userRepository.findByEmail(id);
     if (existUser) return existUser.id;
 
@@ -75,7 +75,6 @@ export class GithubService {
       username: name ?? login ?? email,
     };
 
-    this.userRepository.create(user);
-    return (await this.userRepository.findByEmail(email)).id;
+    return await this.userRepository.createUserAndGetUserId(user);
   }
 }

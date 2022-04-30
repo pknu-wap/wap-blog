@@ -4,10 +4,7 @@ import { ArticleRepository } from '../repository';
 
 @Injectable()
 export class ArticleService {
-
-  constructor(
-    private readonly articlerepo: ArticleRepository,
-  ) {}
+  constructor(private readonly articlerepo: ArticleRepository) {}
 
   async allarticle() {
     // 넘겨줄 순서, 개수 고려할 수 있음
@@ -16,8 +13,8 @@ export class ArticleService {
   }
 
   async article(id: number) {
-    const article = await this.articlerepo.findarticle(id)
-    return article
+    const article = await this.articlerepo.findarticle(id);
+    return article;
   }
 
   async create(dto: CreateArticleDto) {
@@ -26,20 +23,20 @@ export class ArticleService {
     return 'This action adds a new article';
   }
 
-  async update(id: number, dto: UpdateArticleDto){
+  async update(id: number, dto: UpdateArticleDto) {
     await this.articlerepo.uparticle(id, dto);
-    return
+    return;
   }
 
   async remove(id: number) {
     //updatedat 도 같이 갱신된다.
     //삭제된 열 지우는 부분 필요
-    await this.articlerepo.softDelete({id: id})
-    return `${id} article을 삭제했습니다.`
+    await this.articlerepo.softDelete({ id: id });
+    return `${id} article을 삭제했습니다.`;
   }
-  
-  async restore(id: number){
+
+  async restore(id: number) {
     await this.articlerepo.restore(id);
-    return
+    return;
   }
 }
