@@ -6,19 +6,19 @@
 
 ### Back
 
-[![TypeScript Badge](https://img.shields.io/badge/Typescript-235A97?style=flat-square&logo=Typescript&logoColor=white)]()
-[![nextjs Badge](https://img.shields.io/badge/NestJS-E0234E?style=flat-square&logo=nestjs&logoColor=white)]()
-[![MySQL Badge](https://img.shields.io/badge/MySQL-235A97?style=flat-square&logo=Mysql&logoColor=ffffff)]()
-[![typeorm Badge](https://img.shields.io/badge/TypeORM-000?style=flat-square&logo=typeorm&logoColor=white)]()
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white)
+![MySQL](https://img.shields.io/badge/mysql-235A97.svg?style=for-the-badge&logo=mysql&logoColor=white)
+![TypeORM](https://img.shields.io/badge/typeORM-%2320232a.svg?style=for-the-badge&logo=typeorm&logoColor=%2361DAFB)
 
 ### Front
 
-[![TypeScript Badge](https://img.shields.io/badge/Typescript-235A97?style=flat-square&logo=Typescript&logoColor=white)]()
-[![React Badge](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white)]()
-[![styled Badge](https://img.shields.io/badge/Styled_Component-DB7093?style=flat-square&logo=styled-components&logoColor=white)]()
-[![tailwindcss Badge](https://img.shields.io/badge/Tailwind_CSS-000000?style=flat-square&logo=tailwind-css&logoColor=#06B6D4)]()
-[![react-query Badge](https://img.shields.io/badge/ReactQuery-000?style=flat-square&logo=reactQuery&logoColor=red)]()
-[![zustand Badge](https://img.shields.io/badge/Zustand-000?style=flat-square&logo=zustand&logoColor=white)]()
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)
+![Zustand](https://img.shields.io/badge/zustand-%2320232a.svg?style=for-the-badge&logo=zustand&logoColor=%2361DAFB)
 
 <br/><br/>
 
