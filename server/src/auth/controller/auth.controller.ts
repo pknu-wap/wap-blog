@@ -13,7 +13,9 @@ import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { google } from 'googleapis';
 import { Public, GetCurrentUserId } from '@/common/decorator';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('auth')
 @Controller('/auth')
 export class AuthController {
   constructor(

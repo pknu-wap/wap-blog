@@ -9,7 +9,7 @@
 [![TypeScript Badge](https://img.shields.io/badge/Typescript-235A97?style=flat-square&logo=Typescript&logoColor=white)]()
 [![nextjs Badge](https://img.shields.io/badge/NestJS-E0234E?style=flat-square&logo=nestjs&logoColor=white)]()
 [![MySQL Badge](https://img.shields.io/badge/MySQL-235A97?style=flat-square&logo=Mysql&logoColor=ffffff)]()
-[![typeorm Badge](https://img.shields.io/badge/typeorm-000?style=flat-square&logo=typeorm&logoColor=white)]()
+[![typeorm Badge](https://img.shields.io/badge/TypeORM-000?style=flat-square&logo=typeorm&logoColor=white)]()
 
 ### Front
 
@@ -17,8 +17,8 @@
 [![React Badge](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white)]()
 [![styled Badge](https://img.shields.io/badge/Styled_Component-DB7093?style=flat-square&logo=styled-components&logoColor=white)]()
 [![tailwindcss Badge](https://img.shields.io/badge/Tailwind_CSS-000000?style=flat-square&logo=tailwind-css&logoColor=#06B6D4)]()
-[![react-query Badge](https://img.shields.io/badge/reactQuery-000?style=flat-square&logo=reactQuery&logoColor=red)]()
-[![zustand Badge](https://img.shields.io/badge/zustand-000?style=flat-square&logo=zustand&logoColor=white)]()
+[![react-query Badge](https://img.shields.io/badge/ReactQuery-000?style=flat-square&logo=reactQuery&logoColor=red)]()
+[![zustand Badge](https://img.shields.io/badge/Zustand-000?style=flat-square&logo=zustand&logoColor=white)]()
 
 <br/><br/>
 
