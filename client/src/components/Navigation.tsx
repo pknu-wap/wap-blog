@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
+import useHeader from '../hooks/useHeader';
 
 const NavColor = styled.nav`
   background-color: ${props => props.theme.navBgColor};
@@ -27,6 +28,7 @@ const NavItem = tw(NavItemColor)`
 `;
 
 const Navigation = () => {
+  const { user, onLoginClick, onLogout } = useHeader();
   return (
     <>
       <Nav>
@@ -34,17 +36,23 @@ const Navigation = () => {
           <Link to="/">
             <NavItem>홈</NavItem>
           </Link>
-          <NavItemsNotHome>
-            <Link to="/login">
-              <NavItem>로그인</NavItem>
-            </Link>
-            <Link to="/register">
-              <NavItem>회원가입</NavItem>
-            </Link>
-            <Link to="/profile">
-              <NavItem>프로필</NavItem>
-            </Link>
-          </NavItemsNotHome>
+          {user ? (
+            <NavItemsNotHome>
+              <button onClick={onLogout}>{user.username}로그아웃</button>
+              <Link to="/profile">
+                <NavItem>프로필</NavItem>
+              </Link>
+            </NavItemsNotHome>
+          ) : (
+            <NavItemsNotHome>
+              <Link to="/login">
+                <NavItem>로그인</NavItem>
+              </Link>
+              <Link to="/register">
+                <NavItem>회원가입</NavItem>
+              </Link>
+            </NavItemsNotHome>
+          )}
         </NavItems>
       </Nav>
     </>

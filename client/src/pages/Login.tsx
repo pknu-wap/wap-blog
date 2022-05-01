@@ -1,8 +1,9 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate, useRoutes } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
 import AuthAPI from '../api/auth';
+import { useStore } from '../store/store';
 
 const LoginForm = tw.form`
 border-2
@@ -27,8 +28,10 @@ interface IFormInputs {
 const Login = () => {
   const navigate = useNavigate();
   const { register, watch, handleSubmit } = useForm<IFormInputs>();
+  const { setUser } = useStore();
   const onLogin = async (input: IFormInputs) => {
-    await AuthAPI.signin(input);
+    const user = await AuthAPI.signin(input);
+    setUser(user);
     navigate('/');
   };
 
