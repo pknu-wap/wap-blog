@@ -36,9 +36,10 @@ export class AuthController {
   async signinLocal(
     @Body() body: SigninRequestDto,
     @Res({ passthrough: true }) res: Response,
-  ): Promise<void> {
-    const tokens = await this.authService.signinLocal(body);
+  ) {
+    const { tokens, user } = await this.authService.signinLocal(body);
     this.authService.setTokenCookie(res, tokens);
+    return user;
   }
 
   @Public()
