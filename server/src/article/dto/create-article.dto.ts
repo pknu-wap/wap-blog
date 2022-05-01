@@ -8,7 +8,7 @@ export class CreateArticleDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  classify: string;
+  tag: string;
 
   @ApiProperty()
   @IsNotEmpty()

@@ -4,33 +4,26 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Comment } from './comment.entity'
+import { Article } from './article.entity'
 
 @Entity()
-export class Article {
+export class Comment {
   @ApiProperty()
   @PrimaryGeneratedColumn()
   id: number;
 
   @ApiProperty()
   @Column()
-  writer: string;
+  commentor: string;
 
   @ApiProperty()
   @Column()
-  tag: string;
-
-  @ApiProperty()
-  @Column()
-  title: string;
-
-  @ApiProperty()
-  @Column()
-  description: string;
+  comment: string;
 
   @ApiProperty()
   @CreateDateColumn()
@@ -40,10 +33,6 @@ export class Article {
   @UpdateDateColumn()
   updateddAt: Date;
 
-  @ApiProperty()
-  @DeleteDateColumn()
-  deletedAt: Date;
-
-  @OneToMany(() => Comment, (comment) => comment.article)
-  comments : Comment[];
+  @ManyToOne(() => Article, (article) => article.comments)
+  article: Article;
 }

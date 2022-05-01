@@ -11,20 +11,29 @@ import { ArticleService } from '../service/article.service';
 import { CreateArticleDto } from '../dto/create-article.dto';
 import { UpdateArticleDto } from '../dto/update-article.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Public } from '@/common/decorator';
 
 @ApiTags('article')
 @Controller('/article')
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
+  @Public()
   @Get()
   allarticle() {
     return this.articleService.allarticle();
   }
 
+  @Public()
   @Get('/:id')
   async article(@Param('id') id: number) {
     return this.articleService.article(+id);
+  }
+
+  @Public()
+  @Get('/:tag')
+  async article_Tag(@Param('tag') tag: string) {
+    return this.articleService.article_Tag(tag);
   }
 
   @Post('/create')

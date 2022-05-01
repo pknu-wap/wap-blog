@@ -15,7 +15,7 @@ export class ArticleRepository extends Repository<Article> {
       .createQueryBuilder()
       .update(Article)
       .set({
-        classify: dto.classify,
+        tag: dto.tag,
         title: dto.title,
         description: dto.description,
       })

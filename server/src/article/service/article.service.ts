@@ -17,6 +17,10 @@ export class ArticleService {
     return article;
   }
 
+  async article_Tag(tag: string) {
+    return;
+  }
+
   async create(dto: CreateArticleDto) {
     const article = this.articlerepo.create(dto);
     await this.articlerepo.save(article);
