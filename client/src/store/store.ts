@@ -1,10 +1,9 @@
 import create from 'zustand';
-import UserAPI from '../api/user';
+import { IUser } from '../interfaces/user.interface';
 
 export const useStore = create((set: Function) => ({
   user: null,
-  setUser: async () => {
-    const user = await UserAPI.getCurrentUser();
-    set({ user: user });
+  setUser: async (user: IUser) => {
+    set({ user });
   },
 }));

@@ -1,7 +1,8 @@
 import { useForm } from 'react-hook-form';
+import { useNavigate, useRoutes } from 'react-router-dom';
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
-import { Helmet } from 'react-helmet';
+import AuthAPI from '../api/auth';
 
 const LoginForm = tw.form`
 border-2
@@ -18,10 +19,18 @@ border-solid
 
 const LoginBtn = styled.button``;
 
-const Login = () => {
-  const { register, watch, handleSubmit } = useForm();
+interface IFormInputs {
+  email: string;
+  password: string;
+}
 
-  const onLogin = () => {};
+const Login = () => {
+  const navigate = useNavigate();
+  const { register, watch, handleSubmit } = useForm<IFormInputs>();
+  const onLogin = async (input: IFormInputs) => {
+    await AuthAPI.signin(input);
+    navigate('/');
+  };
 
   console.log(watch());
   return (
@@ -30,10 +39,9 @@ const Login = () => {
         <title>로그인</title>
       </Helmet> */}
       <LoginForm onSubmit={handleSubmit(onLogin)}>
-        <LoginInput {...register('이메일')} type="email" placeholder="이메일" />
-        <LoginInput {...register('닉네임')} placeholder="닉네임" />
+        <LoginInput {...register('email')} type="email" placeholder="이메일" />
         <LoginInput
-          {...register('비밀번호')}
+          {...register('password')}
           type="password"
           placeholder="비밀번호"
         />

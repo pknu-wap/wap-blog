@@ -1,11 +1,11 @@
 import { Suspense } from 'react';
 import Articles from '../components/Articles';
-import Loading from '../components/Loading';
+import LoadingSpinner from '../components/common/LoadingSpinner';
 
 const Home = () => {
   return (
     <>
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<LoadingSpinner />}>
         <Articles />
       </Suspense>
     </>
