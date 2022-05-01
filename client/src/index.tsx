@@ -6,6 +6,7 @@ import { lightMode } from './styles/theme';
 import GlobalStyle from './styles/GlobalStyle';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import AuthProvider from './components/auth/AuthProvider';
 var ReactDOM = require('react-dom/client');
 
 const rootNode = document.getElementById('root')!;
@@ -22,11 +23,13 @@ ReactDOM.createRoot(rootNode).render(
     <ThemeProvider theme={lightMode}>
       <QueryClientProvider client={queryClient}>
         <GlobalStyle />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/*" element={<App />} />
-          </Routes>
-        </BrowserRouter>
+        <AuthProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/*" element={<App />} />
+            </Routes>
+          </BrowserRouter>
+        </AuthProvider>
       </QueryClientProvider>
     </ThemeProvider>
   </React.StrictMode>,

@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import Articles from '../components/Articles';
-import LoadingSpinner from '../components/LoadingSpinner';
+import LoadingSpinner from '../components/common/LoadingSpinner';
 
 const Home = () => {
   return (

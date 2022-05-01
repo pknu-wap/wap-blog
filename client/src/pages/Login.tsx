@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { useNavigate, useRoutes } from 'react-router-dom';
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
 import AuthAPI from '../api/auth';
@@ -24,9 +25,11 @@ interface IFormInputs {
 }
 
 const Login = () => {
+  const navigate = useNavigate();
   const { register, watch, handleSubmit } = useForm<IFormInputs>();
   const onLogin = async (input: IFormInputs) => {
     await AuthAPI.signin(input);
+    navigate('/');
   };
 
   console.log(watch());

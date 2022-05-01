@@ -21,7 +21,7 @@ const Articles = () => {
     <>
       <ArticleContainer>
         <ArticleList>
-          {articleListData?.articles.map(data => (
+          {articleListData?.articles?.map(data => (
             <Article key={data.id}>
               <Link key={data.id} to={data.id + ''}>
                 <div>{data.title}</div>
