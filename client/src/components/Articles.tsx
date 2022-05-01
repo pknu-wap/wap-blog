@@ -16,9 +16,7 @@ divide-solid
 const Article = styled.li``;
 
 const Articles = () => {
-  const { data: articleListData } = useQuery('articleList', ArticleAPI.getAll, {
-    suspense: true,
-  });
+  const { data: articleListData } = useQuery('articleList', ArticleAPI.getAll);
   return (
     <>
       <ArticleContainer>

@@ -9,7 +9,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 var ReactDOM = require('react-dom/client');
 
 const rootNode = document.getElementById('root')!;
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      suspense: true,
+    },
+  },
+});
 
 ReactDOM.createRoot(rootNode).render(
   <React.StrictMode>
