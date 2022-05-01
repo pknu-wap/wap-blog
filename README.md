@@ -1,6 +1,6 @@
 <h1 align='center'>WOW | WEP TEAM 7</h1>
 
-<br/><br/>
+![WAP_Black_NoBG](https://user-images.githubusercontent.com/75781414/166131265-be8c60b7-aa4f-4b06-bee6-ecb4a4cefccb.png)
 
 ## `Tech Stack`
 
@@ -27,7 +27,7 @@
 ### client/.env
 
 ```
-BASE_URL = http://localhost:8080
+REACT_APP_BASE_URL=http://localhost:8080
 ```
 
 ### server/.env
