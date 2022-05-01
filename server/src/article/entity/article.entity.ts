@@ -45,5 +45,5 @@ export class Article {
   deletedAt: Date;
 
   @OneToMany(() => Comment, (comment) => comment.article)
-  comments : Comment;
+  comments : Comment[];
 }

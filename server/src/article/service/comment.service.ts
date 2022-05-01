@@ -10,16 +10,43 @@ export class CommentService {
         private readonly articlerepo: ArticleRepository
         ) {}
 
-    async cmtarticle(dto: CommentArticleDto) {
-        // 관계형은 save 방식이 다르다.
-        // const cmt = new Comment();
-        // cmt.commentor = dto.commentor;
-        // cmt.comment = dto.comment;
-        // await this.cmtrepo.save(cmt);
+    async cmtbyId(id: number){
+        const cmt = await this.cmtrepo.cmtbyId(id);
+        return cmt
+    }
 
-        // const article = new Article();
-        // article.comments = [cmt];
-        // await this.articlerepo.save(article)
-        return 'cmt saved'
+    async cmtarticle(dto: CommentArticleDto, id: number) {
+        // 관계형은 save 방식이 다르다.
+        const article = await this.articlerepo.findOne({id});
+        const cmt = new Comment();
+        cmt.commentor = dto.commentor;
+        cmt.comment = dto.comment;
+        cmt.article = article;
+        await this.cmtrepo.save(cmt);
+
+        return "success"
+    }
+
+    async update(id: number, dto: CommentArticleDto) {
+        await this.cmtrepo.upcomment(id, dto);
+        return;
+      }
+
+    async remove(id: number){
+        await this.cmtrepo.delete({ id: id });
+        return `success`;
     }
 }
+
+// async addComment(slug: string, commentData): Promise<ArticleRO> {
+//     let article = await this.articleRepository.findOne({slug});
+
+//     const comment = new Comment();
+//     comment.body = commentData.body;
+
+//     article.comments.push(comment);
+
+//     await this.commentRepository.save(comment);
+//     article = await this.articleRepository.save(article);
+//     return {article}
+//   }

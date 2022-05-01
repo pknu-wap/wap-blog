@@ -10,8 +10,4 @@ export class CommentArticleDto {
   @ApiProperty()
   @IsNotEmpty()
   comment: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  article_id: Article;
 }

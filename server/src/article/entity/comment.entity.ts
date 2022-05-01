@@ -25,9 +25,14 @@ export class Comment {
   @Column()
   comment: string;
 
-  @ManyToOne(() => Article, (article) => article.comments)
-  @JoinColumn({ name: "article_id"})
-  article: Article;
+  @ApiProperty()
+  @CreateDateColumn()
+  createdAt: Date;
 
-  //   article: Article;
+  @ApiProperty()
+  @UpdateDateColumn()
+  updateddAt: Date;
+
+  @ManyToOne(() => Article, (article) => article.comments)
+  article: Article;
 }
