@@ -54,6 +54,10 @@ GOOGLE_SECRET=
 GOOGLE_REDIRECT_URI=http://localhost:3000/auth/google/callback
 ```
 
+```
+yarn add -g cocurrently && yarn start
+```
+
 <br/><br/>
 
 ## `Links`

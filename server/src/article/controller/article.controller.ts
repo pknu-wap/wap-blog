@@ -19,7 +19,7 @@ export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
   @Public()
-  @Get()
+  @Get('/')
   allarticle() {
     return this.articleService.allarticle();
   }

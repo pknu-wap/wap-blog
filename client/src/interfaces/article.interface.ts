@@ -11,10 +11,6 @@ export interface IArticle {
   deletedAt: number;
 }
 
-export interface IArticleList {
-  articles: IArticle[];
-}
-
 export interface IArticleRequest {
   article: {
     title: string;
