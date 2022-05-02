@@ -27,7 +27,7 @@ interface IFormInputs {
 
 const Login = () => {
   const navigate = useNavigate();
-  const { register, watch, handleSubmit } = useForm<IFormInputs>();
+  const { register, handleSubmit } = useForm<IFormInputs>();
   const { setUser } = useStore();
   const onLogin = async (input: IFormInputs) => {
     const user = await AuthAPI.signin(input);
@@ -35,7 +35,6 @@ const Login = () => {
     navigate('/');
   };
 
-  console.log(watch());
   return (
     <>
       {/* <Helmet>
