@@ -1,8 +1,8 @@
 export default () => ({
   server: {
-    port: parseInt(process.env.SERVER_PORT, 10),
+    port: parseInt(process.env.SERVER_PORT, 10) || 8080,
   },
-  cilent: process.env.CLIENT,
+  cilent: process.env.CLIENT || 'http://localhost:3000',
   mysql: {
     host: process.env.MYSQL_HOST,
     port: parseInt(process.env.MYSQL_PORT, 10),

@@ -1,0 +1,11 @@
+{
+  "name": "2022-1-wap-web-team7",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/neko113/2022_1_WAP_WEP_TEAM7.git",
+  "scripts": {
+    "start": "concurrently \"cd server && yarn start:dev\" \"cd client && yarn start\""
+  },
+  "author": "neko113 <alstn113@gmail.com>",
+  "license": "MIT"
+}
