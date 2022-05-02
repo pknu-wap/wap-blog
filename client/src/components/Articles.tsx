@@ -21,10 +21,13 @@ const Articles = () => {
     <>
       <ArticleContainer>
         <ArticleList>
-          {articleListData?.articles?.map(data => (
-            <Article key={data.id}>
-              <Link key={data.id} to={data.id + ''}>
-                <div>{data.title}</div>
+          {articleListData?.map(article => (
+            <Article key={article.id}>
+              <Link key={article.id} to={article.id + ''}>
+                <div>{article.id}</div>
+                <div>{article.title}</div>
+                <div>{article.author}</div>
+                <div>{article.description}</div>
               </Link>
             </Article>
           ))}

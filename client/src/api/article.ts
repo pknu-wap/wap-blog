@@ -1,12 +1,8 @@
-import {
-  IArticle,
-  IArticleList,
-  IArticleRequest,
-} from '../interfaces/article.interface';
+import { IArticle, IArticleRequest } from '../interfaces/article.interface';
 import client from '../utils/axios';
 
 const ArticleAPI = {
-  getAll: async (): Promise<IArticleList> => {
+  getAll: async (): Promise<IArticle[]> => {
     const response = await client.get(`/article`);
     return response.data;
   },
