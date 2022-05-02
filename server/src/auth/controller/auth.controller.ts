@@ -39,6 +39,7 @@ export class AuthController {
   ) {
     const { tokens, user } = await this.authService.signinLocal(body);
     this.authService.setTokenCookie(res, tokens);
+    //TODO: 이거 password빼고 직렬화? 해야할 듯
     return user;
   }
 
