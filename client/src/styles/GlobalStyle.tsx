@@ -30,7 +30,6 @@ body {
 	font-family: 'Roboto', sans-serif;
 	line-height: 1;
     color: ${props => props.theme.textColor};
-	padding : 40px;
 }
 a{
 	text-decoration:none;

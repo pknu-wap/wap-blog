@@ -8,9 +8,8 @@ const NavColor = styled.nav`
 `;
 
 const Nav = tw(NavColor)`
-px-5
-my-5
-py-5
+p-5
+w-full
 `;
 const NavItems = tw.ul`
 flex
