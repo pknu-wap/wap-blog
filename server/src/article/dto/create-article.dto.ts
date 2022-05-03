@@ -15,6 +15,9 @@ export class CreateArticleDto {
   title: string;
 
   @ApiProperty()
+  subtitle: string;
+
+  @ApiProperty()
   @IsNotEmpty()
-  description: string;
+  body: string;
 }

@@ -9,6 +9,26 @@ export class ArticleRepository extends Repository<Article> {
     return article;
   }
 
+  async atcbyTag(tag: string){
+    const article = await getConnection()
+    .createQueryBuilder()
+    .select("article")
+    .from(Article, "article")
+    .where("tag=:tag", {tag: tag})
+    .getMany()
+    return article;
+  }
+
+  async atcbyUser(user: string){
+    const article = await getConnection()
+    .createQueryBuilder()
+    .select("article")
+    .from(Article, "article")
+    .where("writer=:user", {user: user})
+    .getMany()
+    return article;
+  }
+
   async uparticle(id: number, dto: UpdateArticleDto): Promise<Article> {
     // writer 안 받아도 되는데 일단 keep
     await getConnection()
@@ -17,7 +37,8 @@ export class ArticleRepository extends Repository<Article> {
       .set({
         tag: dto.tag,
         title: dto.title,
-        description: dto.description,
+        subtitle: dto.subtitle,
+        body: dto.body,
       })
       .where('id = :id', { id: id })
       .execute();

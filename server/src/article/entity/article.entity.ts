@@ -29,8 +29,14 @@ export class Article {
   title: string;
 
   @ApiProperty()
+  @Column({
+    default: null
+  })
+  subtitle: string;
+
+  @ApiProperty()
   @Column()
-  description: string;
+  body: string;
 
   @ApiProperty()
   @CreateDateColumn()

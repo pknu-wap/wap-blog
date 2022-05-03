@@ -17,8 +17,14 @@ export class ArticleService {
     return article;
   }
 
-  async article_Tag(tag: string) {
-    return;
+  async articletag(tag: string) {
+    const articletag = await this.articlerepo.atcbyTag(tag);
+    return articletag;
+  }
+
+  async articleUser(user: string) {
+    const articleuser = await this.articlerepo.atcbyUser(user);
+    return articleuser;
   }
 
   async create(dto: CreateArticleDto) {

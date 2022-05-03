@@ -8,6 +8,8 @@ export class CommentRepository extends Repository<Comment>{
     async cmtbyId(id: number) {
         const cmt = await getConnection()
         .createQueryBuilder()
+        .select("comment")
+        .from(Comment, "comment")
         .where("articleId = :id", {id: +id})
         .getMany()
         return cmt;

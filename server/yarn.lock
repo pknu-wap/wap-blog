@@ -9,18 +9,6 @@
   dependencies:
     "@jridgewell/trace-mapping" "^0.3.0"
 
-"@angular-devkit/core@13.3.0":
-  "integrity" "sha512-8YrreVbWlJVZnk5zs4vfkRItrPEtWhUcxWOBfYT/Kwu4FwJVAnNuhJAxxXOAQ2Ckd7cv30Idh/RFVLbTZ5Gs9w=="
-  "resolved" "https://registry.npmjs.org/@angular-devkit/core/-/core-13.3.0.tgz"
-  "version" "13.3.0"
-  dependencies:
-    "ajv" "8.9.0"
-    "ajv-formats" "2.1.1"
-    "fast-json-stable-stringify" "2.1.0"
-    "magic-string" "0.25.7"
-    "rxjs" "6.6.7"
-    "source-map" "0.7.3"
-
 "@angular-devkit/core@13.3.1":
   "integrity" "sha512-eXAcQaP1mn6rnQb+5bv5NsamY6b34UYM7G+S154Hnma6CTTSGBtcmoNAJs8cekuFqWlw7YgpB/e15jR5OLPkDA=="
   "resolved" "https://registry.npmjs.org/@angular-devkit/core/-/core-13.3.1.tgz"
@@ -33,28 +21,29 @@
     "rxjs" "6.6.7"
     "source-map" "0.7.3"
 
-"@angular-devkit/schematics-cli@13.3.0":
-  "integrity" "sha512-DXT+k4228Ke1zCoU9QxPhXm1xzeYBs5aqgMWhyjXdkfDokJcjQM79CSVLHdKX/OLgR51qhnQ5qVFEHHhVV40EQ=="
-  "resolved" "https://registry.npmjs.org/@angular-devkit/schematics-cli/-/schematics-cli-13.3.0.tgz"
-  "version" "13.3.0"
+"@angular-devkit/core@13.3.2":
+  "integrity" "sha512-wav5plcnlxQAfZ+0EUt3dvVTJnJ1au2TlKVQ0jSQJdR1LA6N7QUI49N2Ua6ZnDMwruQaQkoynitMW2l1it3qYQ=="
+  "resolved" "https://registry.npmjs.org/@angular-devkit/core/-/core-13.3.2.tgz"
+  "version" "13.3.2"
   dependencies:
-    "@angular-devkit/core" "13.3.0"
-    "@angular-devkit/schematics" "13.3.0"
+    "ajv" "8.9.0"
+    "ajv-formats" "2.1.1"
+    "fast-json-stable-stringify" "2.1.0"
+    "magic-string" "0.25.7"
+    "rxjs" "6.6.7"
+    "source-map" "0.7.3"
+
+"@angular-devkit/schematics-cli@13.3.2":
+  "integrity" "sha512-cUHZFNq2kaCaReJAU28MSu2D+WDFTqt2v03U79TryOutYdF8BV4FyfvKqCSW6WXna219GXSXPepVqDYcjvn7/w=="
+  "resolved" "https://registry.npmjs.org/@angular-devkit/schematics-cli/-/schematics-cli-13.3.2.tgz"
+  "version" "13.3.2"
+  dependencies:
+    "@angular-devkit/core" "13.3.2"
+    "@angular-devkit/schematics" "13.3.2"
     "ansi-colors" "4.1.1"
     "inquirer" "8.2.0"
-    "minimist" "1.2.5"
+    "minimist" "1.2.6"
     "symbol-observable" "4.0.0"
-
-"@angular-devkit/schematics@13.3.0":
-  "integrity" "sha512-hq7tqnB3uVT/iDgqWWZ4kvnijeAcgd4cfLzZiCPaYn1nuhZf0tWsho6exhJ/odMZHvVp7w8OibqWiUKxNY9zHA=="
-  "resolved" "https://registry.npmjs.org/@angular-devkit/schematics/-/schematics-13.3.0.tgz"
-  "version" "13.3.0"
-  dependencies:
-    "@angular-devkit/core" "13.3.0"
-    "jsonc-parser" "3.0.0"
-    "magic-string" "0.25.7"
-    "ora" "5.4.1"
-    "rxjs" "6.6.7"
 
 "@angular-devkit/schematics@13.3.1":
   "integrity" "sha512-DxXMjlq/sALcHuONZRMTBX5k30XPfN4b6Ue4k7Xl8JKZqyHhEzfXaZzgD9u2cwb7wybKEeF/BZ5eJd8JG525og=="
@@ -62,6 +51,17 @@
   "version" "13.3.1"
   dependencies:
     "@angular-devkit/core" "13.3.1"
+    "jsonc-parser" "3.0.0"
+    "magic-string" "0.25.7"
+    "ora" "5.4.1"
+    "rxjs" "6.6.7"
+
+"@angular-devkit/schematics@13.3.2":
+  "integrity" "sha512-XCLb23jmqHN0gJg9ZlICaFgfpfnCufIQp5SOsRKMKRkhjKycvDmKnfBTKDlkzb1IaUl6wQwP5k7Z69b9EX+CQw=="
+  "resolved" "https://registry.npmjs.org/@angular-devkit/schematics/-/schematics-13.3.2.tgz"
+  "version" "13.3.2"
+  dependencies:
+    "@angular-devkit/core" "13.3.2"
     "jsonc-parser" "3.0.0"
     "magic-string" "0.25.7"
     "ora" "5.4.1"
@@ -611,19 +611,19 @@
     "tar" "^6.1.11"
 
 "@nestjs/cli@^8.0.0":
-  "integrity" "sha512-9zNV9oMtaz1vwLO3WXviD0wzRpyiaLWJZ7KCIZLk62U22RDNRsbtLLDS52Wkig5L8UU7Z1xRfrEv+s3f9keysQ=="
-  "resolved" "https://registry.npmjs.org/@nestjs/cli/-/cli-8.2.4.tgz"
-  "version" "8.2.4"
+  "integrity" "sha512-b5DzZ08q/6iWvLz+n2DhEyZ3rsOurN1ec1jYQaWC5DCVQoZCwyOew48bVf01kevTK4eZyQxPwuErf7HnFAc0oQ=="
+  "resolved" "https://registry.npmjs.org/@nestjs/cli/-/cli-8.2.5.tgz"
+  "version" "8.2.5"
   dependencies:
-    "@angular-devkit/core" "13.3.0"
-    "@angular-devkit/schematics" "13.3.0"
-    "@angular-devkit/schematics-cli" "13.3.0"
+    "@angular-devkit/core" "13.3.2"
+    "@angular-devkit/schematics" "13.3.2"
+    "@angular-devkit/schematics-cli" "13.3.2"
     "@nestjs/schematics" "^8.0.3"
     "chalk" "3.0.0"
     "chokidar" "3.5.3"
     "cli-table3" "0.6.1"
     "commander" "4.1.1"
-    "fork-ts-checker-webpack-plugin" "7.2.1"
+    "fork-ts-checker-webpack-plugin" "7.2.3"
     "inquirer" "7.3.3"
     "node-emoji" "1.11.0"
     "ora" "5.4.1"
@@ -632,10 +632,10 @@
     "shelljs" "0.8.5"
     "source-map-support" "0.5.21"
     "tree-kill" "1.2.2"
-    "tsconfig-paths" "3.14.0"
+    "tsconfig-paths" "3.14.1"
     "tsconfig-paths-webpack-plugin" "3.5.2"
     "typescript" "4.6.2"
-    "webpack" "5.70.0"
+    "webpack" "5.71.0"
     "webpack-node-externals" "3.0.0"
 
 "@nestjs/common@^6.0.0 || ^7.0.0 || ^8.0.0", "@nestjs/common@^7.0.0 || ^8.0.0", "@nestjs/common@^7.0.8 || ^8.0.0", "@nestjs/common@^8.0.0":
@@ -1316,7 +1316,7 @@
   dependencies:
     "debug" "4"
 
-"ajv-formats@^2.1.1", "ajv-formats@2.1.1":
+"ajv-formats@2.1.1":
   "integrity" "sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA=="
   "resolved" "https://registry.npmjs.org/ajv-formats/-/ajv-formats-2.1.1.tgz"
   "version" "2.1.1"
@@ -1327,13 +1327,6 @@
   "integrity" "sha512-5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ=="
   "resolved" "https://registry.npmjs.org/ajv-keywords/-/ajv-keywords-3.5.2.tgz"
   "version" "3.5.2"
-
-"ajv-keywords@^5.0.0":
-  "integrity" "sha512-YCS/JNFAUyr5vAuhk1DWm1CBxRHW9LbJ2ozWeemrIqpbsqKjHVxYPyi5GC0rjZIT5JxJ3virVTS8wk4i/Z+krw=="
-  "resolved" "https://registry.npmjs.org/ajv-keywords/-/ajv-keywords-5.1.0.tgz"
-  "version" "5.1.0"
-  dependencies:
-    "fast-deep-equal" "^3.1.3"
 
 "ajv@^6.10.0":
   "integrity" "sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g=="
@@ -1365,7 +1358,7 @@
     "json-schema-traverse" "^0.4.1"
     "uri-js" "^4.2.2"
 
-"ajv@^8.0.0", "ajv@^8.8.0", "ajv@^8.8.2", "ajv@8.9.0":
+"ajv@^8.0.0", "ajv@8.9.0":
   "integrity" "sha512-qOKJyNj/h+OWx7s5DePL6Zu1KeM9jPZhwBqs+7DzP6bGOvqzVCSf0xueYmVuaC/oQ/VtS2zLMLHdQFbkka+XDQ=="
   "resolved" "https://registry.npmjs.org/ajv/-/ajv-8.9.0.tgz"
   "version" "8.9.0"
@@ -2677,10 +2670,10 @@
   "resolved" "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.9.tgz"
   "version" "1.14.9"
 
-"fork-ts-checker-webpack-plugin@7.2.1":
-  "integrity" "sha512-uOfQdg/iQ8iokQ64qcbu8iZb114rOmaKLQFu7hU14/eJaKgsP91cQ7ts7v2iiDld6TzDe84Meksha8/MkWiCyw=="
-  "resolved" "https://registry.npmjs.org/fork-ts-checker-webpack-plugin/-/fork-ts-checker-webpack-plugin-7.2.1.tgz"
-  "version" "7.2.1"
+"fork-ts-checker-webpack-plugin@7.2.3":
+  "integrity" "sha512-9v308zIFTIFkWJBN/4N1A5oqm/ed9hWG6GH+KYTCBjYCEJOmHoVtDIWpfrJ0eD6cPB7V53HEVoJ6bL2In8QRaw=="
+  "resolved" "https://registry.npmjs.org/fork-ts-checker-webpack-plugin/-/fork-ts-checker-webpack-plugin-7.2.3.tgz"
+  "version" "7.2.3"
   dependencies:
     "@babel/code-frame" "^7.16.7"
     "chalk" "^4.1.2"
@@ -2690,7 +2683,7 @@
     "fs-extra" "^10.0.0"
     "memfs" "^3.4.1"
     "minimatch" "^3.0.4"
-    "schema-utils" "4.0.0"
+    "schema-utils" "^3.1.1"
     "semver" "^7.3.5"
     "tapable" "^2.2.1"
 
@@ -4090,12 +4083,7 @@
   dependencies:
     "brace-expansion" "^1.1.7"
 
-"minimist@^1.2.0", "minimist@1.2.5":
-  "integrity" "sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw=="
-  "resolved" "https://registry.npmjs.org/minimist/-/minimist-1.2.5.tgz"
-  "version" "1.2.5"
-
-"minimist@^1.2.6":
+"minimist@^1.2.0", "minimist@^1.2.6", "minimist@1.2.6":
   "integrity" "sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q=="
   "resolved" "https://registry.npmjs.org/minimist/-/minimist-1.2.6.tgz"
   "version" "1.2.6"
@@ -4802,7 +4790,7 @@
   dependencies:
     "xmlchars" "^2.2.0"
 
-"schema-utils@^3.1.0":
+"schema-utils@^3.1.0", "schema-utils@^3.1.1":
   "integrity" "sha512-Y5PQxS4ITlC+EahLuXaY86TXfR7Dc5lw294alXOq86JAHCihAIZfqv8nNCWvaEJvaC51uN9hbLGeV0cFBdH+Fw=="
   "resolved" "https://registry.npmjs.org/schema-utils/-/schema-utils-3.1.1.tgz"
   "version" "3.1.1"
@@ -4810,25 +4798,6 @@
     "@types/json-schema" "^7.0.8"
     "ajv" "^6.12.5"
     "ajv-keywords" "^3.5.2"
-
-"schema-utils@^3.1.1":
-  "integrity" "sha512-Y5PQxS4ITlC+EahLuXaY86TXfR7Dc5lw294alXOq86JAHCihAIZfqv8nNCWvaEJvaC51uN9hbLGeV0cFBdH+Fw=="
-  "resolved" "https://registry.npmjs.org/schema-utils/-/schema-utils-3.1.1.tgz"
-  "version" "3.1.1"
-  dependencies:
-    "@types/json-schema" "^7.0.8"
-    "ajv" "^6.12.5"
-    "ajv-keywords" "^3.5.2"
-
-"schema-utils@4.0.0":
-  "integrity" "sha512-1edyXKgh6XnJsJSQ8mKWXnN/BVaIbFMLpouRUrXgVq7WYne5kw3MW7UPhO44uRXQSIpTSXoJbmrR2X0w9kUTyg=="
-  "resolved" "https://registry.npmjs.org/schema-utils/-/schema-utils-4.0.0.tgz"
-  "version" "4.0.0"
-  dependencies:
-    "@types/json-schema" "^7.0.9"
-    "ajv" "^8.8.0"
-    "ajv-formats" "^2.1.1"
-    "ajv-keywords" "^5.0.0"
 
 "semver@^5.6.0":
   "integrity" "sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ=="
@@ -5356,7 +5325,7 @@
     "enhanced-resolve" "^5.7.0"
     "tsconfig-paths" "^3.9.0"
 
-"tsconfig-paths@^3.10.1", "tsconfig-paths@^3.9.0":
+"tsconfig-paths@^3.10.1", "tsconfig-paths@^3.9.0", "tsconfig-paths@3.14.1":
   "integrity" "sha512-fxDhWnFSLt3VuTwtvJt5fpwxBHg5AdKWMsgcPOOIilyjymcYVZoCQF8fvFRezCNfblEXmi+PcM1eYHeOAgXCOQ=="
   "resolved" "https://registry.npmjs.org/tsconfig-paths/-/tsconfig-paths-3.14.1.tgz"
   "version" "3.14.1"
@@ -5364,16 +5333,6 @@
     "@types/json5" "^0.0.29"
     "json5" "^1.0.1"
     "minimist" "^1.2.6"
-    "strip-bom" "^3.0.0"
-
-"tsconfig-paths@3.14.0":
-  "integrity" "sha512-cg/1jAZoL57R39+wiw4u/SCC6Ic9Q5NqjBOb+9xISedOYurfog9ZNmKJSxAnb2m/5Bq4lE9lhUcau33Ml8DM0g=="
-  "resolved" "https://registry.npmjs.org/tsconfig-paths/-/tsconfig-paths-3.14.0.tgz"
-  "version" "3.14.0"
-  dependencies:
-    "@types/json5" "^0.0.29"
-    "json5" "^1.0.1"
-    "minimist" "^1.2.0"
     "strip-bom" "^3.0.0"
 
 "tslib@^1.8.1":
@@ -5642,10 +5601,10 @@
     "watchpack" "^2.3.1"
     "webpack-sources" "^3.2.3"
 
-"webpack@5.70.0":
-  "integrity" "sha512-ZMWWy8CeuTTjCxbeaQI21xSswseF2oNOwc70QSKNePvmxE7XW36i7vpBMYZFAUHPwQiEbNGCEYIOOlyRbdGmxw=="
-  "resolved" "https://registry.npmjs.org/webpack/-/webpack-5.70.0.tgz"
-  "version" "5.70.0"
+"webpack@5.71.0":
+  "integrity" "sha512-g4dFT7CFG8LY0iU5G8nBL6VlkT21Z7dcYDpJAEJV5Q1WLb9UwnFbrem1k7K52ILqEmomN7pnzWFxxE6SlDY56A=="
+  "resolved" "https://registry.npmjs.org/webpack/-/webpack-5.71.0.tgz"
+  "version" "5.71.0"
   dependencies:
     "@types/eslint-scope" "^3.7.3"
     "@types/estree" "^0.0.51"

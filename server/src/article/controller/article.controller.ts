@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { ArticleService } from '../service/article.service';
 import { CreateArticleDto } from '../dto/create-article.dto';
@@ -24,6 +25,10 @@ export class ArticleController {
     return this.articleService.allarticle();
   }
 
+  // /:id
+  // /test 순으로 배치하면 에러남
+  // 같은 Get에서 저렇게하면 test도 id로 받아들인다는 듯
+  // 라우터 순서 주의하자
   @Public()
   @Get('/:id')
   async article(@Param('id') id: number) {
@@ -31,9 +36,15 @@ export class ArticleController {
   }
 
   @Public()
-  @Get('/:tag')
-  async article_Tag(@Param('tag') tag: string) {
-    return this.articleService.article_Tag(tag);
+  @Get('/tag/:tag')
+  async articletag(@Param('tag') tag: string){
+    return this.articleService.articletag(tag);
+  }
+
+  @Public()
+  @Get('/user/:user')
+  async articleUser(@Param('user') user: string){
+    return this.articleService.articleUser(user);
   }
 
   @Post('/create')
