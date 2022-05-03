@@ -41,5 +41,10 @@
         "deletedAt": 20
       }
     ]
+  },
+  "user": {
+    "id": "string",
+    "email": "123@naver.com",
+    "username": "홍길동"
   }
 }
