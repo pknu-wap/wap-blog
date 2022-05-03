@@ -2,7 +2,7 @@ import { IAuthor } from './author.interface';
 
 export interface IArticle {
   id: number;
-  author: IAuthor;
+  writer: IAuthor;
   title: string;
   description: string;
   body: string;
