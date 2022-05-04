@@ -1,9 +1,11 @@
+import { Article, Comment } from '@/article/entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -11,8 +13,8 @@ import {
 @Entity()
 export class User {
   @ApiProperty()
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @ApiProperty()
   @Column({ unique: true })
@@ -38,4 +40,12 @@ export class User {
   @ApiProperty()
   @UpdateDateColumn()
   updateAt: Date;
+
+  @ApiProperty()
+  @OneToMany(() => Article, article => article.user)
+  articles: Article[];
+
+  @ApiProperty()
+  @OneToMany(() => Comment, comment => comment.user)
+  comments: Comment[];
 }

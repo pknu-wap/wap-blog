@@ -10,7 +10,7 @@ export class UserController {
 
   @Public()
   @Get()
-  async getCurrentUser(@GetCurrentUserId() userId: string) {
+  async getCurrentUser(@GetCurrentUserId() userId: number) {
     return await this.userService.getCurrentUser(userId);
   }
 }

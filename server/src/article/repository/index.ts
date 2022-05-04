@@ -1,2 +1,3 @@
 export * from './article.repository';
-export * from './comment.repository'
+export * from './comment.repository';
+export * from './tag.repository';

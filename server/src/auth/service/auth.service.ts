@@ -31,7 +31,7 @@ export class AuthService {
     return { tokens, user };
   }
 
-  async logout(userId: string) {
+  async logout(userId: number) {
     const user = await this.userRepository.findOne({
       where: {
         id: userId,
@@ -87,7 +87,7 @@ export class AuthService {
     return argon2.verify(hashedData, data);
   }
 
-  async getTokens(userId: string, email: string) {
+  async getTokens(userId: number, email: string) {
     const [access_token, refresh_token] = await Promise.all([
       this.jwtService.signAsync(
         { userId, email, sub: 'access_token' },
@@ -107,7 +107,7 @@ export class AuthService {
     return { access_token, refresh_token };
   }
 
-  async updateRtHash(userId: string, rt: string) {
+  async updateRtHash(userId: number, rt: string) {
     const hash = await this.hashData(rt);
     return this.userRepository.update({ id: userId }, { hashedRt: hash });
   }

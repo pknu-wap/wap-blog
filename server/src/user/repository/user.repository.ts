@@ -4,7 +4,7 @@ import { CreateUserDTO } from '../dto/create-user.dto';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
-  async findById(id: string): Promise<User> {
+  async findById(id: number): Promise<User> {
     const user = await this.findOne({ id });
     return user;
   }
@@ -25,7 +25,7 @@ export class UserRepository extends Repository<User> {
     return user;
   }
 
-  async createUserAndGetUserId(createUser: CreateUserDTO): Promise<string> {
+  async createUserAndGetUserId(createUser: CreateUserDTO): Promise<number> {
     const user = await this.createUser(createUser);
     return user.id;
   }

@@ -102,7 +102,7 @@ export class AuthController {
   @Delete('/logout')
   async logout(
     @Res({ passthrough: true }) res: Response,
-    @GetCurrentUserId() userId: string,
+    @GetCurrentUserId() userId: number,
   ): Promise<void> {
     await this.authService.logout(userId);
     this.authService.clearTokenCookie(res);

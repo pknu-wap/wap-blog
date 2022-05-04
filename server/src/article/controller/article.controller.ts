@@ -7,11 +7,11 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { ArticleService } from '../service/article.service';
-import { CreateArticleDto } from '../dto/create-article.dto';
-import { UpdateArticleDto } from '../dto/update-article.dto';
+import { ArticleService } from '@/article/service';
+import { CreateArticleDto, UpdateArticleDto } from '@/article/dto';
 import { ApiTags } from '@nestjs/swagger';
-import { Public } from '@/common/decorator';
+import { GetCurrentUserId, Public } from '@/common/decorator';
+import { Article } from '@/article/entity';
 
 @ApiTags('article')
 @Controller('/article')
@@ -20,39 +20,34 @@ export class ArticleController {
 
   @Public()
   @Get('/')
-  allarticle() {
-    return this.articleService.allarticle();
+  getAllArticles(): Promise<Article[]> {
+    return this.articleService.getAllArticles();
   }
 
   @Public()
   @Get('/:id')
-  async article(@Param('id') id: number) {
-    return this.articleService.article(+id);
+  async getArticleById(@Param('id') id: number): Promise<Article> {
+    return this.articleService.getArticleById(id);
   }
 
-  @Public()
-  @Get('/:tag')
-  async article_Tag(@Param('tag') tag: string) {
-    return this.articleService.article_Tag(tag);
+  @Post('/')
+  async createArticle(
+    @GetCurrentUserId() userId: number,
+    @Body() body: CreateArticleDto,
+  ): Promise<void> {
+    await this.articleService.createArticle(userId, body);
   }
 
-  @Post('/create')
-  async create(@Body() body: CreateArticleDto) {
-    return this.articleService.create(body);
+  @Patch('/:id')
+  async updateArticle(
+    @Param('id') id: number,
+    @Body() updateArticleDto: UpdateArticleDto,
+  ): Promise<void> {
+    await this.articleService.updateArticle(id, updateArticleDto);
   }
 
-  @Patch('/update:id')
-  update(@Param('id') id: number, @Body() updateArticleDto: UpdateArticleDto) {
-    return this.articleService.update(+id, updateArticleDto);
-  }
-
-  @Delete('/delete:id')
-  remove(@Param('id') id: number) {
-    return this.articleService.remove(+id);
-  }
-
-  @Patch('/restore:id')
-  restore(@Param('id') id: number) {
-    return this.articleService.restore(+id);
+  @Delete('/:id')
+  async deleteArticle(@Param('id') articleId: number): Promise<void> {
+    await this.articleService.deleteArticle(articleId);
   }
 }

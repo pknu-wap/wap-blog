@@ -2,27 +2,22 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   CreateDateColumn,
-  DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Comment } from './comment.entity'
+import { Comment, Tag } from '@/article/entity';
+import { User } from '@/user/entity';
 
 @Entity()
 export class Article {
   @ApiProperty()
   @PrimaryGeneratedColumn()
   id: number;
-
-  @ApiProperty()
-  @Column()
-  writer: string;
-
-  @ApiProperty()
-  @Column()
-  tag: string;
 
   @ApiProperty()
   @Column()
@@ -33,17 +28,31 @@ export class Article {
   description: string;
 
   @ApiProperty()
+  @Column('text')
+  body: string;
+
+  @ApiProperty()
+  @Column()
+  fk_user_id: number;
+
+  @ApiProperty()
   @CreateDateColumn()
   createdAt: Date;
 
   @ApiProperty()
   @UpdateDateColumn()
-  updateddAt: Date;
+  updatedAt: Date;
 
   @ApiProperty()
-  @DeleteDateColumn()
-  deletedAt: Date;
+  @ManyToOne(() => User, user => user.articles)
+  @JoinColumn({ name: 'fk_user_id' })
+  user: User;
 
-  @OneToMany(() => Comment, (comment) => comment.article)
-  comments : Comment[];
+  @ApiProperty()
+  @OneToMany(() => Comment, comment => comment.article)
+  comments: Comment[];
+
+  @ApiProperty()
+  @ManyToMany(() => Tag, tag => tag.article)
+  tags: Tag[];
 }

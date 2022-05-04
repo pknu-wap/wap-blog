@@ -7,35 +7,44 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { CommentService } from '../service';
-import { CommentArticleDto } from '../dto';
-import { Public } from '@/common/decorator';
+import { CommentService } from '@/article/service';
+import { CreateCommentDto } from '@/article/dto';
+import { GetCurrentUserId, Public } from '@/common/decorator';
+import { Comment } from '@/article/entity';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('comment')
 @Controller('/comment')
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @Public()
-  @Get('/:id')
-  async commentbyId(@Param('id') id: number) {
-    return this.commentService.cmtbyId(id);
+  @Get('/:articleId')
+  async getCommentsByArticleId(
+    @Param('articleId') articleId: number,
+  ): Promise<Comment[]> {
+    return this.commentService.getCommentsByArticleId(articleId);
   }
 
-  @Post('/write:id')
-  async comment_article(
-    @Body() comment: CommentArticleDto,
+  @Post('/:articleId')
+  async createComment(
+    @GetCurrentUserId() userId: number,
+    @Param('articleId') articleId: number,
+    @Body() comment: CreateCommentDto,
+  ): Promise<void> {
+    await this.commentService.createComment(userId, articleId, comment);
+  }
+
+  @Patch('/:id')
+  async updateComment(
     @Param('id') id: number,
-  ) {
-    return this.commentService.cmtarticle(comment, id);
+    @Body() commentdto: CreateCommentDto,
+  ): Promise<void> {
+    await this.commentService.updateComment(id, commentdto);
   }
 
-  @Patch('/update:id')
-  update(@Param('id') id: number, @Body() commentdto: CommentArticleDto) {
-    return this.commentService.update(+id, commentdto);
-  }
-
-  @Delete('/delete:id')
-  remove(@Param('id') id: number) {
-    return this.commentService.remove(+id);
+  @Delete('/:id')
+  async deleteComment(@Param('id') id: number): Promise<void> {
+    await this.commentService.deleteComment(id);
   }
 }
