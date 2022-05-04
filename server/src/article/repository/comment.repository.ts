@@ -1,4 +1,4 @@
-import { EntityRepository, Repository, getConnection } from 'typeorm';
+import { EntityRepository, Repository } from 'typeorm';
 import { Comment } from '@/article/entity';
 import { CreateCommentDto } from '@/article/dto';
 
@@ -21,15 +21,10 @@ export class CommentRepository extends Repository<Comment> {
     await this.save(comment);
   }
 
-  async updateComment(id: number, dto: CreateCommentDto): Promise<void> {
-    await getConnection()
-      .createQueryBuilder()
-      .update(Comment)
-      .set({
-        text: dto.text,
-      })
-      .where('id = :id', { id })
-      .execute();
+  async updateComment(commentId: number, dto: CreateCommentDto): Promise<void> {
+    const comment = await this.findOne({ id: commentId });
+    comment.text = dto.text;
+    await this.save(comment);
   }
 
   async deleteComment(id: number): Promise<void> {

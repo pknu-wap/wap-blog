@@ -1,4 +1,4 @@
-import { EntityRepository, Repository, getConnection } from 'typeorm';
+import { EntityRepository, Repository } from 'typeorm';
 import { Article, Tag } from '@/article/entity';
 import { CreateArticleDto, UpdateArticleDto } from '@/article/dto';
 
@@ -26,18 +26,17 @@ export class ArticleRepository extends Repository<Article> {
     return await this.save(article);
   }
 
-  async updateArticle(id: number, dto: UpdateArticleDto): Promise<void> {
-    // writer 안 받아도 되는데 일단 keep
-    await getConnection()
-      .createQueryBuilder()
-      .update(Article)
-      .set({
-        title: dto.title,
-        description: dto.description,
-      })
-      .where('id = :id', { id: id })
-      .execute();
-    return;
+  async updateArticle(
+    articleId: number,
+    tags: Tag[],
+    dto: UpdateArticleDto,
+  ): Promise<void> {
+    const article = await this.findArticleById(articleId);
+    article.title = dto.title;
+    article.description = dto.description;
+    article.body = dto.body;
+    article.tags = tags;
+    await this.save(article);
   }
 
   //TODO: tag가 같이 삭제되어야 하는데 ManyToMany만 삭제되고 태그가 삭제 안 됨

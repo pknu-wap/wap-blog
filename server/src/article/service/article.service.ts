@@ -33,7 +33,8 @@ export class ArticleService {
     if (!article) throw new HttpException('존재하지 않는 article입니다', 404);
     if (article.fk_user_id !== userId)
       throw new HttpException('당신의 article이 아닙니다.', 401);
-    await this.articleRepository.updateArticle(articleId, dto);
+    const tags = await this.tagRepository.createTags(dto.tags);
+    await this.articleRepository.updateArticle(articleId, tags, dto);
   }
 
   async deleteArticle(userId: number, articleId: number): Promise<void> {
