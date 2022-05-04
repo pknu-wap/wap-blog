@@ -26,8 +26,8 @@ export class ArticleController {
 
   @Public()
   @Get('/:id')
-  async getArticleById(@Param('id') id: number): Promise<Article> {
-    return this.articleService.getArticleById(id);
+  async getArticleById(@Param('id') articleId: number): Promise<Article> {
+    return this.articleService.getArticleById(articleId);
   }
 
   @Post('/')

@@ -28,7 +28,7 @@ export class AuthController {
   @Public()
   @Post('/signup/local')
   async signupLocal(@Body() body: SignupRequestDto): Promise<void> {
-    this.authService.signupLocal(body);
+    await this.authService.signupLocal(body);
   }
 
   @Public()

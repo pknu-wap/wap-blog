@@ -17,14 +17,20 @@ export class AuthService {
 
   async signupLocal(dto: SignupRequestDto) {
     dto.password = await this.hashData(dto.password);
-    await this.userRepository.createUser(dto);
+    const userWithEmail = await this.userRepository.findByEmail(dto.email);
+    if (userWithEmail) throw new HttpException('존재하는 email입니다', 404);
+    const userWithUsername = await this.userRepository.findByName(dto.username);
+    if (userWithUsername)
+      throw new HttpException('존재하는 username입니다', 404);
+    return await this.userRepository.createUser(dto);
   }
 
   async signinLocal(dto: SigninRequestDto) {
     const user = await this.userRepository.findByEmail(dto.email);
-    if (!user) throw new HttpException('NOT FOUND', 404);
+    if (!user) throw new HttpException('존재하지 않는 user입니다', 404);
     const passwordMatches = await this.compareData(user.password, dto.password);
-    if (!passwordMatches) throw new HttpException('UNAUTHORIZED', 401);
+    if (!passwordMatches)
+      throw new HttpException('password가 일치하지 않습니다', 401);
 
     const tokens = await this.getTokens(user.id, user.email);
     await this.updateRtHash(user.id, tokens.refresh_token);
@@ -38,7 +44,7 @@ export class AuthService {
         hashedRt: Not(IsNull()),
       },
     });
-    if (!user) throw new HttpException('NOT FOUND', 404);
+    if (!user) throw new HttpException('존재하지 않는 user입니다', 404);
     await this.userRepository.save({ ...user, hashedRt: null });
   }
 
@@ -47,9 +53,14 @@ export class AuthService {
       secret: this.configService.get('auth.refresh_token_secret'),
     });
     const user = await this.userRepository.findById(refreshTokenData.userId);
-    if (!user || !user.hashedRt) throw new HttpException('BAD REQUEST', 404);
+    if (!user || !user.hashedRt)
+      throw new HttpException(
+        '존재하지 않는 user이거나 signin상태가 아닙니다',
+        404,
+      );
     const rtmatches = await this.compareData(user.hashedRt, refresh_token);
-    if (!rtmatches) throw new HttpException('BAD REQUEST', 404);
+    if (!rtmatches)
+      throw new HttpException('refresh토큰이 일치하지 않습닏다', 404);
 
     // 15일보다 적게 남았을 경우 refresh token 갱신
     const now = new Date().getTime();
