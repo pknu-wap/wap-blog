@@ -37,14 +37,18 @@ export class CommentController {
 
   @Patch('/:id')
   async updateComment(
-    @Param('id') id: number,
+    @GetCurrentUserId() userId: number,
+    @Param('id') commentId: number,
     @Body() commentdto: CreateCommentDto,
   ): Promise<void> {
-    await this.commentService.updateComment(id, commentdto);
+    await this.commentService.updateComment(userId, commentId, commentdto);
   }
 
   @Delete('/:id')
-  async deleteComment(@Param('id') id: number): Promise<void> {
-    await this.commentService.deleteComment(id);
+  async deleteComment(
+    @GetCurrentUserId() userId: number,
+    @Param('id') commentId: number,
+  ): Promise<void> {
+    await this.commentService.deleteComment(userId, commentId);
   }
 }

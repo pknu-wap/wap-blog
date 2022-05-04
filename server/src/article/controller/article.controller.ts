@@ -40,14 +40,22 @@ export class ArticleController {
 
   @Patch('/:id')
   async updateArticle(
-    @Param('id') id: number,
+    @GetCurrentUserId() userId: number,
+    @Param('id') articleId: number,
     @Body() updateArticleDto: UpdateArticleDto,
   ): Promise<void> {
-    await this.articleService.updateArticle(id, updateArticleDto);
+    await this.articleService.updateArticle(
+      userId,
+      articleId,
+      updateArticleDto,
+    );
   }
 
   @Delete('/:id')
-  async deleteArticle(@Param('id') articleId: number): Promise<void> {
-    await this.articleService.deleteArticle(articleId);
+  async deleteArticle(
+    @GetCurrentUserId() userId: number,
+    @Param('id') articleId: number,
+  ): Promise<void> {
+    await this.articleService.deleteArticle(userId, articleId);
   }
 }

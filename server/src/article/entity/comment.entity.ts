@@ -35,15 +35,17 @@ export class Comment {
 
   @ApiProperty()
   @UpdateDateColumn()
-  updateddAt: Date;
+  updatedAt: Date;
 
   @ApiProperty()
-  @ManyToOne(() => User, user => user.comments)
+  @ManyToOne(() => User, user => user.comments, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'fk_user_id' })
   user: User;
 
   @ApiProperty()
-  @ManyToOne(() => Article, article => article.comments)
+  @ManyToOne(() => Article, article => article.comments, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'fk_article_id' })
   article: Article;
 }

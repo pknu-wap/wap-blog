@@ -40,7 +40,9 @@ export class ArticleRepository extends Repository<Article> {
     return;
   }
 
+  //TODO: tag가 같이 삭제되어야 하는데 ManyToMany만 삭제되고 태그가 삭제 안 됨
   async deleteArticle(articleId: number): Promise<void> {
-    await this.delete({ id: articleId });
+    const article = await this.findArticleById(articleId);
+    await this.remove(article);
   }
 }

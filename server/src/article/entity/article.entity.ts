@@ -44,7 +44,7 @@ export class Article {
   updatedAt: Date;
 
   @ApiProperty()
-  @ManyToOne(() => User, user => user.articles)
+  @ManyToOne(() => User, user => user.articles, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'fk_user_id' })
   user: User;
 

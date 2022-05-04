@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { CreateCommentDto } from '@/article/dto';
 import { CommentRepository } from '@/article/repository';
 import { Comment } from '@/article/entity';
@@ -19,11 +19,23 @@ export class CommentService {
     await this.commentRepository.createComment(userId, articleId, dto);
   }
 
-  async updateComment(id: number, dto: CreateCommentDto): Promise<void> {
-    await this.commentRepository.updateComment(id, dto);
+  async updateComment(
+    userId: number,
+    commentId: number,
+    dto: CreateCommentDto,
+  ): Promise<void> {
+    const comment = await this.commentRepository.findOne({ id: commentId });
+    if (comment.fk_user_id !== userId) {
+      throw new HttpException('This is not your comment.', 401);
+    }
+    await this.commentRepository.updateComment(commentId, dto);
   }
 
-  async deleteComment(id: number): Promise<void> {
-    await this.commentRepository.deleteComment(id);
+  async deleteComment(userId: number, commentId: number): Promise<void> {
+    const comment = await this.commentRepository.findOne({ id: commentId });
+    if (comment.fk_user_id !== userId) {
+      throw new HttpException('This is not your comment.', 401);
+    }
+    await this.commentRepository.deleteComment(commentId);
   }
 }

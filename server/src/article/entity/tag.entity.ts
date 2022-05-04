@@ -18,14 +18,14 @@ export class Tag {
   @Column({ unique: true })
   name: string;
 
-  @ManyToMany(() => Article, article => article.tags)
+  @ManyToMany(() => Article, article => article.tags, { onDelete: 'CASCADE' })
   @JoinTable({
     name: 'article_tags',
     joinColumn: {
-      name: 'fk_article_id',
+      name: 'fk_tag_id',
     },
     inverseJoinColumn: {
-      name: 'fk_tag_id',
+      name: 'fk_article_id',
     },
   })
   article: Article;
