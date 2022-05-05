@@ -35,7 +35,7 @@ const Login = () => {
     navigate('/');
   };
 
-  console.log(watch());
+  // console.log(watch());
   return (
     <>
       {/* <Helmet>

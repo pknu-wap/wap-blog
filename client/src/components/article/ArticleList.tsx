@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ArticleAPI from '../../api/article';
 import tw from 'tailwind-styled-components';
 import { Link } from 'react-router-dom';
+import ArticleWriterAndUpdatedAt from './ArticleWriterAndUpdatedAt';
 
 const ArticleContainer = tw.div`
 w-full 
@@ -25,7 +26,6 @@ const ArticleTitle = tw(ArticleTitleColor)`
 text-xl
 font-medium
 `;
-const ArticleAuthor = tw.div``;
 const ArticleDescriptonColor = styled.span`
   color: ${props => props.theme.lightTextColor};
 `;
@@ -36,6 +36,7 @@ font-light
 
 const ArticleList = () => {
   const { data: articleListData } = useQuery('articleList', ArticleAPI.getAll);
+  console.log(articleListData);
   return (
     <>
       <ArticleContainer>
@@ -43,7 +44,10 @@ const ArticleList = () => {
           {articleListData?.map(article => (
             <Article key={article.id}>
               <Link key={article.id} to={article.id + ''}>
-                <ArticleAuthor>{article.writer}</ArticleAuthor>
+                <ArticleWriterAndUpdatedAt
+                  writer={article.writer}
+                  updatedAt={article.updateddAt + ''}
+                />
                 <ArticleTitle>{article.title}</ArticleTitle>
                 <ArticleDescripton>{article.description}</ArticleDescripton>
               </Link>

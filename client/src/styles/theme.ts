@@ -6,6 +6,6 @@ export const lightMode: DefaultTheme = {
   lightTextColor: 'gray',
   bgColor: 'white',
   navBgColor: 'green',
-  bannerColor: 'blue',
+  bannerColor: '#FFEF82',
 };
 //darkMode 예정
