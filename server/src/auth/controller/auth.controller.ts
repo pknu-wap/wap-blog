@@ -11,7 +11,6 @@ import { AuthService, GithubService, GoogleService } from '@/auth/service';
 import { SignupRequestDto, SigninRequestDto } from '@/auth/dto';
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
-import { google } from 'googleapis';
 import { Public, GetCurrentUserId } from '@/common/decorator';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -68,22 +67,8 @@ export class AuthController {
   @Get('/signin/google')
   async signinGoogle(@Res({ passthrough: true }) res: Response): Promise<void> {
     const GOOGLE_ID = this.configService.get('auth.google.id');
-    const GOOGLE_SECRET = this.configService.get('auth.google.secret');
     const REDIRECT_URI = this.configService.get('auth.google.redirect');
-
-    const oauth2Client = new google.auth.OAuth2(
-      GOOGLE_ID,
-      GOOGLE_SECRET,
-      REDIRECT_URI,
-    );
-
-    const url = oauth2Client.generateAuthUrl({
-      scope: [
-        'https://www.googleapis.com/auth/userinfo.email',
-        'https://www.googleapis.com/auth/userinfo.profile',
-      ],
-      //TODO: 여기 state를 넣을 지 말 지 모르겠음
-    });
+    const url = `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${REDIRECT_URI}&client_id=${GOOGLE_ID}&response_type=code&include_granted_scopes=true&scope=profile`;
     res.redirect(encodeURI(url));
   }
 

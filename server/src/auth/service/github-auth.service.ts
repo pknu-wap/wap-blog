@@ -57,7 +57,7 @@ export class GithubService {
   }
 
   async getGithubUserInfo(accessToken: string) {
-    const response = await axios('https://api.github.com/user', {
+    const response = await axios.get('https://api.github.com/user', {
       headers: {
         Authorization: `token ${accessToken}`,
       },
@@ -65,10 +65,9 @@ export class GithubService {
     return response.data;
   }
 
-  // ({ id, node_id, avatar_url, name, login, email })
   async getGithubUserId({ id, node_id, name }) {
-    const existUser = await this.userRepository.findByEmail(id);
-    if (existUser) return existUser.id;
+    const exUser = await this.userRepository.findByEmail(id);
+    if (exUser) return exUser.id;
 
     const user = {
       email: id,

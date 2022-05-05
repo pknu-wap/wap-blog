@@ -1,3 +1,4 @@
+import { properties } from '../config/properties';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -35,11 +36,15 @@ const Login = () => {
     navigate('/');
   };
 
+  const handleGithubLogin = async () => {
+    window.location.href = properties.BASE_URL + '/auth/signin/github';
+  };
+  const handleGoogleLogin = async () => {
+    window.location.href = properties.BASE_URL + '/auth/signin/google';
+  };
+
   return (
     <>
-      {/* <Helmet>
-        <title>로그인</title>
-      </Helmet> */}
       <LoginForm onSubmit={handleSubmit(onLogin)}>
         <LoginInput {...register('email')} type="email" placeholder="이메일" />
         <LoginInput
@@ -48,6 +53,12 @@ const Login = () => {
           placeholder="비밀번호"
         />
         <LoginBtn>로그인</LoginBtn>
+        <div>
+          <button onClick={handleGithubLogin}>깃허브</button>
+        </div>
+        <div>
+          <button onClick={handleGoogleLogin}>구글</button>
+        </div>
       </LoginForm>
     </>
   );
