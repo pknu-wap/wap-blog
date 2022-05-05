@@ -26,7 +26,7 @@ const Articles = () => {
               <Link key={article.id} to={article.id + ''}>
                 <div>{article.id}</div>
                 <div>{article.title}</div>
-                <div>{article.author}</div>
+                <div>{article.user}</div>
                 <div>{article.description}</div>
               </Link>
             </Article>

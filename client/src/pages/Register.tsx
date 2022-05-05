@@ -36,9 +36,6 @@ const Register = () => {
 
   return (
     <>
-      {/* <Helmet>
-        <title>회원가입</title>
-      </Helmet> */}
       <RegisterForm onSubmit={handleSubmit(onRegister)}>
         <RegisterInput
           {...register('email')}

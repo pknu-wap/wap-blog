@@ -8,6 +8,7 @@ const Home = () => {
     <>
       <Suspense fallback={<LoadingSpinner />}>
         <Banner />
+        <ArticleList />
       </Suspense>
     </>
   );

@@ -44,15 +44,18 @@ export class Article {
   updatedAt: Date;
 
   @ApiProperty()
-  @ManyToOne(() => User, user => user.articles, { onDelete: 'CASCADE' })
+  @ManyToOne(() => User, user => user.articles, {
+    onDelete: 'CASCADE',
+    eager: true,
+  })
   @JoinColumn({ name: 'fk_user_id' })
   user: User;
 
   @ApiProperty()
-  @OneToMany(() => Comment, comment => comment.article)
+  @OneToMany(() => Comment, comment => comment.article, { eager: true })
   comments: Comment[];
 
   @ApiProperty()
-  @ManyToMany(() => Tag, tag => tag.article)
+  @ManyToMany(() => Tag, tag => tag.article, { eager: true })
   tags: Tag[];
 }

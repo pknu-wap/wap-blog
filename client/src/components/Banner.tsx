@@ -16,6 +16,7 @@ text-white
 text-4xl
 shadow-inner
 mb-8
+mt-10
 `;
 
 const Banner = () => {

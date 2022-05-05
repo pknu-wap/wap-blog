@@ -10,7 +10,7 @@ export class ArticleService {
   ) {}
 
   async getAllArticles(): Promise<Article[]> {
-    return await this.articleRepository.find();
+    return await this.articleRepository.findAllArticles();
   }
 
   async getArticleById(articleId: number): Promise<Article> {
