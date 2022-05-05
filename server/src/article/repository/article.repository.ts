@@ -13,7 +13,7 @@ export class ArticleRepository extends Repository<Article> {
 
   async createArticle(
     userId: number,
-    tags: Tag[],
+    tagList: Tag[],
     dto: CreateArticleDto,
   ): Promise<Article> {
     const article = new Article();
@@ -21,21 +21,21 @@ export class ArticleRepository extends Repository<Article> {
     article.description = dto.description;
     article.body = dto.body;
     article.fk_user_id = userId;
-    article.tags = tags;
+    article.tagList = tagList;
 
     return await this.save(article);
   }
 
   async updateArticle(
     articleId: number,
-    tags: Tag[],
+    tagList: Tag[],
     dto: UpdateArticleDto,
   ): Promise<void> {
     const article = await this.findArticleById(articleId);
     article.title = dto.title;
     article.description = dto.description;
     article.body = dto.body;
-    article.tags = tags;
+    article.tagList = tagList;
     await this.save(article);
   }
 

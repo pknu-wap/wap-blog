@@ -46,7 +46,7 @@ const ArticleList = () => {
               <Link key={article.id} to={article.id + ''}>
                 <ArticleWriterAndUpdatedAt
                   user={article.user}
-                  updatedAt={article.updateddAt + ''}
+                  updatedAt={article.updatedAt + ''}
                 />
                 <ArticleTitle>{article.title}</ArticleTitle>
                 <ArticleDescripton>{article.description}</ArticleDescripton>

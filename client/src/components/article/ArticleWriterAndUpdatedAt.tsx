@@ -47,7 +47,7 @@ const ArticleWriterAndUpdatedAt = ({
   return (
     <>
       <ArticleWriterAndUpdatedAtContainer>
-        <ArticleWriter>{user}</ArticleWriter>
+        <ArticleWriter>{user.username}</ArticleWriter>
         <ArticleUpdatedAt>{articleUpdatedAt}</ArticleUpdatedAt>
       </ArticleWriterAndUpdatedAtContainer>
     </>

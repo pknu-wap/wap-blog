@@ -11,7 +11,7 @@ export interface IArticle {
   comments: IComment[];
   tagList: ITag[];
   createdAt: Date;
-  updateddAt: Date;
+  updatedAt: Date;
 }
 
 export interface IArticleRequest {

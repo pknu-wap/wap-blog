@@ -57,5 +57,5 @@ export class Article {
 
   @ApiProperty()
   @ManyToMany(() => Tag, tag => tag.article, { eager: true })
-  tags: Tag[];
+  tagList: Tag[];
 }

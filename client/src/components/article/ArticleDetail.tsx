@@ -62,7 +62,7 @@ const ArticleDetail = () => {
         <ArticleTitle>{articleDetailData?.title}</ArticleTitle>
         <ArticleWriterAndUpdatedAt
           user={articleDetailData?.user!}
-          updatedAt={articleDetailData?.updateddAt + ''}
+          updatedAt={articleDetailData?.updatedAt + ''}
         />
       </ArticleHeader>
       <ArticleTags>

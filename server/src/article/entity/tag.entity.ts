@@ -18,7 +18,9 @@ export class Tag {
   @Column({ unique: true })
   name: string;
 
-  @ManyToMany(() => Article, article => article.tags, { onDelete: 'CASCADE' })
+  @ManyToMany(() => Article, article => article.tagList, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'article_tags',
     joinColumn: {

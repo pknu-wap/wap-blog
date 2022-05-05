@@ -11,5 +11,5 @@ export class CreateArticleDto {
   body: string;
 
   @ApiProperty()
-  tags: string[];
+  tagList: string[];
 }
