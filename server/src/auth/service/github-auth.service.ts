@@ -69,10 +69,11 @@ export class GithubService {
     const exUser = await this.userRepository.findByEmail(id);
     if (exUser) return exUser.id;
 
+    const encodedPassword = await this.authService.hashData(node_id);
     const user = {
       email: id,
       username: name,
-      password: node_id,
+      password: encodedPassword,
     };
 
     return await this.userRepository.createUserAndGetUserId(user);

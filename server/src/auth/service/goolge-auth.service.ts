@@ -77,10 +77,11 @@ export class GoogleService {
     const exUser = await this.userRepository.findByEmail(id);
     if (exUser) return exUser.id;
 
+    const encodedPassword = await this.authService.hashData(id + name);
     const user = {
       email: id,
       username: name,
-      password: id + name,
+      password: encodedPassword,
     };
     return await this.userRepository.createUserAndGetUserId(user);
   }
