@@ -6,6 +6,8 @@ import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
+import { Suspense } from 'react';
+import LoadingSpinner from './components/common/LoadingSpinner';
 
 function App() {
   return (
@@ -17,7 +19,14 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/:articleId" element={<ArticleDetail />} />
+        <Route
+          path="/:articleId"
+          element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <ArticleDetail />
+            </Suspense>
+          }
+        />
 
         {/* catch all */}
         <Route path="*" element={<NotFound />} />

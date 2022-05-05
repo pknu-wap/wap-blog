@@ -16,7 +16,6 @@ const AuthProvider = ({ children }: Props) => {
     if (user === undefined) return;
     if (user === null) return;
     setUser(user);
-    console.log(user);
   }, [user, setUser]);
 
   return <>{children}</>;
