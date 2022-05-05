@@ -15,6 +15,7 @@ import { JwtAuthMiddleware } from '@/middleware';
 import { AuthGuard } from '@/common/guard';
 import { JwtModule } from '@nestjs/jwt';
 import { DatabaseConfigService } from './config/database.config';
+import { ImageModule } from './image/image.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { DatabaseConfigService } from './config/database.config';
     UserModule,
     AuthModule,
     ArticleModule,
+    ImageModule,
   ],
   providers: [
     {
