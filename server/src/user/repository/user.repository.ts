@@ -21,8 +21,7 @@ export class UserRepository extends Repository<User> {
 
   async createUser(createUser: CreateUserDTO): Promise<User> {
     const user = this.create(createUser);
-    this.save(user);
-    return user;
+    return await this.save(user);
   }
 
   async createUserAndGetUserId(createUser: CreateUserDTO): Promise<number> {
