@@ -11,12 +11,14 @@ import {
   CommentRepository,
   TagRepository,
 } from '@/article/repository';
+import { UserRepository } from '@/user/repository';
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       ArticleRepository,
       CommentRepository,
       TagRepository,
+      UserRepository,
     ]),
   ],
   controllers: [ArticleController, CommentController, TagController],

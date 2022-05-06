@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { ArticleService } from '@/article/service';
 import { CreateArticleDto, UpdateArticleDto } from '@/article/dto';
@@ -28,6 +29,15 @@ export class ArticleController {
   @Get('/:id')
   async getArticleById(@Param('id') articleId: number): Promise<Article> {
     return this.articleService.getArticleById(articleId);
+  }
+
+  @Public()
+  @Get('/user/:username')
+  getArticles(
+    @Param('username') username: string,
+    @Query('tag') tag?: string,
+  ): Promise<Article[]> {
+    return this.articleService.getArticles(username, tag);
   }
 
   @Post('/')

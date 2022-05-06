@@ -2,15 +2,22 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { UpdateArticleDto, CreateArticleDto } from '@/article/dto';
 import { ArticleRepository, TagRepository } from '@/article/repository';
 import { Article } from '@/article/entity';
+import { UserRepository } from '@/user/repository';
 @Injectable()
 export class ArticleService {
   constructor(
     private readonly articleRepository: ArticleRepository,
     private readonly tagRepository: TagRepository,
+    private readonly userRepository: UserRepository,
   ) {}
 
   async getAllArticles(): Promise<Article[]> {
     return await this.articleRepository.findAllArticles();
+  }
+
+  async getArticles(username: string, tag?: string) {
+    const user = await this.userRepository.findByName(username);
+    return await this.articleRepository.findArticles(user, tag);
   }
 
   async getArticleById(articleId: number): Promise<Article> {

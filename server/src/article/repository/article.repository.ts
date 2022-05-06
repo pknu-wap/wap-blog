@@ -7,6 +7,19 @@ export class ArticleRepository extends Repository<Article> {
   async findAllArticles(): Promise<Article[]> {
     return await this.find();
   }
+
+  async findArticles(user, tag): Promise<Article[]> {
+    const article = this.createQueryBuilder('article')
+      .leftJoinAndSelect('article.user', 'user')
+      .leftJoinAndSelect('article.comments', 'comments')
+      .leftJoinAndSelect('article.tagList', 'tag')
+      .where('article.fk_user_id = :id', { id: user.id });
+    if (tag) {
+      article.andWhere('tag.name = :name', { name: tag });
+    }
+    return await article.getMany();
+  }
+
   async findArticleById(id: number): Promise<Article> {
     return await this.findOne({ id });
   }
