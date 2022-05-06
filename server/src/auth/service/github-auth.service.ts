@@ -27,6 +27,7 @@ export class GithubService {
       const userId = await this.getGithubUserId(userInfo);
       if (!userId) throw new HttpException('로그인 실패', 400);
       const tokens = await this.authService.getTokens(userId, userInfo.email);
+      await this.authService.updateRtHash(userId, tokens.refresh_token);
       this.authService.setTokenCookie(res, tokens);
     } catch (e) {
       throw new HttpException(e.message, 500);
@@ -39,10 +40,10 @@ export class GithubService {
     clientSecret: string,
   ) {
     const response = await axios.post(
-      'https://github.com/login/oauth/access_token',
+      `https://github.com/login/oauth/access_token`,
       {
-        clientId,
-        clientSecret,
+        client_id: clientId,
+        client_secret: clientSecret,
         code,
       },
       {
@@ -51,28 +52,28 @@ export class GithubService {
         },
       },
     );
-
-    return response.data.access_token;
+    const access_token = response.data.split('&')[0].split('=')[1];
+    return access_token;
   }
 
   async getGithubUserInfo(accessToken: string) {
-    const response = await axios.post('https://api.github.com/user', {
+    const response = await axios.get('https://api.github.com/user', {
       headers: {
         Authorization: `token ${accessToken}`,
       },
     });
-
     return response.data;
   }
 
-  // ({ id, node_id, avatar_url, name, login, email })
-  async getGithubUserId({ id, name, login, email }) {
-    const existUser = await this.userRepository.findByEmail(id);
-    if (existUser) return existUser.id;
+  async getGithubUserId({ id, node_id, name }) {
+    const exUser = await this.userRepository.findByEmail(id);
+    if (exUser) return exUser.id;
 
+    const encodedPassword = await this.authService.hashData(node_id);
     const user = {
       email: id,
-      username: name ?? login ?? email,
+      username: name,
+      password: encodedPassword,
     };
 
     return await this.userRepository.createUserAndGetUserId(user);

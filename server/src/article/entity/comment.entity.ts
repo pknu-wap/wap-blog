@@ -2,14 +2,14 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Article } from './article.entity'
+import { Article } from '@/article/entity';
+import { User } from '@/user/entity';
 
 @Entity()
 export class Comment {
@@ -18,12 +18,16 @@ export class Comment {
   id: number;
 
   @ApiProperty()
-  @Column()
-  commentor: string;
+  @Column('text')
+  text: string;
 
   @ApiProperty()
   @Column()
-  comment: string;
+  fk_user_id: number;
+
+  @ApiProperty()
+  @Column()
+  fk_article_id: number;
 
   @ApiProperty()
   @CreateDateColumn()
@@ -31,8 +35,17 @@ export class Comment {
 
   @ApiProperty()
   @UpdateDateColumn()
-  updateddAt: Date;
+  updatedAt: Date;
 
-  @ManyToOne(() => Article, (article) => article.comments)
+  @ApiProperty()
+  @ManyToOne(() => User, user => user.comments, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'fk_user_id' })
+  user: User;
+
+  @ApiProperty()
+  @ManyToOne(() => Article, article => article.comments, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'fk_article_id' })
   article: Article;
 }

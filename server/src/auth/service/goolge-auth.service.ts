@@ -1,9 +1,9 @@
 import { UserRepository } from '@/user/repository';
 import { ConfigService } from '@nestjs/config';
 import { HttpException, Injectable, Res } from '@nestjs/common';
-import { google } from 'googleapis';
 import { AuthService } from '@/auth/service';
 import { Response } from 'express';
+import axios from 'axios';
 
 @Injectable()
 export class GoogleService {
@@ -29,6 +29,7 @@ export class GoogleService {
       const userId = await this.getGoogleUserId(userInfo);
       if (!userId) throw new HttpException('로그인 실패', 400);
       const tokens = await this.authService.getTokens(userId, userInfo.email);
+      await this.authService.updateRtHash(userId, tokens.refresh_token);
       this.authService.setTokenCookie(res, tokens);
     } catch (e) {
       throw new HttpException(e.message, 500);
@@ -41,39 +42,47 @@ export class GoogleService {
     clientSecret: string,
     redirectUri: string,
   ) {
-    const oAuth2Client = new google.auth.OAuth2(
-      clientId,
-      clientSecret,
-      redirectUri,
+    const response = await axios.post(
+      'https://oauth2.googleapis.com/token',
+      {
+        client_id: clientId,
+        client_secret: clientSecret,
+        grant_type: 'authorization_code',
+        redirect_uri: redirectUri,
+        code,
+      },
+      {
+        headers: {
+          accepet: 'application/json',
+        },
+      },
     );
-    const { tokens } = await oAuth2Client.getToken(code);
-    if (!tokens.access_token) {
-      throw new HttpException('Failed to retrieve google access token', 400);
-    }
-    return tokens.access_token;
+    const access_token = response.data.access_token;
+    return access_token;
   }
 
-  async getGoogleUserInfo(access_token: string) {
-    const people = google.people('v1');
-    const userInfo = await people.people.get({
-      access_token: access_token,
-      resourceName: 'people/me',
-      personFields: 'names,emailAddresses, photos',
-    });
-    const { data } = userInfo;
-    const user = {
-      email: data.emailAddresses[0]?.value || null,
-      username: data.names[0]?.displayName || 'emptyname',
-    };
-    return user;
+  async getGoogleUserInfo(accessToken: string) {
+    const response = await axios.get(
+      'https://www.googleapis.com/oauth2/v2/userinfo',
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+    return response.data;
   }
 
-  async getGoogleUserId({ email, username }) {
-    const exUser = await this.userRepository.findByEmail(email);
+  async getGoogleUserId({ id, name }) {
+    const exUser = await this.userRepository.findByEmail(id);
     if (exUser) return exUser.id;
 
-    const user = { email, username };
-    this.userRepository.create(user);
-    return (await this.userRepository.findByEmail(email)).id;
+    const encodedPassword = await this.authService.hashData(id + name);
+    const user = {
+      email: id,
+      username: name,
+      password: encodedPassword,
+    };
+    return await this.userRepository.createUserAndGetUserId(user);
   }
 }

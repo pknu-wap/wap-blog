@@ -29,8 +29,8 @@ footer, header, hgroup, menu, nav, section {
 body {
 	font-family: 'Roboto', sans-serif;
 	line-height: 1;
-    color: ${props => props.theme.textColor};
-	height: 200vh
+  color: ${props => props.theme.textColor};
+	height: 200vh;
 }
 a{
 	text-decoration:none;

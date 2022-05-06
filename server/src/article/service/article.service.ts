@@ -1,52 +1,54 @@
-import { Injectable } from '@nestjs/common';
-import { UpdateArticleDto, CreateArticleDto } from '@/article/dto/index';
-import { ArticleRepository } from '../repository';
-
+import { HttpException, Injectable } from '@nestjs/common';
+import { UpdateArticleDto, CreateArticleDto } from '@/article/dto';
+import { ArticleRepository, TagRepository } from '@/article/repository';
+import { Article } from '@/article/entity';
+import { UserRepository } from '@/user/repository';
 @Injectable()
 export class ArticleService {
-  constructor(private readonly articlerepo: ArticleRepository) {}
+  constructor(
+    private readonly articleRepository: ArticleRepository,
+    private readonly tagRepository: TagRepository,
+    private readonly userRepository: UserRepository,
+  ) {}
 
-  async allarticle() {
-    // 넘겨줄 순서, 개수 고려할 수 있음
-    const all = await this.articlerepo.find();
-    return all;
+  async getAllArticles(): Promise<Article[]> {
+    return await this.articleRepository.findAllArticles();
   }
 
-  async article(id: number) {
-    const article = await this.articlerepo.findarticle(id);
+  async getArticles(username: string, tag?: string) {
+    const user = await this.userRepository.findByName(username);
+    return await this.articleRepository.findArticles(user, tag);
+  }
+
+  async getArticleById(articleId: number): Promise<Article> {
+    const article = await this.articleRepository.findArticleById(articleId);
+    if (!article) throw new HttpException('존재하지 않는 article입니다', 404);
     return article;
   }
 
-  async articletag(tag: string) {
-    const articletag = await this.articlerepo.atcbyTag(tag);
-    return articletag;
+  async createArticle(userId: number, dto: CreateArticleDto): Promise<void> {
+    const tags = await this.tagRepository.createTags(dto.tagList);
+    await this.articleRepository.createArticle(userId, tags, dto);
   }
 
-  async articleUser(user: string) {
-    const articleuser = await this.articlerepo.atcbyUser(user);
-    return articleuser;
+  async updateArticle(
+    userId: number,
+    articleId: number,
+    dto: UpdateArticleDto,
+  ): Promise<void> {
+    const article = await this.articleRepository.findArticleById(articleId);
+    if (!article) throw new HttpException('존재하지 않는 article입니다', 404);
+    if (article.fk_user_id !== userId)
+      throw new HttpException('당신의 article이 아닙니다.', 401);
+    const tagList = await this.tagRepository.createTags(dto.tagList);
+    await this.articleRepository.updateArticle(articleId, tagList, dto);
   }
 
-  async create(dto: CreateArticleDto) {
-    const article = this.articlerepo.create(dto);
-    await this.articlerepo.save(article);
-    return 'This action adds a new article';
-  }
-
-  async update(id: number, dto: UpdateArticleDto) {
-    await this.articlerepo.uparticle(id, dto);
-    return;
-  }
-
-  async remove(id: number) {
-    //updatedat 도 같이 갱신된다.
-    //삭제된 열 지우는 부분 필요
-    await this.articlerepo.softDelete({ id: id });
-    return `${id} article을 삭제했습니다.`;
-  }
-
-  async restore(id: number) {
-    await this.articlerepo.restore(id);
-    return;
+  async deleteArticle(userId: number, articleId: number): Promise<void> {
+    const article = await this.articleRepository.findArticleById(articleId);
+    if (!article) throw new HttpException('존재하지 않는 article입니다', 404);
+    if (article.fk_user_id !== userId)
+      throw new HttpException('당신의 article이 아닙니다.', 401);
+    await this.articleRepository.deleteArticle(articleId);
   }
 }

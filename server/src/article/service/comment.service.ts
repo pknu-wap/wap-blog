@@ -1,52 +1,48 @@
-import { Injectable } from '@nestjs/common';
-import { UpdateArticleDto, CreateArticleDto, CommentArticleDto } from '@/article/dto/index';
-import { CommentRepository, ArticleRepository } from '../repository';
-import { Comment, Article } from '../entity'
+import { HttpException, Injectable } from '@nestjs/common';
+import { CreateCommentDto } from '@/article/dto';
+import { ArticleRepository, CommentRepository } from '@/article/repository';
+import { Comment } from '@/article/entity';
 
 @Injectable()
 export class CommentService {
-    constructor(
-        private readonly cmtrepo: CommentRepository,
-        private readonly articlerepo: ArticleRepository
-        ) {}
+  constructor(
+    private readonly commentRepository: CommentRepository,
+    private readonly articleRepository: ArticleRepository,
+  ) {}
 
-    async cmtbyId(id: number){
-        const cmt = await this.cmtrepo.cmtbyId(id);
-        return cmt
-    }
+  async getCommentsByArticleId(articleId: number): Promise<Comment[]> {
+    const article = await this.articleRepository.findArticleById(articleId);
+    if (!article) throw new HttpException('존재하지 않는 article입니다', 404);
+    return await this.commentRepository.findCommentsByArticleId(articleId);
+  }
 
-    async cmtarticle(dto: CommentArticleDto, id: number) {
-        // 관계형은 save 방식이 다르다.
-        const article = await this.articlerepo.findOne({id});
-        const cmt = new Comment();
-        cmt.commentor = dto.commentor;
-        cmt.comment = dto.comment;
-        cmt.article = article;
-        await this.cmtrepo.save(cmt);
+  async createComment(
+    userId: number,
+    articleId: number,
+    dto: CreateCommentDto,
+  ): Promise<void> {
+    const article = await this.articleRepository.findArticleById(articleId);
+    if (!article) throw new HttpException('존재하지 않는 article입니다', 404);
+    await this.commentRepository.createComment(userId, articleId, dto);
+  }
 
-        return "success"
-    }
+  async updateComment(
+    userId: number,
+    commentId: number,
+    dto: CreateCommentDto,
+  ): Promise<void> {
+    const comment = await this.commentRepository.findOne({ id: commentId });
+    if (!comment) throw new HttpException('존재하지 않는 comment입니다', 404);
+    if (comment.fk_user_id !== userId)
+      throw new HttpException('당신의 comment가 아닙니다.', 401);
+    await this.commentRepository.updateComment(commentId, dto);
+  }
 
-    async update(id: number, dto: CommentArticleDto) {
-        await this.cmtrepo.upcomment(id, dto);
-        return;
-      }
-
-    async remove(id: number){
-        await this.cmtrepo.delete({ id: id });
-        return `success`;
-    }
+  async deleteComment(userId: number, commentId: number): Promise<void> {
+    const comment = await this.commentRepository.findOne({ id: commentId });
+    if (!comment) throw new HttpException('존재하지 않는 comment입니다', 404);
+    if (comment.fk_user_id !== userId)
+      throw new HttpException('당신의 comment가 아닙니다.', 401);
+    await this.commentRepository.deleteComment(commentId);
+  }
 }
-
-// async addComment(slug: string, commentData): Promise<ArticleRO> {
-//     let article = await this.articleRepository.findOne({slug});
-
-//     const comment = new Comment();
-//     comment.body = commentData.body;
-
-//     article.comments.push(comment);
-
-//     await this.commentRepository.save(comment);
-//     article = await this.articleRepository.save(article);
-//     return {article}
-//   }

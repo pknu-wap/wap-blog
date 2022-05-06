@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
-import { IAuthor } from '../../interfaces/author.interface';
+import { IUser } from '../../interfaces/user.interface';
 
 const ArticleWriterAndUpdatedAtContainer = tw.div`
 flex
@@ -21,12 +21,12 @@ const ArticleUpdatedAt = tw(ArticleUpdatedAtColor)`
 text-xs
 `;
 interface IWriterAndUpdatedAt {
-  writer: IAuthor;
+  user: IUser;
   updatedAt: string;
 }
 
 const ArticleWriterAndUpdatedAt = ({
-  writer,
+  user,
   updatedAt,
 }: IWriterAndUpdatedAt) => {
   const [articleUpdatedAt, setArticleUpdatedAt] = useState<string>();
@@ -47,7 +47,7 @@ const ArticleWriterAndUpdatedAt = ({
   return (
     <>
       <ArticleWriterAndUpdatedAtContainer>
-        <ArticleWriter>{writer}</ArticleWriter>
+        <ArticleWriter>{user.username}</ArticleWriter>
         <ArticleUpdatedAt>{articleUpdatedAt}</ArticleUpdatedAt>
       </ArticleWriterAndUpdatedAtContainer>
     </>

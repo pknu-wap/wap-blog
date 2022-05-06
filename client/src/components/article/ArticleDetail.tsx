@@ -49,20 +49,20 @@ const ArticleDetail = () => {
   );
   useEffect(() => {
     setTagList(
-      articleDetailData?.tag
-        .split(',')
-        .map(tag =>
-          tag.trim().charAt(0) === '#' ? tag.trim() : `#${tag.trim()}`,
-        ),
+      articleDetailData?.tagList.map(tag =>
+        tag.name.trim().charAt(0) === '#'
+          ? tag.name.trim()
+          : `#${tag.name.trim()}`,
+      ),
     ); //태그 배열에 넣음
-  }, [articleDetailData?.tag]);
+  }, [articleDetailData?.tagList]);
   return (
     <ArticleContainer>
       <ArticleHeader>
         <ArticleTitle>{articleDetailData?.title}</ArticleTitle>
         <ArticleWriterAndUpdatedAt
-          writer={articleDetailData?.writer!}
-          updatedAt={articleDetailData?.updateddAt + ''}
+          user={articleDetailData?.user!}
+          updatedAt={articleDetailData?.updatedAt + ''}
         />
       </ArticleHeader>
       <ArticleTags>

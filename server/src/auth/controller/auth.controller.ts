@@ -11,7 +11,6 @@ import { AuthService, GithubService, GoogleService } from '@/auth/service';
 import { SignupRequestDto, SigninRequestDto } from '@/auth/dto';
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
-import { google } from 'googleapis';
 import { Public, GetCurrentUserId } from '@/common/decorator';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -28,7 +27,7 @@ export class AuthController {
   @Public()
   @Post('/signup/local')
   async signupLocal(@Body() body: SignupRequestDto): Promise<void> {
-    this.authService.signupLocal(body);
+    await this.authService.signupLocal(body);
   }
 
   @Public()
@@ -39,7 +38,6 @@ export class AuthController {
   ) {
     const { tokens, user } = await this.authService.signinLocal(body);
     this.authService.setTokenCookie(res, tokens);
-    //TODO: 이거 password빼고 직렬화? 해야할 듯
     return user;
   }
 
@@ -69,22 +67,8 @@ export class AuthController {
   @Get('/signin/google')
   async signinGoogle(@Res({ passthrough: true }) res: Response): Promise<void> {
     const GOOGLE_ID = this.configService.get('auth.google.id');
-    const GOOGLE_SECRET = this.configService.get('auth.google.secret');
     const REDIRECT_URI = this.configService.get('auth.google.redirect');
-
-    const oauth2Client = new google.auth.OAuth2(
-      GOOGLE_ID,
-      GOOGLE_SECRET,
-      REDIRECT_URI,
-    );
-
-    const url = oauth2Client.generateAuthUrl({
-      scope: [
-        'https://www.googleapis.com/auth/userinfo.email',
-        'https://www.googleapis.com/auth/userinfo.profile',
-      ],
-      //TODO: 여기 state를 넣을 지 말 지 모르겠음
-    });
+    const url = `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${REDIRECT_URI}&client_id=${GOOGLE_ID}&response_type=code&include_granted_scopes=true&scope=profile`;
     res.redirect(encodeURI(url));
   }
 
@@ -102,7 +86,7 @@ export class AuthController {
   @Delete('/logout')
   async logout(
     @Res({ passthrough: true }) res: Response,
-    @GetCurrentUserId() userId: string,
+    @GetCurrentUserId() userId: number,
   ): Promise<void> {
     await this.authService.logout(userId);
     this.authService.clearTokenCookie(res);
