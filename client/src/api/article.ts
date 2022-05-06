@@ -10,6 +10,15 @@ const ArticleAPI = {
     const response = await client.get(`/article/${id}`);
     return response.data;
   },
+  getUserArticleByTag: async (
+    username: string,
+    tag: string,
+  ): Promise<IArticle> => {
+    const response = await client.get(`/article/user/${username}`, {
+      params: tag,
+    });
+    return response.data;
+  },
   create: async (article: IArticleRequest): Promise<IArticle> => {
     const response = await client.post(`/article`, article);
     return response.data;
