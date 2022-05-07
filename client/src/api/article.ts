@@ -12,10 +12,10 @@ const ArticleAPI = {
   },
   getUserArticleByTag: async (
     username: string,
-    tag?: string,
-  ): Promise<IArticle> => {
+    tag: string | null,
+  ): Promise<IArticle[]> => {
     const response = await client.get(`/article/user/${username}`, {
-      params: tag,
+      params: { tag },
     });
     return response.data;
   },

@@ -8,7 +8,5 @@
   },
   "author": "neko113 <alstn113@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "immer": "^9.0.12"
-  }
+  "dependencies": {}
 }
