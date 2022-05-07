@@ -6,6 +6,7 @@ import tw from 'tailwind-styled-components';
 import ArticleAPI from '../api/article';
 import ArticleWriterAndUpdatedAt from '../components/article/ArticleWriterAndUpdatedAt';
 import LoadingSpinner from '../components/common/LoadingSpinner';
+import TagList from '../components/TagList';
 
 const ArticleContainer = tw.div`
 w-full 
@@ -48,6 +49,7 @@ const BlogPage = () => {
   );
   return (
     <>
+      <TagList />
       <Suspense fallback={<LoadingSpinner />}>
         <ArticleContainer>
           <Articles>

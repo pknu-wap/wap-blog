@@ -7,6 +7,7 @@ export const lightMode: DefaultTheme = {
   bgColor: 'white',
   navBgColor: 'green',
   bannerColor: '#FFEF82',
+  borderColor: `black`,
 };
 //darkMode 예정
 export const darkMode: DefaultTheme = {
@@ -16,4 +17,5 @@ export const darkMode: DefaultTheme = {
   bgColor: '#2f3640',
   navBgColor: '#FFEF82',
   bannerColor: 'green',
+  borderColor: 'ghostwhite',
 };
