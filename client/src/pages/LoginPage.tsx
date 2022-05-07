@@ -26,7 +26,7 @@ interface IFormInputs {
   password: string;
 }
 
-const Login = () => {
+const LoginPage = () => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm<IFormInputs>();
   const { setUser } = useStore();
@@ -64,4 +64,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

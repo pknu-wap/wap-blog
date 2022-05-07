@@ -25,7 +25,7 @@ interface IFormInputs {
   password: string;
 }
 
-const Register = () => {
+const RegisterPage = () => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm<IFormInputs>();
 
@@ -54,4 +54,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterPage;

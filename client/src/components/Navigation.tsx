@@ -40,8 +40,8 @@ const Navigation = () => {
           {user ? (
             <NavItemsNotHome>
               <button onClick={onLogout}>{user.username}로그아웃</button>
-              <Link to="/profile">
-                <NavItem>프로필</NavItem>
+              <Link to="/setting">
+                <NavItem>설정</NavItem>
               </Link>
             </NavItemsNotHome>
           ) : (
