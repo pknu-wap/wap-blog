@@ -1,5 +1,9 @@
+import { useQuery, UseQueryResult } from 'react-query';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
+import TagAPI from '../api/tag';
+import { IUserTagsResponse } from '../interfaces/tag.interface';
 
 const TagListContainerColor = styled.div`
   border-color: ${props => props.theme.borderColor};
@@ -43,19 +47,36 @@ const TagItemName = tw.span``;
 
 const TagItemCount = tw.span``;
 
-const TagList = () => {
-  const testTag = ['cool', 'good', 'bye', 'hi', 'hello'];
+interface TagListProps {
+  username: string;
+}
+
+const TagList = ({ username }: TagListProps) => {
+  const { data }: UseQueryResult<IUserTagsResponse, Error> = useQuery(
+    ['tags', username],
+    () => TagAPI.getUserTags(username),
+  );
   return (
     <>
       <TagListContainer>
-        <TagListTitle>태그 목록 (5)</TagListTitle>
+        <TagListTitle>태그 목록</TagListTitle>
         <TagItemList>
-          {testTag.map(tag => (
-            <TagItemContainer key={+tag}>
-              <TagItemName>{tag}</TagItemName>
-              <TagItemCount>(1)</TagItemCount>
-            </TagItemContainer>
-          ))}
+          <TagItemContainer>
+            <div>
+              <Link to={`/@${username}`}>
+                <TagItemName>전체보기</TagItemName>
+                <TagItemCount>({data?.allCount})</TagItemCount>
+              </Link>
+            </div>
+            {data?.tagList.map(tag => (
+              <div key={tag.id}>
+                <Link to={`/@${username}?tag=${tag.name}`}>
+                  <TagItemName>{tag.name}</TagItemName>
+                  <TagItemCount>({tag.articles_count})</TagItemCount>
+                </Link>
+              </div>
+            ))}
+          </TagItemContainer>
         </TagItemList>
       </TagListContainer>
     </>
