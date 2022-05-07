@@ -8,5 +8,6 @@ declare module 'styled-components' {
     bgColor: string;
     navBgColor: string;
     bannerColor: string;
+    borderColor: string;
   }
 }
