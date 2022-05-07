@@ -1,14 +1,25 @@
 import create from 'zustand';
 import { IUser } from '../interfaces/user.interface';
 
-//TODO: 폴더 이름 바꾸고 분리할까 고민 중
 interface CoreState {
   user: IUser | null;
   setUser: (user: IUser | null) => void;
+
+  authModal: {
+    visible: boolean;
+  };
+  openAuthModal: () => void;
+  closeAuthModal: () => void;
 }
+
 export const useStore = create<CoreState>((set: Function) => ({
   user: null,
-  setUser: async user => {
+  authModal: {
+    visible: false,
+  },
+  setUser: user => {
     set({ user });
   },
+  openAuthModal: () => {},
+  closeAuthModal: () => {},
 }));

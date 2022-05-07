@@ -3,10 +3,6 @@ import { useQuery } from 'react-query';
 import UserAPI from '../../api/user';
 import { useStore } from '../../store/store';
 
-// interface Props {
-//   children: React.ReactNode;
-// }
-
 const AuthProvider = () => {
   const { setUser } = useStore();
   const getCurrentUser = useQuery('getCurrentUser', UserAPI.getCurrentUser);
