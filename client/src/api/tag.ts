@@ -6,5 +6,9 @@ const TagAPI = {
     const response = await client.get('/tag');
     return response.data;
   },
+  getUserTags: async (username: string) => {
+    const response = await client.get(`/tag/${username}`);
+    return response.data;
+  },
 };
 export default TagAPI;
