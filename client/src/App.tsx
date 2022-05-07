@@ -1,6 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 import Navigation from './components/Navigation';
+import Core from './components/Core';
+
 import ArticleDetailPage from './pages/ArticlePage';
+
 import HomePage from './pages/HomePage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
@@ -32,6 +35,7 @@ function App() {
         {/* catch all */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <Core />
     </>
   );
 }
