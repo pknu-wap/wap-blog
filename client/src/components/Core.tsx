@@ -6,8 +6,11 @@ const Core = () => {
   AuthProvider();
   return (
     <>
-      <GlobalStyle />
-      {/* <AuthModalContainer /> */}
+      {
+        <GlobalStyle />
+
+        /* <AuthModalContainer /> */
+      }
     </>
   );
 };
