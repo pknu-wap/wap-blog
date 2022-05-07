@@ -36,7 +36,6 @@ font-light
 
 const ArticleList = () => {
   const { data: articleListData } = useQuery('articleList', ArticleAPI.getAll);
-  console.log(articleListData);
   return (
     <>
       <ArticleContainer>

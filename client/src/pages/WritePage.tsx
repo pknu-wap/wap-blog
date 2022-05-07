@@ -28,13 +28,12 @@ interface IFormInputs {
   tagList?: string[];
 }
 const WritePage = () => {
-  const { register, watch, handleSubmit } = useForm<IFormInputs>();
+  const { register, handleSubmit } = useForm<IFormInputs>();
   const navigate = useNavigate();
   const onSubmit = async (input: IFormInputs) => {
     await ArticleAPI.create({ ...input, tagList: ['gg'] });
     navigate('/');
   };
-  console.log(watch());
   return (
     <WriteContainer>
       <WriteForm onSubmit={handleSubmit(onSubmit)}>

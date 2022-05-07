@@ -42,7 +42,6 @@ const BlogPage = () => {
   const { username } = useParams();
   const [search] = useSearchParams();
   const tag = search.get('tag');
-  console.log(tag);
 
   const { data: articleListData } = useQuery(['articleList', username], () =>
     ArticleAPI.getUserArticleByTag(username!, tag),

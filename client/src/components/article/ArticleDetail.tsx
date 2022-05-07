@@ -1,10 +1,11 @@
 import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ArticleAPI from '../../api/article';
 import tw from 'tailwind-styled-components';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ArticleWriterAndUpdatedAt from './ArticleWriterAndUpdatedAt';
+import { useStore } from '../../store/store';
 
 const ArticleContainer = tw.div`
 w-full
@@ -40,13 +41,18 @@ h-screen
 `;
 const ArticleBody = tw.p``;
 
+const ArticleDeleteBtn = styled.button``;
+
 const ArticleDetail = () => {
+  const { user } = useStore();
   const { articleId } = useParams();
   const [tagList, setTagList] = useState<string[]>();
   const { data: articleDetailData } = useQuery(
     ['article', `${articleId}`],
     () => ArticleAPI.getById(+articleId!),
   );
+  const navigate = useNavigate();
+
   useEffect(() => {
     setTagList(
       articleDetailData?.tagList.map(tag =>
@@ -56,10 +62,18 @@ const ArticleDetail = () => {
       ),
     ); //태그 배열에 넣음
   }, [articleDetailData?.tagList]);
+  const onDelete = async () => {
+    await ArticleAPI.delete(+articleId!);
+    navigate('/');
+  };
+
   return (
     <ArticleContainer>
       <ArticleHeader>
         <ArticleTitle>{articleDetailData?.title}</ArticleTitle>
+        {articleDetailData?.user.id === user?.id ? (
+          <ArticleDeleteBtn onClick={onDelete}>삭제</ArticleDeleteBtn>
+        ) : null}
         <ArticleWriterAndUpdatedAt
           user={articleDetailData?.user!}
           updatedAt={articleDetailData?.updatedAt + ''}
