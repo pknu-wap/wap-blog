@@ -30,6 +30,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	line-height: 1;
   color: ${props => props.theme.textColor};
+  background-color:${props => props.theme.bgColor};
 	height: 200vh;
 }
 a{
@@ -38,7 +39,7 @@ a{
 	:hover{
 		color: ${props => props.theme.accentColor}
 	}
-	background-color: ${props => props.theme.bgColor}
+	
 }
 *{
 	box-sizing:border-box;
