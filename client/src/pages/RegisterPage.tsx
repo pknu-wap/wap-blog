@@ -1,7 +1,8 @@
-import { Helmet } from 'react-helmet';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
+import AuthAPI from '../api/auth';
 
 const RegisterForm = tw.form`
 border-2
@@ -18,26 +19,32 @@ border-solid
 
 const RegisterBtn = styled.button``;
 
-const Register = () => {
-  const { register, watch, handleSubmit } = useForm();
+interface IFormInputs {
+  email: string;
+  username: string;
+  password: string;
+}
 
-  const onRegister = () => {};
+const RegisterPage = () => {
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm<IFormInputs>();
 
-  console.log(watch());
+  const onRegister = async (input: IFormInputs) => {
+    await AuthAPI.signup(input);
+    navigate('/login');
+  };
+
   return (
     <>
-      {/* <Helmet>
-        <title>회원가입</title>
-      </Helmet> */}
       <RegisterForm onSubmit={handleSubmit(onRegister)}>
         <RegisterInput
-          {...register('이메일')}
+          {...register('email')}
           type="email"
           placeholder="이메일"
         />
-        <RegisterInput {...register('닉네임')} placeholder="닉네임" />
+        <RegisterInput {...register('username')} placeholder="닉네임" />
         <RegisterInput
-          {...register('비밀번호')}
+          {...register('password')}
           type="password"
           placeholder="비밀번호"
         />
@@ -47,4 +54,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterPage;

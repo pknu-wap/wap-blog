@@ -2,13 +2,16 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   CreateDateColumn,
-  DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Comment } from './comment.entity'
+import { Comment, Tag } from '@/article/entity';
+import { User } from '@/user/entity';
 
 @Entity()
 export class Article {
@@ -18,25 +21,19 @@ export class Article {
 
   @ApiProperty()
   @Column()
-  writer: string;
-
-  @ApiProperty()
-  @Column()
-  tag: string;
-
-  @ApiProperty()
-  @Column()
   title: string;
 
   @ApiProperty()
-  @Column({
-    default: null
-  })
-  subtitle: string;
+  @Column()
+  description: string;
+
+  @ApiProperty()
+  @Column('text')
+  body: string;
 
   @ApiProperty()
   @Column()
-  body: string;
+  fk_user_id: number;
 
   @ApiProperty()
   @CreateDateColumn()
@@ -44,12 +41,21 @@ export class Article {
 
   @ApiProperty()
   @UpdateDateColumn()
-  updateddAt: Date;
+  updatedAt: Date;
 
   @ApiProperty()
-  @DeleteDateColumn()
-  deletedAt: Date;
+  @ManyToOne(() => User, user => user.articles, {
+    onDelete: 'CASCADE',
+    eager: true,
+  })
+  @JoinColumn({ name: 'fk_user_id' })
+  user: User;
 
-  @OneToMany(() => Comment, (comment) => comment.article)
-  comments : Comment[];
+  @ApiProperty()
+  @OneToMany(() => Comment, comment => comment.article, { eager: true })
+  comments: Comment[];
+
+  @ApiProperty()
+  @ManyToMany(() => Tag, tag => tag.article, { eager: true })
+  tagList: Tag[];
 }

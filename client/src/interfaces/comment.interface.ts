@@ -1,12 +1,13 @@
+import { IUser } from './user.interface';
+
 export interface IComment {
   id: number;
   body: string;
-  author: string;
-  createdAt: number;
-  updatedAt: number;
+  user: IUser;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface ICommentRequest {
-  author: string;
   body: string;
 }

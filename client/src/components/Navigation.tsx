@@ -10,6 +10,8 @@ const NavColor = styled.nav`
 const Nav = tw(NavColor)`
 p-5
 w-full
+fixed
+top-0
 `;
 const NavItems = tw.ul`
 flex
@@ -38,8 +40,8 @@ const Navigation = () => {
           {user ? (
             <NavItemsNotHome>
               <button onClick={onLogout}>{user.username}로그아웃</button>
-              <Link to="/profile">
-                <NavItem>프로필</NavItem>
+              <Link to="/setting">
+                <NavItem>설정</NavItem>
               </Link>
             </NavItemsNotHome>
           ) : (

@@ -1,21 +1,22 @@
-import { IAuthor } from './author.interface';
+import { IComment } from './comment.interface';
+import { ITag } from './tag.interface';
+import { IUser } from './user.interface';
 
 export interface IArticle {
   id: number;
-  writer: IAuthor;
+  user: IUser;
   title: string;
   description: string;
   body: string;
-  createdAt: number;
-  updateddAt: number;
-  deletedAt: number;
+  comments: IComment[];
+  tagList: ITag[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface IArticleRequest {
-  article: {
-    title: string;
-    description: string;
-    body: string;
-    tagList: string[];
-  };
+  title: string;
+  description: string;
+  body: string;
+  tagList: ITag[];
 }

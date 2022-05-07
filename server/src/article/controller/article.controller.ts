@@ -8,11 +8,11 @@ import {
   Delete,
   Query,
 } from '@nestjs/common';
-import { ArticleService } from '../service/article.service';
-import { CreateArticleDto } from '../dto/create-article.dto';
-import { UpdateArticleDto } from '../dto/update-article.dto';
+import { ArticleService } from '@/article/service';
+import { CreateArticleDto, UpdateArticleDto } from '@/article/dto';
 import { ApiTags } from '@nestjs/swagger';
-import { Public } from '@/common/decorator';
+import { GetCurrentUserId, Public } from '@/common/decorator';
+import { Article } from '@/article/entity';
 
 @ApiTags('article')
 @Controller('/article')
@@ -21,49 +21,51 @@ export class ArticleController {
 
   @Public()
   @Get('/')
-  allarticle() {
-    return this.articleService.allarticle();
+  getAllArticles(): Promise<Article[]> {
+    return this.articleService.getAllArticles();
   }
 
-  // /:id
-  // /test 순으로 배치하면 에러남
-  // 같은 Get에서 저렇게하면 test도 id로 받아들인다는 듯
-  // 라우터 순서 주의하자
   @Public()
   @Get('/:id')
-  async article(@Param('id') id: number) {
-    return this.articleService.article(+id);
+  async getArticleById(@Param('id') articleId: number): Promise<Article> {
+    return this.articleService.getArticleById(articleId);
   }
 
   @Public()
-  @Get('/tag/:tag')
-  async articletag(@Param('tag') tag: string){
-    return this.articleService.articletag(tag);
+  @Get('/user/:username')
+  getArticles(
+    @Param('username') username: string,
+    @Query('tag') tag?: string,
+  ): Promise<Article[]> {
+    return this.articleService.getArticles(username, tag);
   }
 
-  @Public()
-  @Get('/user/:user')
-  async articleUser(@Param('user') user: string){
-    return this.articleService.articleUser(user);
+  @Post('/')
+  async createArticle(
+    @GetCurrentUserId() userId: number,
+    @Body() body: CreateArticleDto,
+  ): Promise<void> {
+    await this.articleService.createArticle(userId, body);
   }
 
-  @Post('/create')
-  async create(@Body() body: CreateArticleDto) {
-    return this.articleService.create(body);
+  @Patch('/:id')
+  async updateArticle(
+    @GetCurrentUserId() userId: number,
+    @Param('id') articleId: number,
+    @Body() updateArticleDto: UpdateArticleDto,
+  ): Promise<void> {
+    await this.articleService.updateArticle(
+      userId,
+      articleId,
+      updateArticleDto,
+    );
   }
 
-  @Patch('/update:id')
-  update(@Param('id') id: number, @Body() updateArticleDto: UpdateArticleDto) {
-    return this.articleService.update(+id, updateArticleDto);
-  }
-
-  @Delete('/delete:id')
-  remove(@Param('id') id: number) {
-    return this.articleService.remove(+id);
-  }
-
-  @Patch('/restore:id')
-  restore(@Param('id') id: number) {
-    return this.articleService.restore(+id);
+  @Delete('/:id')
+  async deleteArticle(
+    @GetCurrentUserId() userId: number,
+    @Param('id') articleId: number,
+  ): Promise<void> {
+    await this.articleService.deleteArticle(userId, articleId);
   }
 }

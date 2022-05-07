@@ -7,10 +7,11 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { CommentService } from '../service';
-import { CommentArticleDto } from '../dto';
+import { CommentService } from '@/article/service';
+import { CreateCommentDto } from '@/article/dto';
+import { GetCurrentUserId, Public } from '@/common/decorator';
+import { Comment } from '@/article/entity';
 import { ApiTags } from '@nestjs/swagger';
-import { Public } from '@/common/decorator';
 
 @ApiTags('comment')
 @Controller('/comment')
@@ -18,26 +19,36 @@ export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @Public()
-  @Get('/:id')
-  async commentbyId(@Param('id') id: number) {
-    return this.commentService.cmtbyId(id);
+  @Get('/:articleId')
+  async getCommentsByArticleId(
+    @Param('articleId') articleId: number,
+  ): Promise<Comment[]> {
+    return this.commentService.getCommentsByArticleId(articleId);
   }
 
-  @Post('/write:id')
-  async comment_article(
-    @Body() comment: CommentArticleDto,
-    @Param('id') id: number,
-  ) {
-    return this.commentService.cmtarticle(comment, id);
+  @Post('/:articleId')
+  async createComment(
+    @GetCurrentUserId() userId: number,
+    @Param('articleId') articleId: number,
+    @Body() comment: CreateCommentDto,
+  ): Promise<void> {
+    await this.commentService.createComment(userId, articleId, comment);
   }
 
-  @Patch('/update:id')
-  update(@Param('id') id: number, @Body() commentdto: CommentArticleDto) {
-    return this.commentService.update(+id, commentdto);
+  @Patch('/:id')
+  async updateComment(
+    @GetCurrentUserId() userId: number,
+    @Param('id') commentId: number,
+    @Body() commentdto: CreateCommentDto,
+  ): Promise<void> {
+    await this.commentService.updateComment(userId, commentId, commentdto);
   }
 
-  @Delete('/delete:id')
-  remove(@Param('id') id: number) {
-    return this.commentService.remove(+id);
+  @Delete('/:id')
+  async deleteComment(
+    @GetCurrentUserId() userId: number,
+    @Param('id') commentId: number,
+  ): Promise<void> {
+    await this.commentService.deleteComment(userId, commentId);
   }
 }
