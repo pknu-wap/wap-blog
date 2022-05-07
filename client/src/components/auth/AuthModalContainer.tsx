@@ -1,3 +1,4 @@
+import { useStore } from '../../store/store';
 import AuthForm from './AuthForm';
 import AuthModal from './AuthModal';
 
@@ -6,9 +7,9 @@ interface AuthModalContainerProps {
 }
 
 const AuthModalContainer = ({ visible }: AuthModalContainerProps) => {
-  const onClose = () => {};
+  const { closeAuthModal } = useStore();
   return (
-    <AuthModal visible={visible} onClose={onClose}>
+    <AuthModal visible={visible} onClose={closeAuthModal}>
       <AuthForm />
     </AuthModal>
   );

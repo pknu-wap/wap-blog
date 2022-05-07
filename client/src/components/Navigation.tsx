@@ -37,23 +37,25 @@ const Navigation = () => {
           <Link to="/">
             <NavItem>홈</NavItem>
           </Link>
-          {user ? (
-            <NavItemsNotHome>
-              <button onClick={onLogout}>{user.username}로그아웃</button>
-              <Link to="/setting">
-                <NavItem>설정</NavItem>
-              </Link>
-            </NavItemsNotHome>
-          ) : (
-            <NavItemsNotHome>
-              <Link to="/login">
-                <NavItem>로그인</NavItem>
-              </Link>
-              <Link to="/register">
-                <NavItem>회원가입</NavItem>
-              </Link>
-            </NavItemsNotHome>
-          )}
+          <NavItemsNotHome>
+            {user ? (
+              <>
+                <button onClick={onLogout}>{user.username}로그아웃</button>
+                <Link to="/setting">
+                  <NavItem>설정</NavItem>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/login">
+                  <NavItem>로그인</NavItem>
+                </Link>
+                <Link to="/register">
+                  <NavItem>회원가입</NavItem>
+                </Link>
+              </>
+            )}
+          </NavItemsNotHome>
         </NavItems>
       </Nav>
     </>

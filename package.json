@@ -7,5 +7,8 @@
     "start": "concurrently \"cd server && yarn start:dev\" \"cd client && yarn start\""
   },
   "author": "neko113 <alstn113@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "immer": "^9.0.12"
+  }
 }
