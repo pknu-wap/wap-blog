@@ -9,19 +9,23 @@ interface CoreState {
   };
   openAuthModal: () => void;
   closeAuthModal: () => void;
+
+  isDark: boolean;
+  setIsDark: (isDark: boolean) => void;
 }
 
 export const useStore = create<CoreState>(set => ({
   user: null,
-  authModal: {
-    visible: false,
-  },
   setUser: user =>
     set(
       produce(draft => {
         draft.user = user;
       }),
     ),
+
+  authModal: {
+    visible: false,
+  },
   openAuthModal: () =>
     set(
       produce(draft => {
@@ -34,4 +38,7 @@ export const useStore = create<CoreState>(set => ({
         draft.authModal.visible = false;
       }),
     ),
+
+  isDark: false,
+  setIsDark: () => set(state => ({ isDark: !state.isDark })),
 }));

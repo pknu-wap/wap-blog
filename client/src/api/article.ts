@@ -19,9 +19,8 @@ const ArticleAPI = {
     });
     return response.data;
   },
-  create: async (article: IArticleRequest): Promise<IArticle> => {
-    const response = await client.post(`/article`, article);
-    return response.data;
+  create: async (article: IArticleRequest): Promise<void> => {
+    await client.post(`/article`, article);
   },
   delete: async (id: number): Promise<void> => {
     await client.delete(`/article/${id}`);

@@ -18,5 +18,5 @@ export interface IArticleRequest {
   title: string;
   description: string;
   body: string;
-  tagList: ITag[];
+  tagList?: string[];
 }
