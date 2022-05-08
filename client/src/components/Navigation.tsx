@@ -4,6 +4,9 @@ import tw from 'tailwind-styled-components';
 import useHeader from '../hooks/useHeader';
 import DarkModeToggle from 'react-dark-mode-toggle';
 import { useStore } from '../store/store';
+import useToggle from '../hooks/useToggle';
+import React, { useRef } from 'react';
+import UserMenu from './UserMenu';
 
 const NavColor = styled.nav`
   background-color: ${props => props.theme.navBgColor};
@@ -33,6 +36,15 @@ const NavItem = tw(NavItemColor)`
 
 const Navigation = () => {
   const { user, onLoginClick, onLogout } = useHeader();
+  const [userMenu, toggleUserMenu] = useToggle(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  const onOutsideClick = (e: React.MouseEvent) => {
+    if (!ref.current?.contains(e.target as any)) {
+      toggleUserMenu();
+    }
+  };
+
   const { isDark, setIsDark } = useStore();
   return (
     <>
@@ -46,12 +58,17 @@ const Navigation = () => {
             {user ? (
               <>
                 <Link to="/write">
-                  <NavItem>업로드</NavItem>
+                  <NavItem>글쓰기</NavItem>
                 </Link>
-                <button onClick={onLogout}>{user.username}로그아웃</button>
-                <Link to="/setting">
-                  <NavItem>설정</NavItem>
-                </Link>
+                <div ref={ref}>
+                  <button onClick={toggleUserMenu}>{user.username}</button>
+                </div>
+                <UserMenu
+                  visible={userMenu}
+                  username={user.username}
+                  onClose={onOutsideClick}
+                  onLogout={onLogout}
+                />
               </>
             ) : (
               <>
