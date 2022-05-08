@@ -5,7 +5,7 @@ import { CreateArticleDto, UpdateArticleDto } from '@/article/dto';
 @EntityRepository(Article)
 export class ArticleRepository extends Repository<Article> {
   async findAllArticles(): Promise<Article[]> {
-    return await this.find();
+    return await this.find({ order: { createdAt: 'DESC' } });
   }
 
   async findArticles(user, tag): Promise<Article[]> {
@@ -17,7 +17,7 @@ export class ArticleRepository extends Repository<Article> {
     if (tag) {
       article.andWhere('tag.name = :name', { name: tag });
     }
-    return await article.getMany();
+    return await article.orderBy('article.createdAt', 'DESC').getMany();
   }
 
   async findArticleById(id: number): Promise<Article> {

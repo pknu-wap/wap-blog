@@ -1,12 +1,13 @@
 import { useQuery } from 'react-query';
-import styled from 'styled-components';
-import ArticleAPI from '../../api/article';
-import tw from 'tailwind-styled-components';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import tw from 'tailwind-styled-components';
+import ArticleAPI from '../../api/article';
 import ArticleWriterAndUpdatedAt from './ArticleWriterAndUpdatedAt';
 
 const ArticleContainer = tw.div`
 w-full 
+mt-[100px]
 `;
 
 const Articles = tw.ul`
@@ -34,10 +35,18 @@ text-lg
 font-light
 `;
 
-const ArticleList = () => {
-  const { data: articleListData } = useQuery('articleList', ArticleAPI.getAll);
+interface ArticleList2Props {
+  username: string;
+  tag?: string;
+}
+
+const ArticleList2 = ({ username, tag }: ArticleList2Props) => {
+  const { data: articleListData } = useQuery(
+    ['articleList', username, tag],
+    () => ArticleAPI.getUserArticleByTag(username!, tag!),
+  );
   return (
-    <>
+    <div>
       <ArticleContainer>
         <Articles>
           {articleListData?.map(article => (
@@ -54,7 +63,8 @@ const ArticleList = () => {
           ))}
         </Articles>
       </ArticleContainer>
-    </>
+    </div>
   );
 };
-export default ArticleList;
+
+export default ArticleList2;

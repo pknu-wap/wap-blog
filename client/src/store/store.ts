@@ -1,14 +1,44 @@
 import create from 'zustand';
 import { IUser } from '../interfaces/user.interface';
-
-//TODO: 폴더 이름 바꾸고 분리할까 고민 중
+import produce from 'immer';
 interface CoreState {
   user: IUser | null;
-  setUser: (user: IUser) => void;
+  setUser: (user: IUser | null) => void;
+  authModal: {
+    visible: boolean;
+  };
+  openAuthModal: () => void;
+  closeAuthModal: () => void;
+
+  isDark: boolean;
+  setIsDark: (isDark: boolean) => void;
 }
-export const useStore = create<CoreState>((set: Function) => ({
+
+export const useStore = create<CoreState>(set => ({
   user: null,
-  setUser: async (user: IUser) => {
-    set({ user });
+  setUser: user =>
+    set(
+      produce(draft => {
+        draft.user = user;
+      }),
+    ),
+
+  authModal: {
+    visible: false,
   },
+  openAuthModal: () =>
+    set(
+      produce(draft => {
+        draft.authModal.visible = true;
+      }),
+    ),
+  closeAuthModal: () =>
+    set(
+      produce(draft => {
+        draft.authModal.visible = false;
+      }),
+    ),
+
+  isDark: false,
+  setIsDark: () => set(state => ({ isDark: !state.isDark })),
 }));

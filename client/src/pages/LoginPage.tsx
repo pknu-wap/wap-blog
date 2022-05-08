@@ -12,6 +12,7 @@ border-solid
 mx-auto
 flex
 flex-col
+mt-20
 `;
 
 const LoginInput = tw.input`

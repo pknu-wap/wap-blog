@@ -5,7 +5,10 @@ import { CreateCommentDto } from '@/article/dto';
 @EntityRepository(Comment)
 export class CommentRepository extends Repository<Comment> {
   async findCommentsByArticleId(articleId: number): Promise<Comment[]> {
-    return await this.find({ fk_article_id: articleId });
+    return await this.find({
+      where: { fk_article_id: articleId },
+      order: { createdAt: 'DESC' },
+    });
   }
 
   async createComment(

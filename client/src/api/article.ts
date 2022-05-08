@@ -12,16 +12,15 @@ const ArticleAPI = {
   },
   getUserArticleByTag: async (
     username: string,
-    tag?: string,
-  ): Promise<IArticle> => {
+    tag: string | null,
+  ): Promise<IArticle[]> => {
     const response = await client.get(`/article/user/${username}`, {
-      params: tag,
+      params: { tag },
     });
     return response.data;
   },
-  create: async (article: IArticleRequest): Promise<IArticle> => {
-    const response = await client.post(`/article`, article);
-    return response.data;
+  create: async (article: IArticleRequest): Promise<void> => {
+    await client.post(`/article`, article);
   },
   delete: async (id: number): Promise<void> => {
     await client.delete(`/article/${id}`);
