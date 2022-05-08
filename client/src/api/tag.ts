@@ -1,4 +1,4 @@
-import { ITag } from '../interfaces/tag.interface';
+import { ITag, IUserTagsResponse } from '../interfaces/tag.interface';
 import client from '../utils/axios';
 
 const TagAPI = {
@@ -6,7 +6,7 @@ const TagAPI = {
     const response = await client.get('/tag');
     return response.data;
   },
-  getUserTags: async (username: string) => {
+  getUserTags: async (username: string): Promise<IUserTagsResponse> => {
     const response = await client.get(`/tag/${username}`);
     return response.data;
   },

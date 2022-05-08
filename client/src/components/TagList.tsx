@@ -1,9 +1,8 @@
-import { useQuery, UseQueryResult } from 'react-query';
+import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
 import TagAPI from '../api/tag';
-import { IUserTagsResponse } from '../interfaces/tag.interface';
 
 const TagListContainerColor = styled.div`
   border-color: ${props => props.theme.borderColor};
@@ -52,9 +51,8 @@ interface TagListProps {
 }
 
 const TagList = ({ username }: TagListProps) => {
-  const { data }: UseQueryResult<IUserTagsResponse, Error> = useQuery(
-    ['tags', username],
-    () => TagAPI.getUserTags(username),
+  const { data } = useQuery(['tags', username], () =>
+    TagAPI.getUserTags(username),
   );
   return (
     <>
