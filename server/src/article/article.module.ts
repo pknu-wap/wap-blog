@@ -4,14 +4,16 @@ import {
   ArticleController,
   CommentController,
   TagController,
+  ImageController
 } from '@/article/controller';
-import { CommentService, ArticleService, TagService } from '@/article/service';
+import { CommentService, ArticleService, TagService, ImageService } from '@/article/service';
 import {
   ArticleRepository,
   CommentRepository,
   TagRepository,
 } from '@/article/repository';
 import { UserRepository } from '@/user/repository';
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([
@@ -21,7 +23,7 @@ import { UserRepository } from '@/user/repository';
       UserRepository,
     ]),
   ],
-  controllers: [ArticleController, CommentController, TagController],
-  providers: [ArticleService, CommentService, TagService],
+  controllers: [ArticleController, CommentController, TagController, ImageController],
+  providers: [ArticleService, CommentService, TagService, ImageService],
 })
 export class ArticleModule {}
