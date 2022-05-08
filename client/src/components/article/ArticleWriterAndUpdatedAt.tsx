@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
 import { IUser } from '../../interfaces/user.interface';
@@ -47,7 +48,9 @@ const ArticleWriterAndUpdatedAt = ({
   return (
     <>
       <ArticleWriterAndUpdatedAtContainer>
-        <ArticleWriter>{user.username}</ArticleWriter>
+        <Link to={`/@${user.username}`}>
+          <ArticleWriter>{user.username}</ArticleWriter>
+        </Link>
         <ArticleUpdatedAt>{articleUpdatedAt}</ArticleUpdatedAt>
       </ArticleWriterAndUpdatedAtContainer>
     </>
