@@ -6,7 +6,7 @@ const useToggle = (initValue: boolean) => {
   const onToggle = useCallback(() => {
     setValue(!value);
   }, [value]);
-  return [value, onToggle];
+  return [value, onToggle] as [boolean, typeof onToggle];
 };
 
 export default useToggle;
