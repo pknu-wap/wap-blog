@@ -12,8 +12,8 @@ const CommentAPI = {
   ): Promise<void> => {
     await client.post(`/comment/${articleId}`, comment);
   },
-  delete: async (articleId: number, commentId: number): Promise<void> => {
-    await client.delete(`/article/${articleId}/comment/${commentId}`);
+  delete: async (commentId: number): Promise<void> => {
+    await client.delete(`/comment/${commentId}`);
   },
 };
 export default CommentAPI;
