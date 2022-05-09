@@ -9,15 +9,11 @@ const CommentAPI = {
   create: async (
     articleId: number,
     comment: ICommentRequest,
-  ): Promise<IComment> => {
-    const response = await client.post(
-      `/article/${articleId}/comment`,
-      comment,
-    );
-    return response.data;
+  ): Promise<void> => {
+    await client.post(`/comment/${articleId}`, comment);
   },
-  delete: async (articleId: number, commentId: number): Promise<void> => {
-    await client.delete(`/article/${articleId}/comment/${commentId}`);
+  delete: async (commentId: number): Promise<void> => {
+    await client.delete(`/comment/${commentId}`);
   },
 };
 export default CommentAPI;

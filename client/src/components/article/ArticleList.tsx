@@ -42,14 +42,14 @@ const ArticleList = () => {
         <Articles>
           {articleListData?.map(article => (
             <Article key={article.id}>
+              <ArticleWriterAndUpdatedAt
+                user={article.user}
+                updatedAt={article.updatedAt + ''}
+              />
               <Link key={article.id} to={article.id + ''}>
-                <ArticleWriterAndUpdatedAt
-                  user={article.user}
-                  updatedAt={article.updatedAt + ''}
-                />
                 <ArticleTitle>{article.title}</ArticleTitle>
-                <ArticleDescripton>{article.description}</ArticleDescripton>
               </Link>
+              <ArticleDescripton>{article.description}</ArticleDescripton>
             </Article>
           ))}
         </Articles>

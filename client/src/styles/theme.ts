@@ -5,9 +5,10 @@ export const lightMode: DefaultTheme = {
   accentColor: 'red',
   lightTextColor: 'gray',
   bgColor: 'white',
-  navBgColor: 'green',
+  navBgColor: '#F8F9FA',
   bannerColor: '#FFEF82',
-  borderColor: `black`,
+  borderColor: 'black',
+  errorMessageColor: 'red',
 };
 //darkMode 예정
 export const darkMode: DefaultTheme = {
@@ -16,6 +17,7 @@ export const darkMode: DefaultTheme = {
   lightTextColor: 'gray',
   bgColor: '#2f3640',
   navBgColor: '#FFEF82',
-  bannerColor: 'green',
+  bannerColor: '#d8f5a2',
   borderColor: 'ghostwhite',
+  errorMessageColor: 'red',
 };

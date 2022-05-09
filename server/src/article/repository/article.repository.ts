@@ -9,19 +9,25 @@ export class ArticleRepository extends Repository<Article> {
   }
 
   async findArticles(user, tag): Promise<Article[]> {
-    const article = this.createQueryBuilder('article')
+    const articles = this.createQueryBuilder('article')
       .leftJoinAndSelect('article.user', 'user')
-      .leftJoinAndSelect('article.comments', 'comments')
       .leftJoinAndSelect('article.tagList', 'tag')
       .where('article.fk_user_id = :id', { id: user.id });
     if (tag) {
-      article.andWhere('tag.name = :name', { name: tag });
+      articles.andWhere('tag.name = :name', { name: tag });
     }
-    return await article.orderBy('article.createdAt', 'DESC').getMany();
+    return await articles.orderBy('article.createdAt', 'DESC').getMany();
   }
 
   async findArticleById(id: number): Promise<Article> {
-    return await this.findOne({ id });
+    const article = this.createQueryBuilder('article')
+      .where('article.id = :id', { id })
+      .leftJoinAndSelect('article.user', 'user')
+      .leftJoinAndSelect('article.tagList', 'tag')
+      .leftJoinAndSelect('article.comments', 'comments')
+      .addOrderBy('comments.createdAt', 'DESC')
+      .leftJoinAndSelect('comments.user', 'comment_user');
+    return await article.getOne();
   }
 
   async createArticle(

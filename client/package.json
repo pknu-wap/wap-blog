@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@hookform/resolvers": "^2.8.8",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
@@ -25,6 +26,7 @@
     "tailwind-styled-components": "^2.1.6",
     "typescript": "^4.6.3",
     "web-vitals": "^2.1.4",
+    "yup": "^0.32.11",
     "zustand": "^3.7.2"
   },
   "scripts": {
