@@ -34,7 +34,6 @@ const CommentInput = ({ articleId }: CommentInputProps) => {
 
   return (
     <Card onSubmit={handleSubmit}>
-      <button onClick={() => mutation.mutate()}>refetch</button>
       <CardBlock>
         <textarea
           rows={3}
