@@ -1,4 +1,4 @@
-import { Controller, Post, Get, UploadedFiles, UseInterceptors, Res, Body } from '@nestjs/common';
+import { Controller, Post, Get, UploadedFiles, UseInterceptors, Res, Body, Param } from '@nestjs/common';
 import { Response } from 'express';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ImageService } from '../service/index'
@@ -7,6 +7,7 @@ import * as AWS from 'aws-sdk';
 import 'dotenv/config';
 import { Public } from '@/common/decorator';
 import { ApiTags } from '@nestjs/swagger';
+import { ImageDto } from '@/article/dto';
 
 const s3 = new AWS.S3()
 // AWS.config.update({
@@ -24,7 +25,7 @@ export class ImageController {
     private readonly imageService: ImageService
   ) {}
   
-  @Post('/upload')
+  @Post('/upload/:id')
   @UseInterceptors(FilesInterceptor('images', 5, {
     storage: multerS3({
       s3: s3,
@@ -44,15 +45,20 @@ export class ImageController {
       }
     }
   }))
-  async uploadImage(@UploadedFiles() files) {
-    // dto 만들어야할 듯
+  async uploadImage(@UploadedFiles() files, @Param('id') articleId: number) {
+    // files type 어떻게?
     let keys = []
     files.map((file) => keys.push(file.key))
-    return this.imageService.uploadImage(keys);
+    return this.imageService.uploadImage(articleId, keys);
   }
 
   @Get('/download')
-  async getImage(@Res() res: Response, @Body() body){
-    return this.imageService.getImage(res);
+  async getImage(@Res() res: Response, @Body() body: ImageDto){
+    return this.imageService.getImage(res, body.key);
+  }
+
+  @Get('/download/:id')
+  async getImageById(@Res() res: Response, @Param('id') articleId: number){
+    return this.imageService.getImageById(res, articleId);
   }
 }
