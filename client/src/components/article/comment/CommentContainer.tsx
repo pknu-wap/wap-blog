@@ -14,7 +14,7 @@ const CommentContainer = ({ articleId, comments }: CommentContainerProps) => {
   return (
     <CommentContainerBlock>
       {user && <CommentInput articleId={articleId} />}
-      <CommentList comments={comments} />
+      <CommentList comments={comments} articleId={articleId} />
     </CommentContainerBlock>
   );
 };
