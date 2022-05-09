@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
 
-const BannerColor = styled.span`
+const BannerColor = styled.div`
   background-color: ${props => props.theme.bannerColor};
 `;
 
@@ -10,7 +10,7 @@ flex
 justify-center
 items-center
 w-full
-py-16
+py-2
 bg-yellow-300
 text-white
 text-4xl
@@ -19,10 +19,18 @@ mb-8
 mt-10
 `;
 
+const BannerImg = tw.img`
+box-border
+h-[250px]
+pt-10
+`;
+
 const Banner = () => {
   return (
     <>
-      <BannerComponent>BANNER</BannerComponent>
+      <BannerComponent>
+        <BannerImg alt="WAPBannerImg" src="img/WAPImg.png" />
+      </BannerComponent>
     </>
   );
 };
