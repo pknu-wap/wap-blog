@@ -33,6 +33,9 @@ const NavItemColor = styled.li`
 const NavItem = tw(NavItemColor)`
   
 `;
+const HomeLogo = tw.img`
+h-[30px]
+`;
 
 const Navigation = () => {
   const { user, onLoginClick, onLogout } = useHeader();
@@ -51,7 +54,9 @@ const Navigation = () => {
       <Nav>
         <NavItems>
           <Link to="/">
-            <NavItem>홈</NavItem>
+            <NavItem>
+              <HomeLogo alt="WAPImg" src="img/WAPImg.png" />
+            </NavItem>
           </Link>
           <NavItemsNotHome>
             <DarkModeToggle onChange={setIsDark} checked={isDark} />
