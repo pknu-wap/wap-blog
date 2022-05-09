@@ -11,6 +11,7 @@ import {
   ArticleRepository,
   CommentRepository,
   TagRepository,
+  ImageRepository
 } from '@/article/repository';
 import { UserRepository } from '@/user/repository';
 
@@ -21,6 +22,7 @@ import { UserRepository } from '@/user/repository';
       CommentRepository,
       TagRepository,
       UserRepository,
+      ImageRepository
     ]),
   ],
   controllers: [ArticleController, CommentController, TagController, ImageController],

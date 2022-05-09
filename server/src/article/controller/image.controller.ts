@@ -1,4 +1,5 @@
-import { Controller, Post, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Controller, Post, Get, UploadedFiles, UseInterceptors, Res, Body } from '@nestjs/common';
+import { Response } from 'express';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ImageService } from '../service/index'
 import * as multerS3 from 'multer-s3';
@@ -36,13 +37,22 @@ export class ImageController {
     limits: {fileSize: 1024 * 1024 * 5},
     fileFilter: function(req, file, cb){
       if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg"){
+        file.originalname = file.originalname.toLowerCase()
         cb(null, true)
       } else{
         cb(new Error("There's something in the file that's not an image"), false)
       }
     }
   }))
-  async uploadImage(@UploadedFiles() files: Express.Multer.File) {
-    return this.imageService.uploadImage(files);
+  async uploadImage(@UploadedFiles() files) {
+    // dto 만들어야할 듯
+    let keys = []
+    files.map((file) => keys.push(file.key))
+    return this.imageService.uploadImage(keys);
+  }
+
+  @Get('/download')
+  async getImage(@Res() res: Response, @Body() body){
+    return this.imageService.getImage(res);
   }
 }
