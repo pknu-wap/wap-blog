@@ -48,9 +48,9 @@ const ArticleWriterAndUpdatedAt = ({
   return (
     <>
       <ArticleWriterAndUpdatedAtContainer>
-        <Link to={`/@${user.username}`}>
-          <ArticleWriter>{user.username}</ArticleWriter>
-        </Link>
+        <ArticleWriter>
+          <Link to={`/@${user.username}`}>{user.username}</Link>
+        </ArticleWriter>
         <ArticleUpdatedAt>{articleUpdatedAt}</ArticleUpdatedAt>
       </ArticleWriterAndUpdatedAtContainer>
     </>
