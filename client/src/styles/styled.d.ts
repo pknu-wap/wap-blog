@@ -9,5 +9,6 @@ declare module 'styled-components' {
     navBgColor: string;
     bannerColor: string;
     borderColor: string;
+    errorMessageColor: string;
   }
 }
