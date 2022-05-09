@@ -1,15 +1,44 @@
 import styled from 'styled-components';
 import { IComment } from '../../../interfaces/comment.interface';
-
+import ArticleWriterAndUpdatedAt from '../ArticleWriterAndUpdatedAt';
+import tw from 'tailwind-styled-components';
+import CommentAPI from '../../../api/comment';
+import { useStore } from '../../../store/store';
+import { useMutation, useQueryClient } from 'react-query';
 interface CommentItemProps {
   comment: IComment;
+  articleId: number;
 }
 
-const CommentItem = ({ comment }: CommentItemProps) => {
+const CommentItem = ({ comment, articleId }: CommentItemProps) => {
+  const { user } = useStore();
+  const queryClient = useQueryClient();
+
+  const onCommentDelete = () => {
+    mutation.mutate();
+  };
+  const mutation = useMutation(
+    'deleteComment',
+    () => CommentAPI.delete(comment.id),
+    {
+      onSuccess: async () => {
+        await queryClient.refetchQueries(['article', `${articleId}`]);
+      },
+    },
+  );
+
   return (
     <Card>
       <CardBlock>{comment.text}</CardBlock>
-      <CardFooter>{comment.user.username}</CardFooter>
+      <CardFooter>
+        <ArticleWriterAndUpdatedAt
+          user={comment.user}
+          updatedAt={comment.updatedAt + ''}
+        />
+        {comment.user.id === user?.id && (
+          <CommentDeleteBtn onClick={onCommentDelete}>❌</CommentDeleteBtn>
+        )}
+      </CardFooter>
     </Card>
   );
 };
@@ -38,6 +67,10 @@ const CardFooter = styled('div')`
   font-weight: 300;
   padding: 0.75rem 1.25rem;
   background-color: #f5f5f5;
+`;
+
+const CommentDeleteBtn = tw.span`
+hover:cursor-pointer
 `;
 
 export default CommentItem;

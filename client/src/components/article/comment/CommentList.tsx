@@ -3,14 +3,15 @@ import CommentItem from './CommentItem';
 
 interface CommentListProps {
   comments: IComment[];
+  articleId: number;
 }
 
-const CommentList = ({ comments }: CommentListProps) => {
+const CommentList = ({ comments, articleId }: CommentListProps) => {
   return (
     <>
       {comments.map(comment => (
         <div key={comment.id}>
-          <CommentItem comment={comment} />
+          <CommentItem comment={comment} articleId={articleId} />
         </div>
       ))}
     </>
