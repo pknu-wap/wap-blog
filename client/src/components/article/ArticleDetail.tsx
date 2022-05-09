@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ArticleWriterAndUpdatedAt from './ArticleWriterAndUpdatedAt';
 import { useStore } from '../../store/store';
+import CommentContainer from './comment/CommentContainer';
 
 const ArticleContainer = tw.div`
 w-full
@@ -36,8 +37,6 @@ const ArticleTag = tw.li``;
 const ArticleBodyContainer = tw.div`
 w-[80%]
 mx-auto
-overflow-y-scroll
-h-screen
 `;
 const ArticleBody = tw.p``;
 
@@ -79,13 +78,17 @@ const ArticleDetail = () => {
           updatedAt={articleDetailData?.updatedAt + ''}
         />
       </ArticleHeader>
-      <ArticleTags>
-        {tagList?.map(tag => (
-          <ArticleTag key={tag}>{tag}</ArticleTag>
-        ))}
-      </ArticleTags>
       <ArticleBodyContainer>
         <ArticleBody>{articleDetailData?.body}</ArticleBody>
+        <ArticleTags>
+          {tagList?.map(tag => (
+            <ArticleTag key={tag}>{tag}</ArticleTag>
+          ))}
+        </ArticleTags>
+        <CommentContainer
+          articleId={+articleId!}
+          comments={articleDetailData?.comments!}
+        />
       </ArticleBodyContainer>
     </ArticleContainer>
   );

@@ -8,6 +8,7 @@ export class CommentRepository extends Repository<Comment> {
     return await this.find({
       where: { fk_article_id: articleId },
       order: { createdAt: 'DESC' },
+      relations: ['user'],
     });
   }
 
