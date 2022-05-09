@@ -57,8 +57,8 @@ const ArticleList2 = ({ username, tag }: ArticleList2Props) => {
               />
               <Link key={article.id} to={article.id + ''}>
                 <ArticleTitle>{article.title}</ArticleTitle>
-                <ArticleDescripton>{article.description}</ArticleDescripton>
               </Link>
+              <ArticleDescripton>{article.description}</ArticleDescripton>
             </Article>
           ))}
         </Articles>
