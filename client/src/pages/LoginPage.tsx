@@ -12,16 +12,23 @@ import { useState } from 'react';
 
 const LoginForm = tw.form`
 border-2
+max-w-[1024px]
 border-solid
 mx-auto
 flex
 flex-col
-mt-20
+mt-[200px]
 `;
 
 const LoginInput = tw.input`
 border
 border-solid
+`;
+
+const OAuthBlock = tw.div`
+max-w-[1024px]  
+mx-auto
+mt-2
 `;
 
 const LoginBtn = styled.button``;
@@ -94,12 +101,14 @@ const LoginPage = () => {
         <p>{serverError}</p>
         <LoginBtn>로그인</LoginBtn>
       </LoginForm>
-      <div>
-        <button onClick={handleGithubLogin}>깃허브</button>
-      </div>
-      <div>
-        <button onClick={handleGoogleLogin}>구글</button>
-      </div>
+      <OAuthBlock>
+        <div>
+          <button onClick={handleGithubLogin}>깃허브</button>
+        </div>
+        <div>
+          <button onClick={handleGoogleLogin}>구글</button>
+        </div>
+      </OAuthBlock>
     </>
   );
 };

@@ -10,11 +10,12 @@ import { useState } from 'react';
 
 const RegisterForm = tw.form`
 border-2
+max-w-[1024px]
 border-solid
 mx-auto
 flex
 flex-col
-mt-20
+mt-[200px]
 `;
 
 const RegisterInput = tw.input`
