@@ -7,6 +7,7 @@ import tw from 'tailwind-styled-components';
 import AuthAPI from '../api/auth';
 import { useMutation } from 'react-query';
 import { useState } from 'react';
+import { ISignupRequest } from '../interfaces/auth.interface';
 
 const RegisterForm = tw.form`
 border-2
@@ -25,12 +26,6 @@ border-solid
 
 const RegisterBtn = styled.button``;
 
-interface IFormInputs {
-  email: string;
-  username: string;
-  password: string;
-}
-
 const schema = yup.object().shape({
   email: yup
     .string()
@@ -47,14 +42,14 @@ const RegisterPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInputs>({
+  } = useForm<ISignupRequest>({
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
 
   const mutation = useMutation(
     'signup',
-    async (body: IFormInputs) => {
+    async (body: ISignupRequest) => {
       await AuthAPI.signup(body);
     },
     {
@@ -67,7 +62,7 @@ const RegisterPage = () => {
     },
   );
 
-  const onSubmit = async (data: IFormInputs) => {
+  const onSubmit = async (data: ISignupRequest) => {
     mutation.mutate(data);
   };
 

@@ -9,6 +9,7 @@ import AuthAPI from '../api/auth';
 import { useStore } from '../store/store';
 import { useMutation } from 'react-query';
 import { useState } from 'react';
+import { ISigninRequest } from '../interfaces/auth.interface';
 
 const LoginForm = tw.form`
 border-2
@@ -33,11 +34,6 @@ mt-2
 
 const LoginBtn = styled.button``;
 
-interface IFormInputs {
-  email: string;
-  password: string;
-}
-
 const schema = yup.object().shape({
   email: yup
     .string()
@@ -54,14 +50,14 @@ const LoginPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInputs>({
+  } = useForm<ISigninRequest>({
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
 
   const mutation = useMutation(
     'signin',
-    async (body: IFormInputs) => {
+    async (body: ISigninRequest) => {
       const user = await AuthAPI.signin(body);
       return user;
     },
@@ -76,7 +72,7 @@ const LoginPage = () => {
     },
   );
 
-  const onSubmit = async (data: IFormInputs) => {
+  const onSubmit = async (data: ISigninRequest) => {
     mutation.mutate(data);
   };
 
