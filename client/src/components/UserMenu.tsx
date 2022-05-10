@@ -45,6 +45,7 @@ const UserMenuItem = styled.div`
   width: 6rem;
   background-color: #fff;
   border: 1px solid #000;
+  color: black;
 `;
 
 export default UserMenu;

@@ -40,6 +40,9 @@ top-10
 const TagItemContainer = tw.li`
 py-2
 px-1
+flex
+flex-col
+gap-2
 `;
 
 const TagItemName = tw.span``;
