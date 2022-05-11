@@ -52,6 +52,11 @@ GITHUB_REDIRECT_URI=http://localhost:8080/auth/github/callback
 GOOGLE_ID=
 GOOGLE_SECRET=
 GOOGLE_REDIRECT_URI=http://localhost:8080/auth/google/callback
+
+S3_ACCESS_KEY=
+S3_SECRET_KEY=
+S3_REGION=ap-northeast-2
+S3_BUCKET=wow-first
 ```
 
 ```
