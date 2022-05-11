@@ -8,40 +8,6 @@ import ArticleWriterAndUpdatedAt from './ArticleWriterAndUpdatedAt';
 import { useStore } from '../../store/store';
 import CommentContainer from './comment/CommentContainer';
 
-const ArticleContainer = tw.div`
-w-full
-flex
-flex-col
-`;
-const ArticleHeaderColor = styled.div`
-  color: ${props => props.theme.textColor};
-  background-color: ${props => props.theme.bannerColor};
-`;
-const ArticleHeader = tw(ArticleHeaderColor)`
-flex
-flex-col
-border
-border-solid
-px-[15%]
-pb-5
-`;
-const ArticleTitle = tw.h1`
-mt-20
-text-4xl
-font-bold
-mx-auto
-`;
-
-const ArticleTags = tw.ul``;
-const ArticleTag = tw.li``;
-const ArticleBodyContainer = tw.div`
-w-[80%]
-mx-auto
-`;
-const ArticleBody = tw.p``;
-
-const ArticleDeleteBtn = styled.button``;
-
 const ArticleDetail = () => {
   const { user } = useStore();
   const { articleId } = useParams();
@@ -93,5 +59,39 @@ const ArticleDetail = () => {
     </ArticleContainer>
   );
 };
+
+const ArticleContainer = tw.div`
+w-full
+flex
+flex-col
+`;
+const ArticleHeaderColor = styled.div`
+  color: ${props => props.theme.textColor};
+  background-color: ${props => props.theme.bannerColor};
+`;
+const ArticleHeader = tw(ArticleHeaderColor)`
+flex
+flex-col
+border
+border-solid
+px-[15%]
+pb-5
+`;
+const ArticleTitle = tw.h1`
+mt-20
+text-4xl
+font-bold
+mx-auto
+`;
+
+const ArticleTags = tw.ul``;
+const ArticleTag = tw.li``;
+const ArticleBodyContainer = tw.div`
+w-[80%]
+mx-auto
+`;
+const ArticleBody = tw.p``;
+
+const ArticleDeleteBtn = styled.button``;
 
 export default ArticleDetail;

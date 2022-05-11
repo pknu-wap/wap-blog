@@ -64,7 +64,7 @@ yarn add -g cocurrently && yarn start
 
 ### [시작발표](https://docs.google.com/presentation/d/11UNfdN_Zp-fdB2hRkDI0qdbfMkyr5wkl/edit?usp=sharing&ouid=109400640189587377184&rtpof=true&sd=true)
 
-### [중간발표]()
+### [중간발표](https://docs.google.com/presentation/d/1c3kR_FOxQdsWvQEkxgMRVKmCg5MyK5aMyAUEhpoMSDk/edit?usp=sharing)
 
 ### [종료발표]()
 
