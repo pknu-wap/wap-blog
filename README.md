@@ -52,6 +52,11 @@ GITHUB_REDIRECT_URI=http://localhost:8080/auth/github/callback
 GOOGLE_ID=
 GOOGLE_SECRET=
 GOOGLE_REDIRECT_URI=http://localhost:8080/auth/google/callback
+
+S3_ACCESS_KEY=
+S3_SECRET_KEY=
+S3_REGION=ap-northeast-2
+S3_BUCKET=wow-first
 ```
 
 ```
@@ -64,7 +69,7 @@ yarn add -g cocurrently && yarn start
 
 ### [시작발표](https://docs.google.com/presentation/d/11UNfdN_Zp-fdB2hRkDI0qdbfMkyr5wkl/edit?usp=sharing&ouid=109400640189587377184&rtpof=true&sd=true)
 
-### [중간발표]()
+### [중간발표](https://docs.google.com/presentation/d/1c3kR_FOxQdsWvQEkxgMRVKmCg5MyK5aMyAUEhpoMSDk/edit?usp=sharing)
 
 ### [종료발표]()
 

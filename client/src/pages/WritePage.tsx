@@ -158,7 +158,9 @@ const WritePage = () => {
           <TagList>
             {tagList.map((tag, index) => (
               <span key={index}>
-                <button onClick={() => handleRemoveTag(tag)}>X</button>
+                <button type="button" onClick={() => handleRemoveTag(tag)}>
+                  X
+                </button>
                 {tag}
               </span>
             ))}
