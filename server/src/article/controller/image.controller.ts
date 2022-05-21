@@ -17,6 +17,7 @@ import 'dotenv/config';
 import { Public } from '@/common/decorator';
 import { ApiTags } from '@nestjs/swagger';
 import { ImageDto } from '@/article/dto';
+import multerOptions from '@/utils/multerOptions';
 
 const s3 = new AWS.S3();
 // AWS.config.update({
@@ -33,34 +34,7 @@ export class ImageController {
   constructor(private readonly imageService: ImageService) {}
 
   @Post('/upload/:id')
-  @UseInterceptors(
-    FilesInterceptor('images', 5, {
-      storage: multerS3({
-        s3: s3,
-        bucket: process.env.S3_BUCKET,
-        acl: 'public-read-write',
-        key: function (req, file, cb) {
-          cb(null, `${Date.now().toString()}-${file.originalname}`);
-        },
-      }),
-      limits: { fileSize: 1024 * 1024 * 5 },
-      fileFilter: function (req, file, cb) {
-        if (
-          file.mimetype == 'image/png' ||
-          file.mimetype == 'image/jpg' ||
-          file.mimetype == 'image/jpeg'
-        ) {
-          file.originalname = file.originalname.toLowerCase();
-          cb(null, true);
-        } else {
-          cb(
-            new Error("There's something in the file that's not an image"),
-            false,
-          );
-        }
-      },
-    }),
-  )
+  @UseInterceptors(FilesInterceptor('images', 5, multerOptions))
   async uploadImage(@UploadedFiles() files, @Param('id') articleId: number) {
     // files type 어떻게?
     const keys = [];
