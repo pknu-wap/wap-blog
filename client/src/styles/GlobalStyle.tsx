@@ -36,9 +36,7 @@ body {
 a{
 	text-decoration:none;
 	color:inherit;
-	:hover{
-		color: ${props => props.theme.accentColor}
-	}
+	
 	
 }
 *{
