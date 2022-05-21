@@ -25,6 +25,7 @@ items-center
 `;
 const NavItemsNotHome = tw(NavItems)`
 w-[20%]
+mr-14
 `;
 const NavItemColor = styled.li`
   background-color: ${props => props.theme.navBgColor};
@@ -68,12 +69,6 @@ const Navigation = () => {
                 <div ref={ref}>
                   <button onClick={toggleUserMenu}>{user.username}</button>
                 </div>
-                <UserMenu
-                  visible={userMenu}
-                  username={user.username}
-                  onClose={onOutsideClick}
-                  onLogout={onLogout}
-                />
               </>
             ) : (
               <>
@@ -87,6 +82,14 @@ const Navigation = () => {
             )}
           </NavItemsNotHome>
         </NavItems>
+        {user && (
+          <UserMenu
+            visible={userMenu}
+            username={user.username}
+            onClose={onOutsideClick}
+            onLogout={onLogout}
+          />
+        )}
       </Nav>
     </>
   );
