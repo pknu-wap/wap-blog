@@ -30,7 +30,7 @@ const ArticleWriterAndUpdatedAt = ({
   user,
   updatedAt,
 }: IWriterAndUpdatedAt) => {
-  const [articleUpdatedAt] = useDate(updatedAt);
+  const articleUpdatedAt = useDate(updatedAt);
   return (
     <>
       <ArticleWriterAndUpdatedAtContainer>
