@@ -59,6 +59,7 @@ const CardBlock = styled('div')`
   border: 0;
   padding: 1.25rem;
   outline: none;
+  color: black;
 `;
 
 const CardFooter = styled('div')`
