@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
+import useDate from '../../hooks/useDate';
 import { IUser } from '../../interfaces/user.interface';
 
 const ArticleWriterAndUpdatedAtContainer = tw.div`
@@ -30,21 +30,7 @@ const ArticleWriterAndUpdatedAt = ({
   user,
   updatedAt,
 }: IWriterAndUpdatedAt) => {
-  const [articleUpdatedAt, setArticleUpdatedAt] = useState<string>();
-
-  useEffect(() => {
-    const date =
-      new Date(updatedAt!).toLocaleDateString('ko-KR', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      }) +
-      ' ' +
-      new Date(updatedAt!).toLocaleDateString('ko-KR', {
-        weekday: 'long',
-      });
-    setArticleUpdatedAt(date); //날짜 한글로 변환
-  }, [updatedAt]);
+  const articleUpdatedAt = useDate(updatedAt);
   return (
     <>
       <ArticleWriterAndUpdatedAtContainer>
