@@ -25,6 +25,6 @@ const useDate = (updatedAt: string) => {
         : date;
     setArticleUpdatedAt(timeString); //날짜 한글로 변환
   }, [updatedAt]);
-  return [articleUpdatedAt];
+  return articleUpdatedAt;
 };
 export default useDate;
