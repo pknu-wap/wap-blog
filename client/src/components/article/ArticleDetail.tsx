@@ -2,31 +2,22 @@ import { useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import ArticleAPI from '../../api/article';
 import tw from 'tailwind-styled-components';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ArticleWriterAndUpdatedAt from './ArticleWriterAndUpdatedAt';
 import { useStore } from '../../store/store';
 import CommentContainer from './comment/CommentContainer';
+import useTag from '../../hooks/useTag';
 
 const ArticleDetail = () => {
   const { user } = useStore();
   const { articleId } = useParams();
-  const [tagList, setTagList] = useState<string[]>();
+  const navigate = useNavigate();
   const { data: articleDetailData } = useQuery(
     ['article', `${articleId}`],
     () => ArticleAPI.getById(+articleId!),
   );
-  const navigate = useNavigate();
+  const tagList = useTag(articleDetailData?.tagList!);
 
-  useEffect(() => {
-    setTagList(
-      articleDetailData?.tagList.map(tag =>
-        tag.name.trim().charAt(0) === '#'
-          ? tag.name.trim()
-          : `#${tag.name.trim()}`,
-      ),
-    ); //태그 배열에 넣음
-  }, [articleDetailData?.tagList]);
   const onDelete = async () => {
     await ArticleAPI.delete(+articleId!);
     navigate('/');
@@ -41,7 +32,7 @@ const ArticleDetail = () => {
         ) : null}
         <ArticleWriterAndUpdatedAt
           user={articleDetailData?.user!}
-          updatedAt={articleDetailData?.updatedAt + ''}
+          updatedAt={String(articleDetailData?.updatedAt)}
         />
       </ArticleHeader>
       <ArticleBodyContainer>
