@@ -12,7 +12,6 @@ import {
 } from 'typeorm';
 import { Comment, Tag } from '@/article/entity';
 import { User } from '@/user/entity';
-import { Image } from './image.entity';
 
 @Entity()
 export class Article {
@@ -55,10 +54,6 @@ export class Article {
   @ApiProperty()
   @OneToMany(() => Comment, comment => comment.article, { eager: true })
   comments: Comment[];
-
-  @ApiProperty()
-  @OneToMany(() => Image, image => image.article, { eager: true })
-  images: Image[];
 
   @ApiProperty()
   @ManyToMany(() => Tag, tag => tag.article, { eager: true })
