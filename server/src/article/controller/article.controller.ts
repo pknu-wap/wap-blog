@@ -7,12 +7,16 @@ import {
   Param,
   Delete,
   Query,
+  UseInterceptors,
+  UploadedFiles,
 } from '@nestjs/common';
 import { ArticleService } from '@/article/service';
 import { CreateArticleDto, UpdateArticleDto } from '@/article/dto';
 import { ApiTags } from '@nestjs/swagger';
 import { GetCurrentUserId, Public } from '@/common/decorator';
 import { Article } from '@/article/entity';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import multerOptions from '@/utils/multerOptions';
 
 @ApiTags('article')
 @Controller('/article')
@@ -41,11 +45,13 @@ export class ArticleController {
   }
 
   @Post('/')
+  @UseInterceptors(FilesInterceptor('files', 5, multerOptions))
   async createArticle(
     @GetCurrentUserId() userId: number,
     @Body() body: CreateArticleDto,
+    @UploadedFiles() files: Array<Express.Multer.File>,
   ): Promise<void> {
-    await this.articleService.createArticle(userId, body);
+    await this.articleService.createArticle(userId, body, files);
   }
 
   @Patch('/:id')

@@ -13,7 +13,7 @@ export class ArticleImage {
   id: number;
 
   @Column()
-  path: string;
+  fileName: string;
 
   @Column()
   fk_article_id: number;
