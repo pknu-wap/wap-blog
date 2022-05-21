@@ -4,14 +4,19 @@ import {
   ArticleController,
   CommentController,
   TagController,
-  ImageController
+  ImageController,
 } from '@/article/controller';
-import { CommentService, ArticleService, TagService, ImageService } from '@/article/service';
+import {
+  CommentService,
+  ArticleService,
+  TagService,
+  ImageService,
+} from '@/article/service';
 import {
   ArticleRepository,
   CommentRepository,
   TagRepository,
-  ImageRepository
+  ImageRepository,
 } from '@/article/repository';
 import { UserRepository } from '@/user/repository';
 
@@ -22,10 +27,15 @@ import { UserRepository } from '@/user/repository';
       CommentRepository,
       TagRepository,
       UserRepository,
-      ImageRepository
+      ImageRepository,
     ]),
   ],
-  controllers: [ArticleController, CommentController, TagController, ImageController],
+  controllers: [
+    ArticleController,
+    CommentController,
+    TagController,
+    ImageController,
+  ],
   providers: [ArticleService, CommentService, TagService, ImageService],
 })
 export class ArticleModule {}
