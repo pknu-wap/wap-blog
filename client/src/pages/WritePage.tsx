@@ -18,7 +18,9 @@ const WriteContainer = styled.div`
   }
   margin-top: 8rem;
 `;
-const WriteTagList = styled.input``;
+const WriteTagList = styled.input`
+  color: black;
+`;
 const WriteForm = styled.form`
   input,
   textarea {
@@ -33,10 +35,13 @@ const WriteForm = styled.form`
 
 const WriteInput = styled.input`
   background-color: ${props => props.theme.lightTextColor};
+  color: black;
 `;
 const WriteTitle = tw(WriteInput)``;
 const WriteDescription = tw(WriteInput)``;
-const WriteBody = styled.textarea``;
+const WriteBody = styled.textarea`
+  color: black;
+`;
 const WriteBtn = styled.button`
   border-radius: 0.25rem;
   border: 1px solid black;

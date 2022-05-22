@@ -7,6 +7,7 @@ import { useStore } from '../store/store';
 import useToggle from '../hooks/useToggle';
 import React, { useRef } from 'react';
 import UserMenu from './UserMenu';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 const NavColor = styled.nav`
   background-color: ${props => props.theme.navBgColor};
@@ -25,6 +26,7 @@ items-center
 `;
 const NavItemsNotHome = tw(NavItems)`
 w-[20%]
+mr-14
 `;
 const NavItemColor = styled.li`
   background-color: ${props => props.theme.navBgColor};
@@ -41,6 +43,8 @@ const Navigation = () => {
   const { user, onLoginClick, onLogout } = useHeader();
   const [userMenu, toggleUserMenu] = useToggle(false);
   const ref = useRef<HTMLDivElement>(null);
+  const [isDark, setIsLocalDark] = useLocalStorage('isDark', false);
+  const { setIsDark } = useStore();
 
   const onOutsideClick = (e: React.MouseEvent) => {
     if (!ref.current?.contains(e.target as any)) {
@@ -48,7 +52,11 @@ const Navigation = () => {
     }
   };
 
-  const { isDark, setIsDark } = useStore();
+  const onChange = () => {
+    setIsLocalDark(!isDark);
+    setIsDark(isDark);
+  };
+
   return (
     <>
       <Nav>
@@ -59,7 +67,7 @@ const Navigation = () => {
             </NavItem>
           </Link>
           <NavItemsNotHome>
-            <DarkModeToggle onChange={setIsDark} checked={isDark} />
+            <DarkModeToggle onChange={onChange} checked={isDark} />
             {user ? (
               <>
                 <Link to="/write">
@@ -68,12 +76,6 @@ const Navigation = () => {
                 <div ref={ref}>
                   <button onClick={toggleUserMenu}>{user.username}</button>
                 </div>
-                <UserMenu
-                  visible={userMenu}
-                  username={user.username}
-                  onClose={onOutsideClick}
-                  onLogout={onLogout}
-                />
               </>
             ) : (
               <>
@@ -87,6 +89,14 @@ const Navigation = () => {
             )}
           </NavItemsNotHome>
         </NavItems>
+        {user && (
+          <UserMenu
+            visible={userMenu}
+            username={user.username}
+            onClose={onOutsideClick}
+            onLogout={onLogout}
+          />
+        )}
       </Nav>
     </>
   );
