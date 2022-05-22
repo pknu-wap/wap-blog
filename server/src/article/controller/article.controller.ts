@@ -51,6 +51,8 @@ export class ArticleController {
     @Body() body: CreateArticleDto,
     @UploadedFile() file: Express.Multer.File,
   ): Promise<void> {
+    //TODO: 태그리스트는 언젠가는 해결하는 걸로
+    body.tagList = [];
     await this.articleService.createArticle(userId, body, file);
   }
 
