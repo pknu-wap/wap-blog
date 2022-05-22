@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
     if (isPublic) return true;
 
     const req = context.switchToHttp().getRequest();
-    if (!req.body.userId) throw new HttpException('권한이 없습니다', 401);
+    if (!req.userId) throw new HttpException('권한이 없습니다', 401);
     return true;
   }
 }

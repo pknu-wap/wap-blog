@@ -35,7 +35,7 @@ export class JwtAuthMiddleware implements NestMiddleware {
       const accessTokenData = await this.jwtService.verify(accessToken, {
         secret: this.configService.get('auth.access_token_secret'),
       });
-      req.body.userId = accessTokenData.userId;
+      req.userId = accessTokenData.userId;
       const diff = accessTokenData.exp * 1000 - new Date().getTime();
       // access token의 만료시간이 30분 밑으로 남았을 때
       if (diff < 1000 * 60 * 30 && refreshToken) {
@@ -45,7 +45,7 @@ export class JwtAuthMiddleware implements NestMiddleware {
       if (!refreshToken) return next();
       try {
         const userId = await this.authService.refresh(res, refreshToken);
-        req.body.userId = userId;
+        req.userId = userId;
       } catch (e) {}
     }
     return next();

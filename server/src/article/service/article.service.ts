@@ -3,12 +3,14 @@ import { UpdateArticleDto, CreateArticleDto } from '@/article/dto';
 import { ArticleRepository, TagRepository } from '@/article/repository';
 import { Article } from '@/article/entity';
 import { UserRepository } from '@/user/repository';
+import { ArticleImageService } from './article-image.service';
 @Injectable()
 export class ArticleService {
   constructor(
     private readonly articleRepository: ArticleRepository,
     private readonly tagRepository: TagRepository,
     private readonly userRepository: UserRepository,
+    private readonly articleImageService: ArticleImageService,
   ) {}
 
   async getAllArticles(): Promise<Article[]> {
@@ -26,9 +28,18 @@ export class ArticleService {
     return article;
   }
 
-  async createArticle(userId: number, dto: CreateArticleDto): Promise<void> {
+  async createArticle(
+    userId: number,
+    dto: CreateArticleDto,
+    file: Express.Multer.File,
+  ): Promise<void> {
     const tags = await this.tagRepository.createTags(dto.tagList);
-    await this.articleRepository.createArticle(userId, tags, dto);
+    const article = await this.articleRepository.createArticle(
+      userId,
+      tags,
+      dto,
+    );
+    await this.articleImageService.addImage(article.id, file);
   }
 
   async updateArticle(

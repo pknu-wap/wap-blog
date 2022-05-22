@@ -1,4 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   Entity,
@@ -10,11 +9,9 @@ import { Article } from '@/article/entity';
 
 @Entity()
 export class Tag {
-  @ApiProperty()
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiProperty()
   @Column({ unique: true })
   name: string;
 

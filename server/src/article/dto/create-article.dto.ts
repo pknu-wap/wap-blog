@@ -1,3 +1,4 @@
+import { Optional } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateArticleDto {
@@ -11,5 +12,6 @@ export class CreateArticleDto {
   body: string;
 
   @ApiProperty()
-  tagList: string[];
+  @Optional()
+  tagList?: string[];
 }

@@ -7,12 +7,16 @@ import {
   Param,
   Delete,
   Query,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { ArticleService } from '@/article/service';
 import { CreateArticleDto, UpdateArticleDto } from '@/article/dto';
 import { ApiTags } from '@nestjs/swagger';
 import { GetCurrentUserId, Public } from '@/common/decorator';
 import { Article } from '@/article/entity';
+import { FileInterceptor } from '@nestjs/platform-express';
+import multerOptions from '@/utils/multerOptions';
 
 @ApiTags('article')
 @Controller('/article')
@@ -41,11 +45,15 @@ export class ArticleController {
   }
 
   @Post('/')
+  @UseInterceptors(FileInterceptor('file', multerOptions))
   async createArticle(
     @GetCurrentUserId() userId: number,
     @Body() body: CreateArticleDto,
+    @UploadedFile() file: Express.Multer.File,
   ): Promise<void> {
-    await this.articleService.createArticle(userId, body);
+    //TODO: 태그리스트는 언젠가는 해결하는 걸로
+    body.tagList = [];
+    await this.articleService.createArticle(userId, body, file);
   }
 
   @Patch('/:id')

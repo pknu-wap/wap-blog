@@ -1,4 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   CreateDateColumn,
@@ -12,38 +11,31 @@ import {
 } from 'typeorm';
 import { Comment, Tag } from '@/article/entity';
 import { User } from '@/user/entity';
+import { ArticleImage } from './article-image.entity';
 
 @Entity()
 export class Article {
-  @ApiProperty()
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiProperty()
   @Column()
   title: string;
 
-  @ApiProperty()
   @Column()
   description: string;
 
-  @ApiProperty()
   @Column('text')
   body: string;
 
-  @ApiProperty()
   @Column()
   fk_user_id: number;
 
-  @ApiProperty()
   @CreateDateColumn()
   createdAt: Date;
 
-  @ApiProperty()
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ApiProperty()
   @ManyToOne(() => User, user => user.articles, {
     onDelete: 'CASCADE',
     eager: true,
@@ -51,11 +43,12 @@ export class Article {
   @JoinColumn({ name: 'fk_user_id' })
   user: User;
 
-  @ApiProperty()
   @OneToMany(() => Comment, comment => comment.article, { eager: true })
   comments: Comment[];
 
-  @ApiProperty()
+  @OneToMany(() => ArticleImage, image => image.article)
+  images: ArticleImage[];
+
   @ManyToMany(() => Tag, tag => tag.article, { eager: true })
   tagList: Tag[];
 }
