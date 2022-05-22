@@ -44,6 +44,8 @@ const WriteBody = styled.textarea`
 `;
 
 const WriteImageColor = styled.label`
+  background-color: #fff;
+  color: ${props => props.theme.lightTextColor};
   :hover {
     color: ${props => props.theme.accentColor};
     border-color: ${props => props.theme.accentColor};
@@ -61,7 +63,6 @@ rounded-md
 border-2 
 border-dashed 
 border-gray-300 
-text-gray-600
 mb-4
 `;
 
