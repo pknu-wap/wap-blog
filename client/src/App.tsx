@@ -1,48 +1,41 @@
-import { Route, Routes } from 'react-router-dom';
-import Navigation from './components/Navigation';
-import Core from './components/Core';
-
-import ArticleDetailPage from './pages/ArticlePage';
-
-import HomePage from './pages/HomePage';
-import RegisterPage from './pages/RegisterPage';
-import LoginPage from './pages/LoginPage';
-import BlogPage from './pages/BlogPage';
-import ArticlePage from './pages/ArticlePage';
-import WritePage from './pages/WritePage';
-import SettingPage from './pages/SettingPage';
-import NotFoundPage from './pages/NotFoundPage';
-import SearchPage from './pages/SearchPage';
 import { ThemeProvider } from 'styled-components';
 import { darkMode, lightMode } from './styles/theme';
+import { Route, Routes } from 'react-router-dom';
+import HomePage from './Pages/HomePage';
+import RegisterPage from './Pages/RegisterPage';
+import LoginPage from './Pages/LoginPage';
+import WritePage from './Pages/WritePage';
+import SettingPage from './Pages/SettingPage';
+import NotFoundPage from './Pages/NotFoundPage';
+import SearchPage from './Pages/SearchPage';
+import Core from './Components/Core';
 import { useStore } from './store/store';
+import Navigation from './Components/Navigation';
+import BlogPage from './Pages/BlogPage';
+import ArticleDetailPage from './Pages/ArticleDetailPage';
 
 function App() {
   const { isDark } = useStore();
+
   return (
-    <>
-      <ThemeProvider theme={isDark ? darkMode : lightMode}>
-        <Navigation />
-        <Routes>
-          {/* 지울 예정 */}
-          <Route path="/:articleId" element={<ArticleDetailPage />} />
+    <ThemeProvider theme={isDark ? darkMode : lightMode}>
+      <Navigation />
+      <Routes>
+        {/* public routes */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/@:username" element={<BlogPage />} />
+        <Route path="/@:username/:articleId" element={<ArticleDetailPage />} />
+        <Route path="/write" element={<WritePage />} />
+        <Route path="/setting" element={<SettingPage />} />
+        <Route path="/search" element={<SearchPage />} />
 
-          {/* public routes */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/@:username" element={<BlogPage />} />
-          <Route path="/@:username/:articleId" element={<ArticlePage />} />
-          <Route path="/write" element={<WritePage />} />
-          <Route path="/setting" element={<SettingPage />} />
-          <Route path="/search" element={<SearchPage />} />
-
-          {/* catch all */}
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-        <Core />
-      </ThemeProvider>
-    </>
+        {/* catch all */}
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+      <Core />
+    </ThemeProvider>
   );
 }
 

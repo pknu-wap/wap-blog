@@ -4,7 +4,7 @@
   "main": "index.js",
   "repository": "https://github.com/neko113/2022_1_WAP_WEP_TEAM7.git",
   "scripts": {
-    "start": "concurrently \"cd server && yarn start:dev\" \"cd client && yarn start\""
+    "start": "concurrently \"cd server && yarn start:dev\" \"cd client && yarn dev\""
   },
   "author": "neko113 <alstn113@gmail.com>",
   "license": "MIT"
