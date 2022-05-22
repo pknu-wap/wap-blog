@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { properties } from '../config/properties';
+import { PROPERTIES } from '../config/properties';
 
 const client = axios.create({
-  baseURL: properties.BASE_URL,
+  baseURL: PROPERTIES.BASE_URL,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
