@@ -1,6 +1,7 @@
 import create from 'zustand';
 import { IUser } from '../interfaces/user.interface';
 import produce from 'immer';
+import { getLocalStorage } from '../utils/getLocalStorage';
 interface CoreState {
   user: IUser | null;
   setUser: (user: IUser | null) => void;
@@ -39,6 +40,6 @@ export const useStore = create<CoreState>(set => ({
       }),
     ),
 
-  isDark: false,
+  isDark: getLocalStorage('isDark'),
   setIsDark: () => set(state => ({ isDark: !state.isDark })),
 }));
