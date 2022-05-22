@@ -2,29 +2,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import tw from 'tailwind-styled-components';
+import S from './styled';
 import AuthAPI from '../../api/auth';
 import { useMutation } from 'react-query';
 import { useState } from 'react';
 import { ISignupRequest } from '../../interfaces/auth.interface';
-
-const RegisterForm = tw.form`
-border-2
-max-w-[1024px]
-border-solid
-mx-auto
-flex
-flex-col
-mt-[200px]
-`;
-
-const RegisterInput = tw.input`
-border
-border-solid
-`;
-
-const RegisterBtn = styled.button``;
 
 const schema = yup.object().shape({
   email: yup
@@ -68,25 +50,25 @@ const RegisterPage = () => {
 
   return (
     <>
-      <RegisterForm onSubmit={handleSubmit(onSubmit)}>
-        <RegisterInput
+      <S.RegisterForm onSubmit={handleSubmit(onSubmit)}>
+        <S.RegisterInput
           {...register('email')}
           type="email"
           placeholder="이메일"
         />
         <p>{errors.email?.message}</p>
-        <RegisterInput {...register('username')} placeholder="닉네임" />
+        <S.RegisterInput {...register('username')} placeholder="닉네임" />
         <p>{errors.username?.message}</p>
-        <RegisterInput
+        <S.RegisterInput
           {...register('password')}
           type="password"
           placeholder="비밀번호"
         />
         <p>{errors.password?.message}</p>
 
-        <RegisterBtn>회원가입</RegisterBtn>
+        <S.RegisterBtn>회원가입</S.RegisterBtn>
         <p>{serverError}</p>
-      </RegisterForm>
+      </S.RegisterForm>
     </>
   );
 };

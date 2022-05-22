@@ -3,50 +3,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import tw from 'tailwind-styled-components';
+import S from './styled';
 import AuthAPI from '../../api/auth';
 import { useStore } from '../../store/store';
 import { useMutation } from 'react-query';
 import { useState } from 'react';
 import { ISigninRequest } from '../../interfaces/auth.interface';
-
-const LoginForm = tw.form`
-border-2
-max-w-[1024px]
-border-solid
-mx-auto
-flex
-flex-col
-mt-[200px]
-`;
-
-const LoginInput = tw.input`
-border
-border-solid
-`;
-
-const OAuthBlock = tw.div`
-max-w-[1024px]  
-mx-auto
-mt-2
-`;
-
-const LoginBtn = styled.button``;
-
-const SocialLoginBtnContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  svg {
-    height: 30px;
-    width: 30px;
-    :hover {
-      cursor: pointer;
-    }
-    fill: ${(props) => props.theme.textColor};
-  }
-`;
 
 const schema = yup.object().shape({
   email: yup
@@ -99,20 +61,24 @@ const LoginPage = () => {
 
   return (
     <>
-      <LoginForm onSubmit={handleSubmit(onSubmit)}>
-        <LoginInput {...register('email')} type="email" placeholder="이메일" />
+      <S.LoginForm onSubmit={handleSubmit(onSubmit)}>
+        <S.LoginInput
+          {...register('email')}
+          type="email"
+          placeholder="이메일"
+        />
         <p>{errors.email?.message}</p>
-        <LoginInput
+        <S.LoginInput
           {...register('password')}
           type="password"
           placeholder="비밀번호"
         />
         <p>{errors.password?.message}</p>
         <p>{serverError}</p>
-        <LoginBtn>로그인</LoginBtn>
-      </LoginForm>
-      <OAuthBlock>
-        <SocialLoginBtnContainer>
+        <S.LoginBtn>로그인</S.LoginBtn>
+      </S.LoginForm>
+      <S.OAuthBlock>
+        <S.SocialLoginBtnContainer>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 496 512"
@@ -127,8 +93,8 @@ const LoginPage = () => {
           >
             <path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z" />
           </svg>
-        </SocialLoginBtnContainer>
-      </OAuthBlock>
+        </S.SocialLoginBtnContainer>
+      </S.OAuthBlock>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import S from './styled';
 import { IComment } from '../../../interfaces/comment.interface';
 import { useStore } from '../../../store/store';
 import CommentInput from '../CommentInput';
@@ -12,15 +12,11 @@ interface CommentContainerProps {
 const CommentContainer = ({ articleId, comments }: CommentContainerProps) => {
   const { user } = useStore();
   return (
-    <CommentContainerBlock>
+    <S.CommentContainerBlock>
       {user && <CommentInput articleId={articleId} />}
       <CommentList comments={comments} articleId={articleId} />
-    </CommentContainerBlock>
+    </S.CommentContainerBlock>
   );
 };
-
-const CommentContainerBlock = styled.div`
-  margin-top: 2rem;
-`;
 
 export default CommentContainer;
