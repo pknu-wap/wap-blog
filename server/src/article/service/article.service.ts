@@ -31,7 +31,7 @@ export class ArticleService {
   async createArticle(
     userId: number,
     dto: CreateArticleDto,
-    files: Array<Express.Multer.File>,
+    file: Express.Multer.File,
   ): Promise<void> {
     const tags = await this.tagRepository.createTags(dto.tagList);
     const article = await this.articleRepository.createArticle(
@@ -39,7 +39,7 @@ export class ArticleService {
       tags,
       dto,
     );
-    await this.articleImageService.addImages(article.id, files);
+    await this.articleImageService.addImage(article.id, file);
   }
 
   async updateArticle(

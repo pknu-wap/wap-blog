@@ -15,4 +15,10 @@ export class ArticleImageService {
       await this.articleImageRepository.createImage(articleId, fileName);
     });
   }
+
+  async addImage(articleId: number, file: Express.Multer.File) {
+    const fileName = `${Date.now()}-${file.originalname}`;
+    await this.s3Service.putObject(fileName, file);
+    await this.articleImageRepository.createImage(articleId, fileName);
+  }
 }
