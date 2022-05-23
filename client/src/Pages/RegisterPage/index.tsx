@@ -3,10 +3,9 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import S from './styled';
-import AuthAPI from '../../api/auth';
-import { useMutation } from 'react-query';
 import { useState } from 'react';
 import { ISignupRequest } from '../../interfaces/auth.interface';
+import useRegister from '../../hooks/query/auth/useRegister';
 
 const schema = yup.object().shape({
   email: yup
@@ -29,23 +28,17 @@ const RegisterPage = () => {
     mode: 'onChange',
   });
 
-  const mutation = useMutation(
-    'signup',
-    async (body: ISignupRequest) => {
-      await AuthAPI.signup(body);
+  const mutation = useRegister({
+    onSuccess: async () => {
+      navigate('/login');
     },
-    {
-      onSuccess: async () => {
-        navigate('/');
-      },
-      onError: (e: any) => {
-        setServerError(e.response.data.message);
-      },
+    onError: (e: any) => {
+      setServerError(e.response.data.message);
     },
-  );
+  });
 
-  const onSubmit = async (data: ISignupRequest) => {
-    mutation.mutate(data);
+  const onSubmit = async (body: ISignupRequest) => {
+    mutation.mutate(body);
   };
 
   return (

@@ -1,38 +1,44 @@
-import { useQuery } from 'react-query';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import ArticleAPI from '../../../api/article';
 import S from './styled';
 import ArticleWriterAndUpdatedAt from '../ArticleWriterAndUpdateAt';
 import { useStore } from '../../../store/store';
 import CommentContainer from '../../Comment/CommentContainer';
 import useTag from '../../../hooks/common/useTag';
+import useGetArticleDetail from '../../../hooks/query/article/useGetArticleDetail';
+import useDeleteArticle from '../../../hooks/query/article/useDeleteArticle';
 
 const ArticleDetail = () => {
   const { user } = useStore();
-  const { articleId } = useParams();
+  const params = useParams<{ articleId: string }>();
+  const articleId = Number(params.articleId);
   const navigate = useNavigate();
-  const { data: articleDetailData } = useQuery(
-    ['article', `${articleId}`],
-    () => ArticleAPI.getById(+articleId!),
-  );
-  const tagList = useTag(articleDetailData?.tagList!);
+  const { data } = useGetArticleDetail(articleId);
 
-  const onDelete = async () => {
-    await ArticleAPI.delete(+articleId!);
-    navigate('/');
+  const tagList = useTag(data?.tagList);
+
+  const mutation = useDeleteArticle(articleId, {
+    onSuccess: () => {
+      navigate('/');
+    },
+  });
+
+  const deleteArticle = () => {
+    mutation.mutate();
   };
 
   return (
     <S.ArticleContainer>
       <S.ArticleHeader>
-        <S.ArticleTitle>{articleDetailData?.title}</S.ArticleTitle>
+        <S.ArticleTitle>{data?.title}</S.ArticleTitle>
         <S.ArticleHeaderColumn>
           <ArticleWriterAndUpdatedAt
-            user={articleDetailData?.user!}
-            updatedAt={String(articleDetailData?.updatedAt)}
+            user={data?.user!}
+            updatedAt={String(data?.updatedAt)}
           />
-          {articleDetailData?.user.id === user?.id ? (
-            <S.ArticleDeleteBtn onClick={onDelete}>삭제</S.ArticleDeleteBtn>
+          {data?.user.id === user?.id ? (
+            <S.ArticleDeleteBtn onClick={deleteArticle}>
+              삭제
+            </S.ArticleDeleteBtn>
           ) : null}
         </S.ArticleHeaderColumn>
       </S.ArticleHeader>
@@ -44,11 +50,8 @@ const ArticleDetail = () => {
             </Link>
           ))}
         </S.ArticleTags>
-        <S.ArticleBody>{articleDetailData?.body}</S.ArticleBody>
-        <CommentContainer
-          articleId={+articleId!}
-          comments={articleDetailData?.comments!}
-        />
+        <S.ArticleBody>{data?.body}</S.ArticleBody>
+        <CommentContainer articleId={+articleId!} comments={data?.comments} />
       </S.ArticleBodyContainer>
     </S.ArticleContainer>
   );

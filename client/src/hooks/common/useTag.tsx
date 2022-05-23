@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ITag } from '../../interfaces/tag.interface';
 
-const useTag = (tags: ITag[]) => {
+const useTag = (tags?: ITag[]) => {
   const [tagList, setTagList] = useState<string[]>();
 
   useEffect(() => {

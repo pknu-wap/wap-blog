@@ -6,7 +6,7 @@ import CommentList from '../CommentList';
 
 interface CommentContainerProps {
   articleId: number;
-  comments: IComment[];
+  comments?: IComment[];
 }
 
 const CommentContainer = ({ articleId, comments }: CommentContainerProps) => {

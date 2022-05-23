@@ -4,11 +4,10 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import S from './styled';
-import AuthAPI from '../../api/auth';
 import { useStore } from '../../store/store';
-import { useMutation } from 'react-query';
 import { useState } from 'react';
 import { ISigninRequest } from '../../interfaces/auth.interface';
+import useLogin from '../../hooks/query/auth/useLogin';
 
 const schema = yup.object().shape({
   email: yup
@@ -20,7 +19,7 @@ const schema = yup.object().shape({
 
 const LoginPage = () => {
   const { setUser } = useStore();
-  const [serverError, setServerError] = useState('');
+  const [serverError, setServerError] = useState<string>('');
   const navigate = useNavigate();
   const {
     register,
@@ -30,26 +29,18 @@ const LoginPage = () => {
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
-
-  const mutation = useMutation(
-    'signin',
-    async (body: ISigninRequest) => {
-      const user = await AuthAPI.signin(body);
-      return user;
+  const mutation = useLogin({
+    onSuccess: async (data) => {
+      setUser(data);
+      navigate('/');
     },
-    {
-      onSuccess: async (data) => {
-        setUser(data);
-        navigate('/');
-      },
-      onError: async (e: any) => {
-        setServerError(e.response.data.message);
-      },
+    onError: async (e: any) => {
+      setServerError(e.response.data.message);
     },
-  );
+  });
 
-  const onSubmit = async (data: ISigninRequest) => {
-    mutation.mutate(data);
+  const onSubmit = async (body: ISigninRequest) => {
+    mutation.mutate(body);
   };
 
   const handleGithubLogin = async () => {

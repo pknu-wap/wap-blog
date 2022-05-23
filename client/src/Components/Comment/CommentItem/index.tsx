@@ -4,6 +4,8 @@ import ArticleWriterAndUpdatedAt from '../../Article/ArticleWriterAndUpdateAt';
 import CommentAPI from '../../../api/comment';
 import { useStore } from '../../../store/store';
 import { useMutation, useQueryClient } from 'react-query';
+import useDeleteComment from '../../../hooks/query/comment/useDeleteComment';
+import { QUERY_KEYS } from '../../../config/queryKeys';
 
 interface CommentItemProps {
   comment: IComment;
@@ -14,18 +16,15 @@ const CommentItem = ({ comment, articleId }: CommentItemProps) => {
   const { user } = useStore();
   const queryClient = useQueryClient();
 
-  const onCommentDelete = () => {
+  const deleteComment = () => {
     mutation.mutate();
   };
-  const mutation = useMutation(
-    'deleteComment',
-    () => CommentAPI.delete(comment.id),
-    {
-      onSuccess: async () => {
-        await queryClient.refetchQueries(['article', `${articleId}`]);
-      },
+
+  const mutation = useDeleteComment(comment.id, {
+    onSuccess: async () => {
+      await queryClient.refetchQueries([QUERY_KEYS.ARTICLE, articleId]);
     },
-  );
+  });
 
   return (
     <S.Card>
@@ -36,7 +35,7 @@ const CommentItem = ({ comment, articleId }: CommentItemProps) => {
           updatedAt={comment.updatedAt + ''}
         />
         {comment.user.id === user?.id && (
-          <S.CommentDeleteBtn onClick={onCommentDelete}>❌</S.CommentDeleteBtn>
+          <S.CommentDeleteBtn onClick={deleteComment}>❌</S.CommentDeleteBtn>
         )}
       </S.CardFooter>
     </S.Card>

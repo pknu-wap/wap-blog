@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
-import CommentAPI from '../../../api/comment';
+import { useQueryClient } from 'react-query';
+import { QUERY_KEYS } from '../../../config/queryKeys';
+import useWriteComment from '../../../hooks/query/comment/useWriteComment';
 import S from './styled';
 
 interface CommentInputProps {
@@ -21,13 +22,13 @@ const CommentInput = ({ articleId }: CommentInputProps) => {
     mutation.mutate();
   };
 
-  const mutation = useMutation(
-    'addComment',
-    () => CommentAPI.create(articleId, { text: comment }),
+  const mutation = useWriteComment(
+    articleId,
+    { text: comment },
     {
       onSuccess: async () => {
         setComment('');
-        await queryClient.refetchQueries(['article', `${articleId}`]);
+        await queryClient.refetchQueries([QUERY_KEYS.ARTICLE, articleId]);
       },
     },
   );

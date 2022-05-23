@@ -1,16 +1,15 @@
 import S from './styled';
-import { useQuery } from 'react-query';
-import ArticleAPI from '../../../api/article';
 import { Link } from 'react-router-dom';
 import ArticleWriterAndUpdatedAt from '../ArticleWriterAndUpdateAt';
+import useGetAllArticle from '../../../hooks/query/article/useGetAllArticles';
 
 const ArticleList = () => {
-  const { data: articleListData } = useQuery('articleList', ArticleAPI.getAll);
+  const { data } = useGetAllArticle();
   return (
     <>
       <S.ArticleContainer>
         <S.Articles>
-          {articleListData?.map((article) => (
+          {data?.map((article) => (
             <S.Article key={article.id}>
               <ArticleWriterAndUpdatedAt
                 user={article.user}
