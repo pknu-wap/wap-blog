@@ -1,11 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import S from './styled';
-import ArticleAPI from '../../api/article';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useMutation } from 'react-query';
 import { ChangeEvent, useState } from 'react';
+import useWriteArticle from '../../hooks/query/article/useWriteArticle';
 
 interface IFormInputs {
   title: string;
@@ -58,20 +57,15 @@ const WritePage = () => {
   };
   const [serverError, setServerError] = useState('');
   const navigate = useNavigate();
-  const mutation = useMutation(
-    'addArticle',
-    async (body: IFormInputs) => {
-      await ArticleAPI.create(body);
+  const mutation = useWriteArticle({
+    onSuccess: async () => {
+      navigate('/');
     },
-    {
-      onSuccess: async () => {
-        navigate('/');
-      },
-      onError: (e: any) => {
-        setServerError(e.response.data.message);
-      },
+    onError: (e: any) => {
+      setServerError(e.response.data.message);
     },
-  );
+  });
+
   const onSubmit = async (data: any) => {
     mutation.mutate({ tagList, ...data });
   };
