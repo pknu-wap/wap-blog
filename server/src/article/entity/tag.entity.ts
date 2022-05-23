@@ -27,5 +27,5 @@ export class Tag {
       name: 'fk_article_id',
     },
   })
-  article: Article;
+  articles: Article[];
 }

@@ -13,5 +13,5 @@ export class CreateArticleDto {
 
   @ApiProperty()
   @Optional()
-  tagList?: string[];
+  tagList?: string;
 }

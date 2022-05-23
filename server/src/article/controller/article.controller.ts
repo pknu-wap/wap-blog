@@ -48,26 +48,24 @@ export class ArticleController {
   @UseInterceptors(FileInterceptor('file', multerOptions))
   async createArticle(
     @GetCurrentUserId() userId: number,
-    @Body() body: CreateArticleDto,
-    @UploadedFile() file: Express.Multer.File,
+    @Body() dto: CreateArticleDto,
+    @UploadedFile() file?: Express.Multer.File,
   ): Promise<void> {
-    //TODO: 태그리스트는 언젠가는 해결하는 걸로
-    body.tagList = [];
-    await this.articleService.createArticle(userId, body, file);
+    await this.articleService.createArticle(userId, dto, file);
   }
 
-  @Patch('/:id')
-  async updateArticle(
-    @GetCurrentUserId() userId: number,
-    @Param('id') articleId: number,
-    @Body() updateArticleDto: UpdateArticleDto,
-  ): Promise<void> {
-    await this.articleService.updateArticle(
-      userId,
-      articleId,
-      updateArticleDto,
-    );
-  }
+  // @Patch('/:id')
+  // async updateArticle(
+  //   @GetCurrentUserId() userId: number,
+  //   @Param('id') articleId: number,
+  //   @Body() updateArticleDto: UpdateArticleDto,
+  // ): Promise<void> {
+  //   await this.articleService.updateArticle(
+  //     userId,
+  //     articleId,
+  //     updateArticleDto,
+  //   );
+  // }
 
   @Delete('/:id')
   async deleteArticle(

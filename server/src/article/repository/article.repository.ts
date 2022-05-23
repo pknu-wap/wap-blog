@@ -1,6 +1,7 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { Article, Tag } from '@/article/entity';
+import { Article } from '@/article/entity';
 import { CreateArticleDto, UpdateArticleDto } from '@/article/dto';
+import { User } from '@/user/entity';
 
 @EntityRepository(Article)
 export class ArticleRepository extends Repository<Article> {
@@ -8,11 +9,14 @@ export class ArticleRepository extends Repository<Article> {
     return await this.find({ order: { createdAt: 'DESC' } });
   }
 
-  async findArticles(user, tag): Promise<Article[]> {
+  async findArticles(user: User, tag?: string): Promise<Article[]> {
     const articles = this.createQueryBuilder('article')
       .leftJoinAndSelect('article.user', 'user')
+      .where('article.fk_user_id = :id', { id: user.id })
       .leftJoinAndSelect('article.tagList', 'tag')
-      .where('article.fk_user_id = :id', { id: user.id });
+      .leftJoinAndSelect('article.comments', 'comments')
+      .addOrderBy('comments.createdAt', 'DESC')
+      .leftJoinAndSelect('comments.user', 'comment_user');
     if (tag) {
       articles.andWhere('tag.name = :name', { name: tag });
     }
@@ -26,37 +30,33 @@ export class ArticleRepository extends Repository<Article> {
       .leftJoinAndSelect('article.tagList', 'tag')
       .leftJoinAndSelect('article.comments', 'comments')
       .addOrderBy('comments.createdAt', 'DESC')
-      .leftJoinAndSelect('comments.user', 'comment_user');
+      .leftJoinAndSelect('comments.user', 'comment_user')
+      .leftJoinAndSelect('article.images', 'article_image');
     return await article.getOne();
   }
 
-  async createArticle(
-    userId: number,
-    tagList: Tag[],
-    dto: CreateArticleDto,
-  ): Promise<Article> {
+  async createArticle(userId: number, dto: CreateArticleDto): Promise<Article> {
     const article = new Article();
     article.title = dto.title;
     article.description = dto.description;
     article.body = dto.body;
     article.fk_user_id = userId;
-    article.tagList = tagList;
 
     return await this.save(article);
   }
 
-  async updateArticle(
-    articleId: number,
-    tagList: Tag[],
-    dto: UpdateArticleDto,
-  ): Promise<void> {
-    const article = await this.findArticleById(articleId);
-    article.title = dto.title;
-    article.description = dto.description;
-    article.body = dto.body;
-    article.tagList = tagList;
-    await this.save(article);
-  }
+  // async updateArticle(
+  //   articleId: number,
+  //   tagList: Tag[],
+  //   dto: UpdateArticleDto,
+  // ): Promise<void> {
+  //   const article = await this.findArticleById(articleId);
+  //   article.title = dto.title;
+  //   article.description = dto.description;
+  //   article.body = dto.body;
+  //   article.tagList = tagList;
+  //   await this.save(article);
+  // }
 
   //TODO: tag가 같이 삭제되어야 하는데 ManyToMany만 삭제되고 태그가 삭제 안 됨
   async deleteArticle(articleId: number): Promise<void> {
