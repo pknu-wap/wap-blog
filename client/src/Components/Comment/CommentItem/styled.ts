@@ -31,10 +31,14 @@ const CardFooter = styled('div')`
 const CommentDeleteBtn = tw.span`
 hover:cursor-pointer
 `;
+const CommentUpdateBtn = tw.button`
+text-black
+`;
 
 export default {
   Card,
   CardBlock,
   CardFooter,
   CommentDeleteBtn,
+  CommentUpdateBtn,
 };

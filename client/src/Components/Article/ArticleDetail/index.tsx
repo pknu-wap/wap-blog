@@ -45,8 +45,8 @@ const ArticleDetail = () => {
       <S.ArticleBodyContainer>
         <S.ArticleTags>
           {tagList?.map((tag) => (
-            <Link to={`/@${user?.username}?tag=${tag.substring(1)}`}>
-              <S.ArticleTag key={tag}>{tag}</S.ArticleTag>
+            <Link to={`/@${user?.username}?tag=${tag.substring(1)}`} key={tag}>
+              <S.ArticleTag>{tag}</S.ArticleTag>
             </Link>
           ))}
         </S.ArticleTags>
