@@ -32,14 +32,14 @@ export class ArticleService {
   async createArticle(
     userId: number,
     dto: CreateArticleDto,
-    file: Express.Multer.File,
+    file?: Express.Multer.File,
   ): Promise<void> {
     const article = await this.articleRepository.createArticle(userId, dto);
     if (dto.tagList) {
       const tagList: string[] = JSON.parse(dto.tagList).list;
       await this.tagService.addTagList(article, tagList);
     }
-    await this.articleImageService.addImage(article.id, file);
+    if (file) await this.articleImageService.addImage(article.id, file);
   }
 
   // async updateArticle(

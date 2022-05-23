@@ -44,30 +44,16 @@ export class ArticleController {
     return this.articleService.getArticles(username, tag);
   }
 
-  @Post('/test')
-  @UseInterceptors(FileInterceptor('file', multerOptions))
-  async test(
-    @Body()
-    body: {
-      title: string;
-      body: string;
-      tagList?: string;
-    },
-    @UploadedFile() file: Express.Multer.File,
-  ): Promise<void> {
-    console.log(body);
-    const data = JSON.parse(body.tagList);
-    console.log(data);
-    console.log(file);
-  }
-
   @Post('/')
   @UseInterceptors(FileInterceptor('file', multerOptions))
   async createArticle(
     @GetCurrentUserId() userId: number,
     @Body() dto: CreateArticleDto,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() file?: Express.Multer.File,
   ): Promise<void> {
+    console.log(userId);
+    console.log(dto);
+    console.log(file);
     await this.articleService.createArticle(userId, dto, file);
   }
 
