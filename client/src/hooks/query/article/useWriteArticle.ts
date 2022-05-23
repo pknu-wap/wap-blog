@@ -3,10 +3,9 @@ import ArticleAPI from '../../../api/article';
 import { IArticleRequest } from '../../../interfaces/article.interface';
 
 const useWriteArticle = (
-  article: IArticleRequest,
-  option?: UseMutationOptions,
+  option?: UseMutationOptions<void, any, IArticleRequest>,
 ) => {
-  return useMutation(() => ArticleAPI.create(article), option);
+  return useMutation(ArticleAPI.create, option);
 };
 
 export default useWriteArticle;
