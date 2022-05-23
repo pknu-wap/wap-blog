@@ -5,7 +5,6 @@ import { useStore } from '../../../store/store';
 const AuthProvider = () => {
   const { setUser } = useStore();
   const { data: getCurrentUser } = useGetCurrentUser();
-  console.log(getCurrentUser);
   const user = getCurrentUser ?? undefined;
 
   useEffect(() => {

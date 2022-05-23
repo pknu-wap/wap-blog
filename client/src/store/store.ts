@@ -15,11 +15,11 @@ interface CoreState {
   setIsDark: (isDark: boolean) => void;
 }
 
-export const useStore = create<CoreState>(set => ({
+export const useStore = create<CoreState>((set) => ({
   user: null,
-  setUser: user =>
+  setUser: (user) =>
     set(
-      produce(draft => {
+      produce((draft) => {
         draft.user = user;
       }),
     ),
@@ -29,17 +29,17 @@ export const useStore = create<CoreState>(set => ({
   },
   openAuthModal: () =>
     set(
-      produce(draft => {
+      produce((draft) => {
         draft.authModal.visible = true;
       }),
     ),
   closeAuthModal: () =>
     set(
-      produce(draft => {
+      produce((draft) => {
         draft.authModal.visible = false;
       }),
     ),
 
   isDark: getLocalStorage('isDark'),
-  setIsDark: () => set(state => ({ isDark: !state.isDark })),
+  setIsDark: () => set((state) => ({ isDark: !state.isDark })),
 }));
