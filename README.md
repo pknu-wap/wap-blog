@@ -26,10 +26,10 @@
 
 ## `Install & Execute`
 
-### client/.env
+### client/.env.local
 
 ```
-REACT_APP_BASE_URL=http://localhost:8080
+VITE_APP_BASE_URL=http://localhost:8080
 ```
 
 ### server/.env
@@ -42,7 +42,7 @@ MYSQL_HOST=localhost
 MYSQL_PORT=3306
 MYSQL_USER=root
 MYSQL_PASSWORD=
-MYSQL_DATABASE=web7
+MYSQL_DATABASE=
 
 ACCESS_TOKEN_SECRET=access-token_secret
 REFRESH_TOKEN_SECRET=refresh-token_secret
@@ -58,7 +58,7 @@ GOOGLE_REDIRECT_URI=http://localhost:8080/auth/google/callback
 S3_ACCESS_KEY=
 S3_SECRET_KEY=
 S3_REGION=ap-northeast-2
-S3_BUCKET=wow-first
+S3_BUCKET=
 ```
 
 ```

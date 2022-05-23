@@ -8,20 +8,19 @@
 - [x] TypeORM module을 app.module.ts에서 분리 (4/30 완료)
 - [x] cors 적용하기 (4/30 완료)
 - [x] frontend의 auth 로직 구현하기 (5/2 완료)
+- [ ] AWS S3 어느 정도 완료 ()
+- [ ] 공용 Tag와 개인 ArticleTag를 분리해야할 듯
 
 <br/>
 
 - [ ] user entity 수정하기 (provider같은 거 추가할 지 말 지 정하기)
+- [ ] elastic search
+- [ ] sentry
 - [ ] HttpException message 만들어서 구현하기
-- [ ] social signin부분 /auth/signin/:provider로 통합 refactoring 하기
-- [ ] access_token이랑 refresh_token 분리해서 관리 refactoring 하기
 
 <br/>
 
-- [ ] AWS S3
-- [ ] elastic search
 - [ ] jenkins
 - [ ] docker
 - [ ] nodemailer or sengrid
 - [ ] redis
-- [ ] sentry
