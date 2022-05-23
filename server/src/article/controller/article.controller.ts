@@ -51,9 +51,6 @@ export class ArticleController {
     @Body() dto: CreateArticleDto,
     @UploadedFile() file?: Express.Multer.File,
   ): Promise<void> {
-    console.log(userId);
-    console.log(dto);
-    console.log(file);
     await this.articleService.createArticle(userId, dto, file);
   }
 
