@@ -1,7 +1,6 @@
 import OutsideClickHandler from 'react-outside-click-handler';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-
+import S from './styled';
 interface UserMenuProps {
   visible: boolean;
   username: string;
@@ -13,39 +12,19 @@ const UserMenu = ({ visible, username, onClose, onLogout }: UserMenuProps) => {
   if (!visible) return null;
   return (
     <OutsideClickHandler onOutsideClick={onClose}>
-      <UserMenuList onClick={onClose}>
-        <UserMenuItem>
+      <S.UserMenuList onClick={onClose}>
+        <S.UserMenuItem>
           <Link to={`/@${username}`}>내 블로그</Link>
-        </UserMenuItem>
-        <UserMenuItem>
+        </S.UserMenuItem>
+        <S.UserMenuItem>
           <Link to={`/setting`}>설정</Link>
-        </UserMenuItem>
-        <UserMenuItem>
+        </S.UserMenuItem>
+        <S.UserMenuItem>
           <div onClick={onLogout}>로그아웃</div>
-        </UserMenuItem>
-      </UserMenuList>
+        </S.UserMenuItem>
+      </S.UserMenuList>
     </OutsideClickHandler>
   );
 };
-
-const UserMenuList = styled.div`
-  position: absolute;
-  top: 100%;
-  margin-top: 1rem;
-  right: 4rem;
-`;
-
-const UserMenuItem = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  text-decoration: none;
-  height: 2rem;
-  width: 6rem;
-  background-color: #fff;
-  border: 1px solid #000;
-  color: black;
-`;
 
 export default UserMenu;

@@ -1,92 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import tw from 'tailwind-styled-components';
+import S from './styled';
 import ArticleAPI from '../../api/article';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from 'react-query';
 import { ChangeEvent, useState } from 'react';
 
-const WriteContainer = styled.div`
-  max-width: 1024px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  fieldset {
-    margin-bottom: 1rem;
-  }
-  margin-top: 8rem;
-`;
-const WriteTagList = styled.input`
-  color: black;
-`;
-const WriteForm = styled.form`
-  input,
-  textarea {
-    border: 2px solid rgba(0, 0, 0, 0.2);
-    border-radius: 0.25rem;
-    background-color: #fff;
-    width: 100%;
-    padding: 0.5rem 0.75rem;
-    line-height: 1.25;
-  }
-`;
-
-const WriteInput = styled.input`
-  background-color: ${(props) => props.theme.lightTextColor};
-  color: black;
-`;
-const WriteTitle = tw(WriteInput)``;
-const WriteDescription = tw(WriteInput)``;
-const WriteBody = styled.textarea`
-  color: black;
-`;
-
-const WriteImageColor = styled.label`
-  background-color: #fff;
-  color: ${(props) => props.theme.lightTextColor};
-  :hover {
-    color: ${(props) => props.theme.accentColor};
-    border-color: ${(props) => props.theme.accentColor};
-  }
-`;
-
-const WriteImage = tw(WriteImageColor)`
-flex 
-h-48 
-w-full 
-cursor-pointer 
-items-center 
-justify-center 
-rounded-md 
-border-2 
-border-dashed 
-border-gray-300 
-mb-4
-`;
-
-const WriteBtn = styled.button`
-  border-radius: 0.25rem;
-  border: 1px solid black;
-  color: #fff;
-  background-color: #5cb85c;
-  border-color: #5cb85c;
-  font-size: 1.2rem;
-  font-weight: 600;
-  padding: 1rem;
-  margin-top: 2rem;
-`;
-const TagList = styled('div')`
-  display: flex;
-  span {
-    display: flex;
-    margin: 1rem;
-    button {
-      margin-right: 0.5rem;
-    }
-  }
-`;
 interface IFormInputs {
   title: string;
   description: string;
@@ -157,21 +77,21 @@ const WritePage = () => {
   };
 
   return (
-    <WriteContainer>
-      <WriteForm onSubmit={handleSubmit(onSubmit)}>
+    <S.WriteContainer>
+      <S.WriteForm onSubmit={handleSubmit(onSubmit)}>
         <fieldset>
-          <WriteTitle {...register('title')} type="text" placeholder="제목" />
+          <S.WriteTitle {...register('title')} type="text" placeholder="제목" />
           <p>{errors.title?.message}</p>
         </fieldset>
         <fieldset>
-          <WriteDescription
+          <S.WriteDescription
             {...register('description')}
             type="text"
             placeholder="설명"
           />
           <p>{errors.description?.message}</p>
         </fieldset>
-        <WriteImage>
+        <S.WriteImage>
           <svg
             className="h-12 w-12"
             stroke="currentColor"
@@ -191,13 +111,13 @@ const WritePage = () => {
             className="hidden"
             accept="image/png, image/jpeg, image/jpg"
           />
-        </WriteImage>
+        </S.WriteImage>
         <fieldset>
-          <WriteBody {...register('body')} rows={8} placeholder="내용" />
+          <S.WriteBody {...register('body')} rows={8} placeholder="내용" />
           <p>{errors.body?.message}</p>
         </fieldset>
         <fieldset>
-          <WriteTagList
+          <S.WriteTagList
             type="text"
             placeholder="Enter tags"
             value={tag}
@@ -205,7 +125,7 @@ const WritePage = () => {
             onBlur={handleAddTag}
             onKeyDown={handleTagInputKeyDown}
           />
-          <TagList>
+          <S.TagList>
             {tagList.map((tag, index) => (
               <span key={index}>
                 <button type="button" onClick={() => handleRemoveTag(tag)}>
@@ -214,14 +134,14 @@ const WritePage = () => {
                 {tag}
               </span>
             ))}
-          </TagList>
+          </S.TagList>
         </fieldset>
         <fieldset>
           <p>{serverError}</p>
         </fieldset>
-        <WriteBtn>글쓰기</WriteBtn>
-      </WriteForm>
-    </WriteContainer>
+        <S.WriteBtn>글쓰기</S.WriteBtn>
+      </S.WriteForm>
+    </S.WriteContainer>
   );
 };
 

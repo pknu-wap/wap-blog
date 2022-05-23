@@ -1,12 +1,17 @@
-import S from './styled';
 import { Link } from 'react-router-dom';
+import S from './styled';
 import ArticleWriterAndUpdatedAt from '../ArticleWriterAndUpdateAt';
-import useGetAllArticle from '../../../hooks/query/article/useGetAllArticles';
+import useGetUserArticles from '../../../hooks/query/article/useGetUserArticles';
 
-const ArticleList = () => {
-  const { data } = useGetAllArticle();
+interface UserArticleListProps {
+  username: string;
+  tag?: string;
+}
+
+const UserArticleList = ({ username, tag }: UserArticleListProps) => {
+  const { data } = useGetUserArticles(username, tag);
   return (
-    <>
+    <div>
       <S.ArticleContainer>
         <S.Articles>
           {data?.map((article) => (
@@ -26,7 +31,8 @@ const ArticleList = () => {
           ))}
         </S.Articles>
       </S.ArticleContainer>
-    </>
+    </div>
   );
 };
-export default ArticleList;
+
+export default UserArticleList;

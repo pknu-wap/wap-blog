@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
-import { useQuery } from 'react-query';
-import UserAPI from '../../../api/user';
+import useGetCurrentUser from '../../../hooks/query/auth/useGetCurrentUser';
 import { useStore } from '../../../store/store';
 
 const AuthProvider = () => {
   const { setUser } = useStore();
-  const getCurrentUser = useQuery('getCurrentUser', UserAPI.getCurrentUser);
-  const user = getCurrentUser.data ?? undefined;
+  const { data: getCurrentUser } = useGetCurrentUser();
+  console.log(getCurrentUser);
+  const user = getCurrentUser ?? undefined;
 
   useEffect(() => {
     if (user === undefined) return;

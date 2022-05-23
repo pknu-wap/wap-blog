@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import ArticleList2 from '../../Components/Article/ArticleList2';
+import UserArticleList from '../../Components/Article/UserArticleList';
 import LoadingSpinner from '../../Components/Common/LoadingSpinner';
 import TagList from '../../Components/TagList';
 
@@ -15,7 +15,7 @@ const BlogPage = () => {
         <TagList username={username!} />
       </Suspense>
       <Suspense fallback={<LoadingSpinner />}>
-        <ArticleList2 username={username!} tag={tag!} />
+        <UserArticleList username={username!} tag={tag!} />
       </Suspense>
     </>
   );
