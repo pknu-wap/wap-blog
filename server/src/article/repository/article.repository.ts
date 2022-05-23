@@ -30,33 +30,28 @@ export class ArticleRepository extends Repository<Article> {
     return await article.getOne();
   }
 
-  async createArticle(
-    userId: number,
-    tagList: Tag[],
-    dto: CreateArticleDto,
-  ): Promise<Article> {
+  async createArticle(userId: number, dto: CreateArticleDto): Promise<Article> {
     const article = new Article();
     article.title = dto.title;
     article.description = dto.description;
     article.body = dto.body;
     article.fk_user_id = userId;
-    article.tagList = tagList;
 
     return await this.save(article);
   }
 
-  async updateArticle(
-    articleId: number,
-    tagList: Tag[],
-    dto: UpdateArticleDto,
-  ): Promise<void> {
-    const article = await this.findArticleById(articleId);
-    article.title = dto.title;
-    article.description = dto.description;
-    article.body = dto.body;
-    article.tagList = tagList;
-    await this.save(article);
-  }
+  // async updateArticle(
+  //   articleId: number,
+  //   tagList: Tag[],
+  //   dto: UpdateArticleDto,
+  // ): Promise<void> {
+  //   const article = await this.findArticleById(articleId);
+  //   article.title = dto.title;
+  //   article.description = dto.description;
+  //   article.body = dto.body;
+  //   article.tagList = tagList;
+  //   await this.save(article);
+  // }
 
   //TODO: tag가 같이 삭제되어야 하는데 ManyToMany만 삭제되고 태그가 삭제 안 됨
   async deleteArticle(articleId: number): Promise<void> {

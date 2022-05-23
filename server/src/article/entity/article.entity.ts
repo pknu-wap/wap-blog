@@ -49,6 +49,6 @@ export class Article {
   @OneToMany(() => ArticleImage, image => image.article)
   images: ArticleImage[];
 
-  @ManyToMany(() => Tag, tag => tag.article, { eager: true })
+  @ManyToMany(() => Tag, tag => tag.articles, { eager: true })
   tagList: Tag[];
 }

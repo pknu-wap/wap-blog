@@ -37,13 +37,4 @@ export class TagRepository extends Repository<Tag> {
     newTag.name = name;
     return await this.save(newTag);
   }
-
-  async createTags(tags: string[]) {
-    const tagsData = await Promise.all(
-      tags.map(data => {
-        return this.findOrCreate(data);
-      }),
-    );
-    return tagsData;
-  }
 }

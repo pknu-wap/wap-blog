@@ -44,30 +44,45 @@ export class ArticleController {
     return this.articleService.getArticles(username, tag);
   }
 
+  @Post('/test')
+  @UseInterceptors(FileInterceptor('file', multerOptions))
+  async test(
+    @Body()
+    body: {
+      title: string;
+      body: string;
+      tagList?: string;
+    },
+    @UploadedFile() file: Express.Multer.File,
+  ): Promise<void> {
+    console.log(body);
+    const data = JSON.parse(body.tagList);
+    console.log(data);
+    console.log(file);
+  }
+
   @Post('/')
   @UseInterceptors(FileInterceptor('file', multerOptions))
   async createArticle(
     @GetCurrentUserId() userId: number,
-    @Body() body: CreateArticleDto,
+    @Body() dto: CreateArticleDto,
     @UploadedFile() file: Express.Multer.File,
   ): Promise<void> {
-    //TODO: 태그리스트는 언젠가는 해결하는 걸로
-    body.tagList = [];
-    await this.articleService.createArticle(userId, body, file);
+    await this.articleService.createArticle(userId, dto, file);
   }
 
-  @Patch('/:id')
-  async updateArticle(
-    @GetCurrentUserId() userId: number,
-    @Param('id') articleId: number,
-    @Body() updateArticleDto: UpdateArticleDto,
-  ): Promise<void> {
-    await this.articleService.updateArticle(
-      userId,
-      articleId,
-      updateArticleDto,
-    );
-  }
+  // @Patch('/:id')
+  // async updateArticle(
+  //   @GetCurrentUserId() userId: number,
+  //   @Param('id') articleId: number,
+  //   @Body() updateArticleDto: UpdateArticleDto,
+  // ): Promise<void> {
+  //   await this.articleService.updateArticle(
+  //     userId,
+  //     articleId,
+  //     updateArticleDto,
+  //   );
+  // }
 
   @Delete('/:id')
   async deleteArticle(
