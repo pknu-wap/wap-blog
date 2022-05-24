@@ -16,7 +16,11 @@ const CommentList = ({ comments, articleId }: CommentListProps) => {
       {comments?.map((comment) => (
         <div key={comment.id}>
           {isUpdate && comment.id === clickedComment ? (
-            <UpdateComment setIsUpdate={setIsUpdate} comment={comment} />
+            <UpdateComment
+              setIsUpdate={setIsUpdate}
+              comment={comment}
+              articleId={articleId}
+            />
           ) : (
             <CommentItem
               comment={comment}
