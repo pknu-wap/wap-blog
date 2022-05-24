@@ -1,10 +1,9 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import { useQueryClient } from 'react-query';
 import CommentAPI from '../../../api/comment';
 import { QUERY_KEYS } from '../../../config/queryKeys';
+import useUpdateComment from '../../../hooks/query/comment/useUpdateComment';
 import { IComment } from '../../../interfaces/comment.interface';
-import client from '../../../utils/axios';
 import S from './styled';
 
 interface IUpdate {
@@ -25,11 +24,14 @@ const UpdateComment = ({ setIsUpdate, comment, articleId }: IUpdate) => {
 
   const onUpdate = async () => {
     if (!updatedComment) return;
-    await CommentAPI.update(comment.id, updatedComment);
-    await queryClient.refetchQueries([QUERY_KEYS.ARTICLE, articleId]);
-
+    mutation.mutate();
     setIsUpdate(false);
   };
+  const mutation = useUpdateComment(comment.id, updatedComment, {
+    onSuccess: async () => {
+      await queryClient.refetchQueries([QUERY_KEYS.ARTICLE, articleId]);
+    },
+  });
 
   return (
     <>
