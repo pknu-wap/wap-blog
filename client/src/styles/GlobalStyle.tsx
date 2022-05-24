@@ -29,8 +29,8 @@ footer, header, hgroup, menu, nav, section {
 body {
 	font-family: 'Roboto', sans-serif;
 	line-height: 1;
-  color: ${props => props.theme.textColor};
-  background-color:${props => props.theme.bgColor};
+  color: ${(props) => props.theme.textColor};
+  background-color:${(props) => props.theme.bgColor};
 	height: 200vh;
 }
 a{
@@ -56,6 +56,9 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+form{
+	color: black
 }
 `;
 

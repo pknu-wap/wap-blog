@@ -12,9 +12,15 @@ interface CommentItemProps {
   comment: IComment;
   articleId: number;
   setIsUpdate: (isUpdate: boolean) => void;
+  setClickedComment: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
 
-const CommentItem = ({ comment, articleId, setIsUpdate }: CommentItemProps) => {
+const CommentItem = ({
+  comment,
+  articleId,
+  setIsUpdate,
+  setClickedComment,
+}: CommentItemProps) => {
   const { user } = useStore();
   const queryClient = useQueryClient();
 
@@ -23,6 +29,7 @@ const CommentItem = ({ comment, articleId, setIsUpdate }: CommentItemProps) => {
   };
   const updateComment = () => {
     setIsUpdate(true);
+    setClickedComment(comment.id);
   };
 
   const mutation = useDeleteComment(comment.id, {
