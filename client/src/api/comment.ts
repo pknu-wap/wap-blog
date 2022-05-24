@@ -15,5 +15,10 @@ const CommentAPI = {
   delete: async (commentId: number): Promise<void> => {
     await client.delete(`/comment/${commentId}`);
   },
+  update: async (commentId: number, comment: string): Promise<void> => {
+    await client.patch(`/comment/${commentId}`, {
+      text: comment,
+    });
+  },
 };
 export default CommentAPI;
