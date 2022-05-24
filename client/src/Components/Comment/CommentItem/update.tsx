@@ -34,13 +34,22 @@ const UpdateComment = ({ setIsUpdate, comment, articleId }: IUpdate) => {
   });
 
   return (
-    <>
+    <form
+      onSubmit={async (event: React.FormEvent) => {
+        event.preventDefault();
+        await onUpdate();
+      }}
+    >
       <S.CardBlock as="input" placeholder={comment.text} onChange={onChange} />
       <S.CardFooter style={{ color: 'black' }}>
-        <button onClick={onCancel}>취소</button>
-        <button onClick={onUpdate}>수정</button>
+        <button type="button" onClick={onCancel}>
+          취소
+        </button>
+        <button type="button" onClick={onUpdate}>
+          수정
+        </button>
       </S.CardFooter>
-    </>
+    </form>
   );
 };
 export default UpdateComment;
