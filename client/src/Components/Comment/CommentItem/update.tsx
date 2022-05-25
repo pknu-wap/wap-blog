@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useQueryClient } from 'react-query';
-import CommentAPI from '../../../api/comment';
 import { QUERY_KEYS } from '../../../config/queryKeys';
 import useUpdateComment from '../../../hooks/query/comment/useUpdateComment';
 import { IComment } from '../../../interfaces/comment.interface';
@@ -40,7 +39,12 @@ const UpdateComment = ({ setIsUpdate, comment, articleId }: IUpdate) => {
         await onUpdate();
       }}
     >
-      <S.CardBlock as="input" placeholder={comment.text} onChange={onChange} />
+      <S.CardBlock
+        as="input"
+        placeholder={comment.text}
+        onChange={onChange}
+        style={{ border: '1px solid #e5e5e5', borderBottom: 0 }}
+      />
       <S.CardFooter style={{ color: 'black' }}>
         <button type="button" onClick={onCancel}>
           취소
