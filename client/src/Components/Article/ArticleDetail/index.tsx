@@ -6,8 +6,10 @@ import CommentContainer from '../../Comment/CommentContainer';
 import useTag from '../../../hooks/common/useTag';
 import useGetArticleDetail from '../../../hooks/query/article/useGetArticleDetail';
 import useDeleteArticle from '../../../hooks/query/article/useDeleteArticle';
+import { PROPERTIES } from '../../../config/properties';
 
 const ArticleDetail = () => {
+  const AWS_S3_URL = PROPERTIES.AWS_S3_URL;
   const { user } = useStore();
   const params = useParams<{ articleId: string }>();
   const articleId = Number(params.articleId);
@@ -51,6 +53,13 @@ const ArticleDetail = () => {
           ))}
         </S.ArticleTags>
         <S.ArticleBody>{data?.body}</S.ArticleBody>
+        <div>
+          {data?.images?.map((image) => (
+            <div key={image.id}>
+              <img src={AWS_S3_URL + image.fileName} alt="" />
+            </div>
+          ))}
+        </div>
         <CommentContainer articleId={+articleId!} comments={data?.comments} />
       </S.ArticleBodyContainer>
     </S.ArticleContainer>

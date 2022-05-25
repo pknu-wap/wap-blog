@@ -1,6 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { TagRepository } from '@/article/repository/tag.repository';
-import { Tag } from '@/article/entity';
+import { Article, Tag } from '@/article/entity';
 import { ArticleRepository } from '../repository';
 import { UserRepository } from '@/user/repository';
 
@@ -24,5 +24,15 @@ export class TagService {
     });
     const tagList = await this.tagRepostory.findUserTags(user.id);
     return { tagList, allCount };
+  }
+
+  async addTagList(article: Article, tagList: string[]) {
+    const tagListData = await Promise.all(
+      tagList.map(tag => {
+        return this.tagRepostory.findOrCreate(tag);
+      }),
+    );
+    article.tagList = tagListData;
+    this.articleRepository.save(article);
   }
 }

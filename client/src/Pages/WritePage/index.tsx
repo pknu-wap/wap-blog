@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import S from './styled';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import useWriteArticle from '../../hooks/query/article/useWriteArticle';
+import blankImage from '/img/blank.svg';
 
 interface IFormInputs {
   title: string;
   description: string;
   body: string;
-  tagList?: string[];
 }
 
 const schema = yup.object().shape({
@@ -33,11 +33,34 @@ const WritePage = () => {
   const changeTagInput = (e: ChangeEvent<HTMLInputElement>) => {
     setTag(e.target.value);
   };
+  const [image, setImage] = useState<File>();
+  const [PImage, setPImage] = useState<string>(blankImage);
+  const inputEl = useRef<HTMLInputElement>(null);
+  const onButtonClick = () => {
+    inputEl.current?.click();
+  };
+
+  const changeImageHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const file: File = (e.target.files as FileList)[0];
+    if (file) {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = (e: any) => {
+        setPImage(e.target.result);
+      };
+      setImage(file);
+    } else {
+      setImage(undefined);
+      setPImage(blankImage);
+    }
+  };
+
   const handleAddTag = () => {
-    if (!!tag) {
-      const isExist = tagList.includes(tag.trim());
+    const trimedTag = tag.trim();
+    if (!!trimedTag) {
+      const isExist = tagList.includes(trimedTag);
       if (!isExist) {
-        const newTagList = tagList.concat(tag);
+        const newTagList = tagList.concat(trimedTag);
         setTagList(newTagList);
       }
       setTag('');
@@ -66,8 +89,17 @@ const WritePage = () => {
     },
   });
 
-  const onSubmit = async (data: any) => {
-    mutation.mutate({ tagList, ...data });
+  const onSubmit = async (input: IFormInputs) => {
+    const formData = new FormData();
+    formData.append('title', input.title);
+    formData.append('description', input.description);
+    formData.append('body', input.body);
+    if (tagList.length > 0) {
+      formData.append('tagList', JSON.stringify(tagList));
+    }
+    if (image) formData.append('file', image);
+
+    mutation.mutate(formData);
   };
 
   return (
@@ -85,30 +117,21 @@ const WritePage = () => {
           />
           <p>{errors.description?.message}</p>
         </fieldset>
-        <S.WriteImage>
-          <svg
-            className="h-12 w-12"
-            stroke="currentColor"
-            fill="none"
-            viewBox="0 0 48 48"
-            aria-hidden="true"
-          >
-            <path
-              d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <input
-            type="file"
-            className="hidden"
-            accept="image/png, image/jpeg, image/jpg"
-          />
-        </S.WriteImage>
         <fieldset>
           <S.WriteBody {...register('body')} rows={8} placeholder="내용" />
           <p>{errors.body?.message}</p>
+        </fieldset>
+        <fieldset>
+          <S.WriteImage>
+            <img src={PImage} onClick={onButtonClick} />
+          </S.WriteImage>
+          <input
+            type="file"
+            accept="image/png, image/jpeg, image/jpg"
+            ref={inputEl}
+            style={{ display: 'none' }}
+            onChange={changeImageHandler}
+          />
         </fieldset>
         <fieldset>
           <S.WriteTagList
