@@ -7,6 +7,7 @@ import React, { useRef } from 'react';
 import UserMenu from '../UserMenu';
 import useLocalStorage from '../../hooks/common/useLocalStorage';
 import S from './styled';
+import WAPImage from '/img/WAPImg.png';
 
 const Navigation = () => {
   const { user, onLoginClick, onLogout } = useHeader();
@@ -32,7 +33,7 @@ const Navigation = () => {
         <S.NavItems>
           <Link to="/">
             <S.NavItem>
-              <S.HomeLogo alt="WAPImg" src="img/WAPImg.png" />
+              <S.HomeLogo alt="WAPImg" src={WAPImage} />
             </S.NavItem>
           </Link>
           <S.NavItemsNotHome>
