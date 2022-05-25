@@ -1,4 +1,4 @@
-import { IArticle, IArticleRequest } from '../interfaces/article.interface';
+import { IArticle } from '../interfaces/article.interface';
 import client from '../utils/axios';
 
 const ArticleAPI = {
@@ -19,14 +19,14 @@ const ArticleAPI = {
     });
     return response.data;
   },
-  create: async (article: IArticleRequest): Promise<void> => {
-    await client.post(`/article`, article);
+  create: async (formData: FormData): Promise<void> => {
+    await client.post(`/article`, formData);
   },
   delete: async (id: number): Promise<void> => {
     await client.delete(`/article/${id}`);
   },
-  update: async (id: number, article: IArticleRequest): Promise<IArticle> => {
-    const response = await client.put(`/article/${id}`, article);
+  update: async (id: number, formData: FormData): Promise<IArticle> => {
+    const response = await client.put(`/article/${id}`, formData);
     return response.data;
   },
 };

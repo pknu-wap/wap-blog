@@ -36,7 +36,7 @@ export class ArticleService {
   ): Promise<void> {
     const article = await this.articleRepository.createArticle(userId, dto);
     if (dto.tagList) {
-      const tagList: string[] = JSON.parse(dto.tagList).list;
+      const tagList: string[] = JSON.parse(dto.tagList);
       await this.tagService.addTagList(article, tagList);
     }
     if (file) await this.articleImageService.addImage(article.id, file);

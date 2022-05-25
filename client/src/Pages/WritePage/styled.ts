@@ -47,8 +47,8 @@ const WriteImageColor = styled.label`
 
 const WriteImage = tw(WriteImageColor)`
 flex 
-h-48 
-w-full 
+h-full
+w-full
 cursor-pointer 
 items-center 
 justify-center 
@@ -57,6 +57,7 @@ border-2
 border-dashed 
 border-gray-300 
 mb-4
+p-10
 `;
 
 const WriteBtn = styled.button`
