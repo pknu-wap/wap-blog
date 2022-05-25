@@ -1,10 +1,7 @@
 import { useMutation, UseMutationOptions } from 'react-query';
 import ArticleAPI from '../../../api/article';
-import { IArticleRequest } from '../../../interfaces/article.interface';
 
-const useWriteArticle = (
-  option?: UseMutationOptions<void, any, IArticleRequest>,
-) => {
+const useWriteArticle = (option?: UseMutationOptions<void, any, FormData>) => {
   return useMutation(ArticleAPI.create, option);
 };
 
