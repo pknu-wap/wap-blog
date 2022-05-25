@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import useHeader from '../../hooks/common/useHeader';
-import DarkModeToggle from 'react-dark-mode-toggle';
 import { useStore } from '../../store/store';
 import useToggle from '../../hooks/common/useToggle';
 import React, { useRef } from 'react';
@@ -8,6 +7,8 @@ import UserMenu from '../UserMenu';
 import useLocalStorage from '../../hooks/common/useLocalStorage';
 import S from './styled';
 import WAPImage from '/img/WAPImg.png';
+import DarkToggle from '../Common/DarkModeToggle';
+import FormModal from '../Modal';
 
 const Navigation = () => {
   const { user, onLoginClick, onLogout } = useHeader();
@@ -37,7 +38,7 @@ const Navigation = () => {
             </S.NavItem>
           </Link>
           <S.NavItemsNotHome>
-            <DarkModeToggle onChange={onChange} checked={isDark} />
+            <DarkToggle onChange={onChange} checked={isDark} />
             {user ? (
               <>
                 <Link to="/write">
@@ -49,12 +50,7 @@ const Navigation = () => {
               </>
             ) : (
               <>
-                <Link to="/login">
-                  <S.NavItem>로그인</S.NavItem>
-                </Link>
-                <Link to="/register">
-                  <S.NavItem>회원가입</S.NavItem>
-                </Link>
+                <FormModal />
               </>
             )}
           </S.NavItemsNotHome>

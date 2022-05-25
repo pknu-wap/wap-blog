@@ -2,8 +2,6 @@ import { ThemeProvider } from 'styled-components';
 import { darkMode, lightMode } from './styles/theme';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './Pages/HomePage';
-import RegisterPage from './Pages/RegisterPage';
-import LoginPage from './Pages/LoginPage';
 import WritePage from './Pages/WritePage';
 import SettingPage from './Pages/SettingPage';
 import NotFoundPage from './Pages/NotFoundPage';
@@ -23,8 +21,6 @@ function App() {
       <Routes>
         {/* public routes */}
         <Route path="/" element={<HomePage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
         <Route path="/@:username" element={<BlogPage />} />
         <Route path="/@:username/:articleId" element={<ArticleDetailPage />} />
         <Route path="/write" element={<WritePage />} />

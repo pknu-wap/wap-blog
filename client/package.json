@@ -8,7 +8,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
     "@hookform/resolvers": "^2.8.10",
+    "@mui/material": "^5.8.1",
     "axios": "^0.27.2",
     "immer": "^9.0.14",
     "react": "^18.0.0",
