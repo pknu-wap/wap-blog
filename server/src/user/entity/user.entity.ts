@@ -1,10 +1,13 @@
 import { Article, Comment } from '@/article/entity';
+import { UserProfile } from './index';
 import { IsEmail } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -38,4 +41,8 @@ export class User {
 
   @OneToMany(() => Comment, comment => comment.user)
   comments: Comment[];
+
+  @OneToOne(() => UserProfile)
+  @JoinColumn()
+  profile: UserProfile
 }
