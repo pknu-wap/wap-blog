@@ -7,13 +7,17 @@ mt-[100px]
 `;
 
 const Articles = tw.ul`
-w-1/2
-mx-auto
-divide-y-2
+flex
+flex-col
+items-center
+divide-y
 divide-solid
 `;
-const Article = styled.li`
-  padding: 20px 0;
+const Article = tw.li`
+  w-[50%]
+  py-5
+  flex
+  justify-center
 `;
 
 const ArticleTitleColor = styled.h2`
