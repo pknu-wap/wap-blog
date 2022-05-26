@@ -27,6 +27,7 @@ export class UserController {
     @GetCurrentUserId() userId: number,
     @UploadedFile() file: Express.Multer.File,
     ){
+      console.log(userId)
       return await this.userProfileService.profileUp(userId, file);
   }
 }

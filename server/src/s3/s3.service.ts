@@ -25,8 +25,12 @@ export class S3Service {
   }
 
   async putObject(fileName: string, file: Express.Multer.File, bucket: string = this.bucket) {
+    let buck = bucket;
+    if (bucket == "profile"){
+      buck = this.profile_bucket; 
+    }
     const command = new PutObjectCommand({
-      Bucket: bucket,
+      Bucket: buck,
       Key: fileName,
       Body: file.buffer,
     });
