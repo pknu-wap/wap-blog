@@ -30,4 +30,9 @@ export default () => ({
     region: process.env.S3_REGION,
     bucket: process.env.S3_BUCKET,
   },
+  elastic: {
+    node: process.env.ELASTIC_NODE,
+    username: process.env.ELASTIC_USERNAME,
+    password: process.env.ELASTIC_PASSWORD,
+  },
 });
