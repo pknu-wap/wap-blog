@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 const useLocalStorage = <Type extends {}>(
   keyName: string,
-  defaultValue?: Type,
+  defaultValue: Type,
 ) => {
   const [storedValue, setStoredValue] = useState(() => {
     try {
@@ -26,7 +26,7 @@ const useLocalStorage = <Type extends {}>(
     setStoredValue(newValue);
   };
 
-  return [storedValue, setValue];
+  return [storedValue, setValue] as [typeof defaultValue, typeof setValue];
 };
 
 export default useLocalStorage;
