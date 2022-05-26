@@ -10,12 +10,9 @@ export class UserProfileService {
     ) {}
 
   async profileUp(userId: number, file: Express.Multer.File){
-    console.log("~~~~~~") //대문자 처리 없음
+    console.log("~~~~~~")
     const fileName = `${Date.now()}-${file.originalname}`;
-    await this.s3Service.putObject(fileName, file, "profile");
-    if (!userId){
-      return new Error("~~")
-    }
+    await this.s3Service.putObject(fileName, file, "profile"); //지금 대문자 처리 없음
     await this.userRepository.createProfile(userId, fileName);
     return;
   }

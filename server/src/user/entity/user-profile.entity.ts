@@ -19,9 +19,11 @@ export class UserProfile{
   fileName: string;
 
   @Column()
-  fk_user_id: number; //안만들어도 생김 근데 안만들면 못 불러옴
-  // user_image 스케마 생기는 것도 그렇고 모르겠다.
-  // mysql에 캐싱되는 데이터가 있는 듯 한데
+  fk_user_id: number;
+  // 여기서는 user_image 테이블 생기고
+  // 노트북에서 image 테이블 생김
+  // 테이블하고 컬럼 둘다 수정사항이 원하는 대로 안됨
+  // mysql 쪽인지 typeorm 쪽인지 뭔가 버그 있음
 
   @OneToOne(() => User, user => user.profile, {
     nullable: true,
