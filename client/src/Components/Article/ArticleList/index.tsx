@@ -2,6 +2,7 @@ import S from './styled';
 import { Link } from 'react-router-dom';
 import ArticleWriterAndUpdatedAt from '../ArticleWriterAndUpdateAt';
 import useGetAllArticle from '../../../hooks/query/article/useGetAllArticles';
+import ArticleComponent from '../ArticleComponent';
 
 const ArticleList = () => {
   const { data } = useGetAllArticle();
@@ -11,17 +12,7 @@ const ArticleList = () => {
         <S.Articles>
           {data?.map((article) => (
             <S.Article key={article.id}>
-              <ArticleWriterAndUpdatedAt
-                user={article.user}
-                updatedAt={article.updatedAt + ''}
-              />
-              <Link
-                key={article.id}
-                to={`/@${article.user.username}/${article.id}`}
-              >
-                <S.ArticleTitle>{article.title}</S.ArticleTitle>
-              </Link>
-              <S.ArticleDescripton>{article.description}</S.ArticleDescripton>
+              <ArticleComponent article={article} />
             </S.Article>
           ))}
         </S.Articles>

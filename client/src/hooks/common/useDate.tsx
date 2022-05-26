@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 const useDate = (updatedAt: string) => {
   const [articleUpdatedAt, setArticleUpdatedAt] = useState<string>();
-
   useEffect(() => {
     const date =
       new Date(updatedAt).toLocaleDateString('ko-KR', {
