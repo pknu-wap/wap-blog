@@ -45,7 +45,7 @@ export default function ArticleComponent({ article }: IArticleComponent) {
               backgroundColor: 'gray',
               borderRadius: '20px',
             }}
-          ></div>{' '}
+          ></div>
           {/* 이미지 */}
         </Grid>
         <Typography color="text.secondary" variant="body2">
