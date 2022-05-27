@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import tw from 'tailwind-styled-components';
 import WAPImage from '/img/WAPImg.png';
 import { PROPERTIES } from '../../../config/properties';
-
+import S from '../ArticleDetail/styled';
 interface IArticleComponent {
   article: IArticle;
 }
@@ -70,10 +70,12 @@ export default function ArticleComponent({ article }: IArticleComponent) {
       <Divider variant="middle" />
       <Box sx={{ m: 2 }}>
         <Typography component={'span'} color="text.secondary" variant="body2">
-          <ArticleWriterAndUpdatedAt
-            user={article.user}
-            updatedAt={article.updatedAt + ''}
-          />
+          <div className="mb-2">
+            <ArticleWriterAndUpdatedAt
+              user={article.user}
+              updatedAt={article.updatedAt + ''}
+            />
+          </div>
         </Typography>
         <Stack
           direction="row"
@@ -81,12 +83,15 @@ export default function ArticleComponent({ article }: IArticleComponent) {
           style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}
         >
           {article.tagList.map((tag) => (
-            <Link
-              key={tag.id}
-              to={`/@${article.user.username}?tag=${tag.name}`}
-            >
-              <Chip className="hover:cursor-pointer" label={tag.name} />
-            </Link>
+            <S.ArticleTags>
+              <Link
+                className="flex items-center justify-center"
+                key={tag.id}
+                to={`/@${article.user.username}?tag=${tag.name}`}
+              >
+                <Chip className="hover:cursor-pointer" label={tag.name} />
+              </Link>
+            </S.ArticleTags>
           ))}
         </Stack>
       </Box>

@@ -28,8 +28,8 @@ const CardFooter = styled('div')`
   background-color: #f5f5f5;
 `;
 
-const CommentDeleteBtn = tw.span`
-hover:cursor-pointer
+const CommentDeleteBtn = tw.button`
+text-black
 `;
 const CommentUpdateBtn = tw.button`
 text-black

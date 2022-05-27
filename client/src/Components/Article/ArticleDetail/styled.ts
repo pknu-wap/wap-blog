@@ -33,11 +33,17 @@ font-bold
 mx-auto
 `;
 
-const ArticleTags = tw.ul`
-mt-2
+const ArticleTagColor = styled.ul`
+  span {
+    color: ${(props) => props.theme.textColor};
+  }
+`;
+
+const ArticleTags = tw(ArticleTagColor)`
 flex
 gap-2
 `;
+
 const ArticleTag = tw.li`
 border
 border-solid
