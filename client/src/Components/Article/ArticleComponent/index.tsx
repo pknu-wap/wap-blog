@@ -40,7 +40,8 @@ export default function ArticleComponent({ article }: IArticleComponent) {
             </Typography>
           </Grid>
           {/* 이미지가 있을 때만 */}
-          {article.images.length !== 0 ? (
+          {/* UserArticleList에서 images데이터가 없는 듯?? */}
+          {!(!article.images || article.images.length === 0) ? (
             <div
               style={{
                 width: '100%',
@@ -83,10 +84,9 @@ export default function ArticleComponent({ article }: IArticleComponent) {
           style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}
         >
           {article.tagList.map((tag) => (
-            <S.ArticleTags>
+            <S.ArticleTags key={tag.id}>
               <Link
                 className="flex items-center justify-center"
-                key={tag.id}
                 to={`/@${article.user.username}?tag=${tag.name}`}
               >
                 <Chip className="hover:cursor-pointer" label={tag.name} />

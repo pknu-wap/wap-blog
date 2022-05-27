@@ -12,7 +12,7 @@ interface UserArticleListProps {
 const UserArticleList = ({ username, tag }: UserArticleListProps) => {
   const { data } = useGetUserArticles(username, tag);
   return (
-    <div>
+    <>
       <S.ArticleContainer>
         <S.Articles>
           {data?.map((article) => (
@@ -22,7 +22,7 @@ const UserArticleList = ({ username, tag }: UserArticleListProps) => {
           ))}
         </S.Articles>
       </S.ArticleContainer>
-    </div>
+    </>
   );
 };
 
