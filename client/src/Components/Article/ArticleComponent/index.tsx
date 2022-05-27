@@ -8,6 +8,8 @@ import { IArticle } from '../../../interfaces/article.interface';
 import ArticleWriterAndUpdatedAt from '../ArticleWriterAndUpdateAt';
 import { Link } from 'react-router-dom';
 import tw from 'tailwind-styled-components';
+import WAPImage from '/img/WAPImg.png';
+import { PROPERTIES } from '../../../config/properties';
 
 interface IArticleComponent {
   article: IArticle;
@@ -38,14 +40,27 @@ export default function ArticleComponent({ article }: IArticleComponent) {
             </Typography>
           </Grid>
           {/* 이미지가 있을 때만 */}
-          <div
-            style={{
-              width: '100%',
-              height: '340px',
-              backgroundColor: 'gray',
-              borderRadius: '20px',
-            }}
-          ></div>
+          {article.images.length !== 0 ? (
+            <div
+              style={{
+                width: '100%',
+                height: '340px',
+                borderRadius: '20px',
+                overflow: 'hidden',
+                margin: '0 auto',
+              }}
+            >
+              <img
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                src={PROPERTIES.AWS_S3_URL + article.images[0].fileName}
+                alt=""
+              />
+            </div>
+          ) : (
+            <div>
+              <img src={WAPImage} alt="WAPImage" />
+            </div>
+          )}
           {/* 이미지 */}
         </Grid>
         <Typography color="text.secondary" variant="body2">
