@@ -16,7 +16,8 @@ export class ArticleRepository extends Repository<Article> {
       .leftJoinAndSelect('article.tagList', 'tag')
       .leftJoinAndSelect('article.comments', 'comments')
       .addOrderBy('comments.createdAt', 'DESC')
-      .leftJoinAndSelect('comments.user', 'comment_user');
+      .leftJoinAndSelect('comments.user', 'comment_user')
+      .leftJoinAndSelect('article.images', 'article_image');
     if (tag) {
       articles.andWhere('tag.name = :name', { name: tag });
     }
