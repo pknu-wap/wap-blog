@@ -1,26 +1,18 @@
 import { Link } from 'react-router-dom';
 import useHeader from '../../hooks/common/useHeader';
-import DarkModeToggle from 'react-dark-mode-toggle';
 import { useStore } from '../../store/store';
-import useToggle from '../../hooks/common/useToggle';
-import React, { useRef } from 'react';
-import UserMenu from '../UserMenu';
 import useLocalStorage from '../../hooks/common/useLocalStorage';
 import S from './styled';
 import WAPImage from '/img/WAPImg.png';
+import DarkToggle from '../Common/DarkModeToggle';
+import FormModal from '../Modal';
+import Button from '@mui/material/Button';
+import UserMenu from '../UserMenu';
 
 const Navigation = () => {
   const { user, onLoginClick, onLogout } = useHeader();
-  const [userMenu, toggleUserMenu] = useToggle(false);
-  const ref = useRef<HTMLDivElement>(null);
   const [isDark, setIsLocalDark] = useLocalStorage('isDark', false);
   const { setIsDark } = useStore();
-
-  const onOutsideClick = (e: React.MouseEvent) => {
-    if (!ref.current?.contains(e.target as any)) {
-      toggleUserMenu();
-    }
-  };
 
   const onChange = () => {
     setIsLocalDark(!isDark);
@@ -37,36 +29,24 @@ const Navigation = () => {
             </S.NavItem>
           </Link>
           <S.NavItemsNotHome>
-            <DarkModeToggle onChange={onChange} checked={isDark} />
+            <DarkToggle onChange={onChange} checked={isDark} />
             {user ? (
               <>
                 <Link to="/write">
-                  <S.NavItem>글쓰기</S.NavItem>
+                  <S.BtnContainer>
+                    <Button>글쓰기</Button>
+                  </S.BtnContainer>
                 </Link>
-                <div ref={ref}>
-                  <button onClick={toggleUserMenu}>{user.username}</button>
-                </div>
+
+                <UserMenu username={user.username} onLogout={onLogout} />
               </>
             ) : (
               <>
-                <Link to="/login">
-                  <S.NavItem>로그인</S.NavItem>
-                </Link>
-                <Link to="/register">
-                  <S.NavItem>회원가입</S.NavItem>
-                </Link>
+                <FormModal />
               </>
             )}
           </S.NavItemsNotHome>
         </S.NavItems>
-        {user && (
-          <UserMenu
-            visible={userMenu}
-            username={user.username}
-            onClose={onOutsideClick}
-            onLogout={onLogout}
-          />
-        )}
       </S.Nav>
     </>
   );

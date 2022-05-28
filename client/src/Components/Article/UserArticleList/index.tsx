@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import S from './styled';
 import ArticleWriterAndUpdatedAt from '../ArticleWriterAndUpdateAt';
 import useGetUserArticles from '../../../hooks/query/article/useGetUserArticles';
+import ArticleComponent from '../ArticleComponent';
 
 interface UserArticleListProps {
   username: string;
@@ -11,27 +12,17 @@ interface UserArticleListProps {
 const UserArticleList = ({ username, tag }: UserArticleListProps) => {
   const { data } = useGetUserArticles(username, tag);
   return (
-    <div>
+    <>
       <S.ArticleContainer>
         <S.Articles>
           {data?.map((article) => (
             <S.Article key={article.id}>
-              <ArticleWriterAndUpdatedAt
-                user={article.user}
-                updatedAt={article.updatedAt + ''}
-              />
-              <Link
-                key={article.id}
-                to={`/@${article.user.username}/${article.id}`}
-              >
-                <S.ArticleTitle>{article.title}</S.ArticleTitle>
-              </Link>
-              <S.ArticleDescripton>{article.description}</S.ArticleDescripton>
+              <ArticleComponent article={article} />
             </S.Article>
           ))}
         </S.Articles>
       </S.ArticleContainer>
-    </div>
+    </>
   );
 };
 

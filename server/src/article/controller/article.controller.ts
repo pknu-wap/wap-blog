@@ -16,7 +16,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { GetCurrentUserId, Public } from '@/common/decorator';
 import { Article } from '@/article/entity';
 import { FileInterceptor } from '@nestjs/platform-express';
-import multerOptions from '@/utils/multerOptions';
+import { multerOptions } from '@/utils/multerOptions';
 
 @ApiTags('article')
 @Controller('/article')
@@ -49,7 +49,7 @@ export class ArticleController {
   async createArticle(
     @GetCurrentUserId() userId: number,
     @Body() dto: CreateArticleDto,
-    @UploadedFile() file?: Express.Multer.File,
+    @UploadedFile() file: Express.Multer.File, //Array<Express.Multer.File>
   ): Promise<void> {
     await this.articleService.createArticle(userId, dto, file);
   }

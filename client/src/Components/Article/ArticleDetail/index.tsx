@@ -7,6 +7,7 @@ import useTag from '../../../hooks/common/useTag';
 import useGetArticleDetail from '../../../hooks/query/article/useGetArticleDetail';
 import useDeleteArticle from '../../../hooks/query/article/useDeleteArticle';
 import { PROPERTIES } from '../../../config/properties';
+import { Chip } from '@mui/material';
 
 const ArticleDetail = () => {
   const AWS_S3_URL = PROPERTIES.AWS_S3_URL;
@@ -27,7 +28,6 @@ const ArticleDetail = () => {
   const deleteArticle = () => {
     mutation.mutate();
   };
-
   return (
     <S.ArticleContainer>
       <S.ArticleHeader>
@@ -47,8 +47,11 @@ const ArticleDetail = () => {
       <S.ArticleBodyContainer>
         <S.ArticleTags>
           {tagList?.map((tag) => (
-            <Link to={`/@${user?.username}?tag=${tag.substring(1)}`} key={tag}>
-              <S.ArticleTag>{tag}</S.ArticleTag>
+            <Link
+              to={`/@${data?.user.username}?tag=${tag.substring(1)}`}
+              key={tag}
+            >
+              <Chip className="hover:cursor-pointer" label={tag} />
             </Link>
           ))}
         </S.ArticleTags>

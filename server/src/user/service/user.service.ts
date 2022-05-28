@@ -8,6 +8,6 @@ export class UserService {
   async getCurrentUser(userId: number) {
     const user = await this.userRepository.findById(userId);
     if (!user) return null;
-    return { id: user.id, email: user.email, username: user.username };
+    return { id: user.id, email: user.email, username: user.username, pofile: user.profile };
   }
 }

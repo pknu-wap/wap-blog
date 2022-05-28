@@ -22,6 +22,6 @@ export class ArticleImage {
     onDelete: 'CASCADE',
     nullable: true,
   })
-  @JoinColumn({ name: 'fk_article_id' })
+  @JoinColumn({ name: 'fk_article_id' }) //무슨 의미?
   article: Article;
 }

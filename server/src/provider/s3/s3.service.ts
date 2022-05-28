@@ -10,6 +10,7 @@ import { ConfigService } from '@nestjs/config';
 export class S3Service {
   s3Client: S3Client;
   bucket: string;
+  profile_bucket: string;
   constructor(private readonly configServie: ConfigService) {
     this.s3Client = new S3Client({
       region: this.configServie.get<string>('s3.region'),
@@ -19,11 +20,21 @@ export class S3Service {
       },
     });
     this.bucket = this.configServie.get<string>('s3.bucket');
+
+    this.profile_bucket = this.configServie.get<string>('s3.profile_bucket');
   }
 
-  async putObject(fileName: string, file: Express.Multer.File) {
+  async putObject(
+    fileName: string,
+    file: Express.Multer.File,
+    bucket: string = this.bucket,
+  ) {
+    let buck = bucket;
+    if (bucket == 'profile') {
+      buck = this.profile_bucket;
+    }
     const command = new PutObjectCommand({
-      Bucket: this.bucket,
+      Bucket: buck,
       Key: fileName,
       Body: file.buffer,
     });
