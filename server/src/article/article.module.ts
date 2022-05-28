@@ -13,7 +13,7 @@ import {
   TagRepository,
 } from '@/article/repository';
 import { UserRepository } from '@/user/repository';
-import { S3Service } from '@/s3/s3.service';
+import { S3Service } from '@/provider/s3/s3.service';
 import { ArticleImageService } from './service/article-image.service';
 
 @Module({

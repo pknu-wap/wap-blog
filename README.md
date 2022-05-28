@@ -11,6 +11,7 @@
 ![MySQL](https://img.shields.io/badge/mysql-235A97.svg?style=for-the-badge&logo=mysql&logoColor=white)
 ![TypeORM](https://img.shields.io/badge/typeORM-%2320232a.svg?style=for-the-badge&logo=typeorm&logoColor=%2361DAFB)
 ![AWS S3](https://img.shields.io/badge/AWS_S3-%569A31.svg?style=for-the-badge&logo=amazons3&logoColor=white)
+![ElasticSearch](https://img.shields.io/badge/-ElasticSearch-005571?style=for-the-badge&logo=elasticsearch)
 
 ### Front
 
@@ -30,6 +31,7 @@
 
 ```
 VITE_APP_BASE_URL=http://localhost:8080
+VITE_APP_AWS_S3_URL = https://<your bucket>.s3.ap-northeast-2.amazonaws.com/
 ```
 
 ### server/.env
