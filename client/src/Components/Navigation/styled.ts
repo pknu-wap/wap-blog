@@ -30,7 +30,11 @@ const NavItem = tw(NavItemColor)`
 const HomeLogo = tw.img`
 h-[30px]
 `;
-
+const BtnContainer = styled.div`
+  button {
+    color: ${(props) => props.theme.textColor};
+  }
+`;
 export default {
   NavColor,
   Nav,
@@ -39,4 +43,5 @@ export default {
   NavItemColor,
   NavItem,
   HomeLogo,
+  BtnContainer,
 };
