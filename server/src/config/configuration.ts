@@ -31,9 +31,4 @@ export default () => ({
     bucket: process.env.S3_BUCKET,
     profile_bucket: process.env.S3_PROFILE_BUCKET,
   },
-  elastic: {
-    node: process.env.ELASTIC_NODE,
-    username: process.env.ELASTIC_USERNAME,
-    password: process.env.ELASTIC_PASSWORD,
-  },
 });
