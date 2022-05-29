@@ -9,23 +9,15 @@ export class UserProfileRepository extends Repository<UserProfile> {
         const check = await this.findOne({fk_user_id: userId})
         if ( check !== undefined ) return false;
         await this.insert({ fileName: fileName, fk_user_id: userId });
-        const profile = await this.findOne({fk_user_id: userId})
-
-        const userrepo = getCustomRepository(UserRepository);
-        const user = await userrepo.findOne({id: userId});
-        user.profile = profile;
-        await userrepo.save(user);
     }
 
     async deleteProfile(userId: number){
-        const userrepo = getCustomRepository(UserRepository);
-        // const user = await userrepo.findOne({id: userId});      
-        // userrepo.remove(user)
-        // delete remove 둘 다 CASCADE not working
-        
-        const user = await userrepo.findOne({ id: userId });
-        user.profile = null;
-        await userrepo.save(user);
+        // 참조하는 쪽이 지워진다고(자식) 부모쪽이 바뀌는 옵션은 없다.( 어떻게 돼도 안되고 )
         await this.delete({fk_user_id: userId});
-    }   
+    }
+
+    async getPfname(userId: number){
+        const profile = await this.findOne({fk_user_id: userId});
+        return profile.fileName;
+    }
 }

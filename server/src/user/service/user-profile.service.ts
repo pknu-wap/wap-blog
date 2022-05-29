@@ -20,4 +20,8 @@ export class UserProfileService {
   async profileDel(userId: number){
     await this.userRepository.deleteProfile(userId);
   }
+
+  async profileGet(userId: number){
+    return await this.userRepository.getPfname(userId);
+  }
 }

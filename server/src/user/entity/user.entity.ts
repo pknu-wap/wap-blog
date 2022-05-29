@@ -42,9 +42,6 @@ export class User {
   @OneToMany(() => Comment, comment => comment.user)
   comments: Comment[];
 
-  @OneToOne(() => UserProfile, profile => profile.user, {
-    onDelete: 'CASCADE'
-  })
-  @JoinColumn()
+  @OneToOne(() => UserProfile, profile => profile.user)
   profile: UserProfile;
 }

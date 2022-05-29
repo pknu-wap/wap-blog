@@ -26,8 +26,8 @@ export class UserController {
   async profileUpload(
     @GetCurrentUserId() userId: number,
     @UploadedFile() file: Express.Multer.File,
-    ){
-      return await this.userProfileService.profileUp(userId, file);
+  ){
+    return await this.userProfileService.profileUp(userId, file);
   }
 
   @Delete('/profile')
@@ -35,5 +35,12 @@ export class UserController {
     @GetCurrentUserId() userId: number
   ){
     return await this.userProfileService.profileDel(userId);
+  }
+
+  @Get('/profile')
+  async profileGet(
+    @GetCurrentUserId() userId: number
+  ){
+    return await this.userProfileService.profileGet(userId);
   }
 }
