@@ -43,8 +43,7 @@ export class User {
   comments: Comment[];
 
   @OneToOne(() => UserProfile, profile => profile.user, {
-    onDelete: 'CASCADE',
-    nullable: true,
+    onDelete: 'CASCADE'
   })
   @JoinColumn()
   profile: UserProfile

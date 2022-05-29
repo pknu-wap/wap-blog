@@ -26,6 +26,7 @@ export class UserProfile{
   // mysql 쪽인지 typeorm 쪽인지 뭔가 버그 있음
 
   @OneToOne(() => User, user => user.profile, {
+    // onDelete: 'CASCADE',
     nullable: true,
   })
   user: User;
