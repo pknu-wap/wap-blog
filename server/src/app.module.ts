@@ -14,9 +14,8 @@ import { ArticleModule } from './article/article.module';
 import { JwtAuthMiddleware } from '@/middleware';
 import { AuthGuard } from '@/common/guard';
 import { JwtModule } from '@nestjs/jwt';
-import { DatabaseConfigService } from './config/database.config';
-import { S3Module } from './provider/s3/s3.module';
-import { SearchModule } from '@/provider/search/search.module';
+import { DatabaseConfigService } from '@/config/database.config';
+import { S3Module } from '@/provider/s3/s3.module';
 
 @Module({
   imports: [
@@ -32,7 +31,6 @@ import { SearchModule } from '@/provider/search/search.module';
     AuthModule,
     ArticleModule,
     S3Module,
-    SearchModule,
   ],
   providers: [
     {

@@ -17,9 +17,9 @@ const multerOptions: MulterOptions = {
 };
 
 const multerOptions2: MulterOptions = {
-  limits: { 
+  limits: {
     fileSize: 1024 * 1024 * 5,
-    files: 1
+    files: 1,
   }, // 5mb로 제한 + 개수 제한
   fileFilter: function (_req, file, callback) {
     if (
@@ -33,6 +33,5 @@ const multerOptions2: MulterOptions = {
     }
   },
 };
-
 
 export { multerOptions, multerOptions2 };

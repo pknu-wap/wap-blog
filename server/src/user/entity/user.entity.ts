@@ -47,5 +47,5 @@ export class User {
     nullable: true,
   })
   @JoinColumn()
-  profile: UserProfile
+  profile: UserProfile;
 }
