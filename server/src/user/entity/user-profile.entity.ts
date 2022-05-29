@@ -9,9 +9,9 @@ import {
 import { User } from '@/user/entity';
 
 @Entity({
-  name: "userprofile"
+  name: 'userprofile',
 })
-export class UserProfile{
+export class UserProfile {
   @PrimaryGeneratedColumn()
   id: number;
 
