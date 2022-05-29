@@ -1,4 +1,4 @@
-import { S3Service } from '@/s3/s3.service';
+import { S3Service } from '@/provider/s3/s3.service'
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { UserProfileRepository } from '../repository';
 
