@@ -8,7 +8,9 @@ import { IArticle } from '../../../interfaces/article.interface';
 import ArticleWriterAndUpdatedAt from '../ArticleWriterAndUpdateAt';
 import { Link } from 'react-router-dom';
 import tw from 'tailwind-styled-components';
-
+import WAPImage from '/img/WAPImg.png';
+import { PROPERTIES } from '../../../config/properties';
+import S from '../ArticleDetail/styled';
 interface IArticleComponent {
   article: IArticle;
 }
@@ -38,14 +40,28 @@ export default function ArticleComponent({ article }: IArticleComponent) {
             </Typography>
           </Grid>
           {/* 이미지가 있을 때만 */}
-          <div
-            style={{
-              width: '100%',
-              height: '340px',
-              backgroundColor: 'gray',
-              borderRadius: '20px',
-            }}
-          ></div>{' '}
+          {/* UserArticleList에서 images데이터가 없는 듯?? */}
+          {!(!article.images || article.images.length === 0) ? (
+            <div
+              style={{
+                width: '100%',
+                height: '340px',
+                borderRadius: '20px',
+                overflow: 'hidden',
+                margin: '0 auto',
+              }}
+            >
+              <img
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                src={PROPERTIES.AWS_S3_URL + article.images[0].fileName}
+                alt=""
+              />
+            </div>
+          ) : (
+            <div>
+              <img src={WAPImage} alt="WAPImage" />
+            </div>
+          )}
           {/* 이미지 */}
         </Grid>
         <Typography color="text.secondary" variant="body2">
@@ -55,10 +71,12 @@ export default function ArticleComponent({ article }: IArticleComponent) {
       <Divider variant="middle" />
       <Box sx={{ m: 2 }}>
         <Typography component={'span'} color="text.secondary" variant="body2">
-          <ArticleWriterAndUpdatedAt
-            user={article.user}
-            updatedAt={article.updatedAt + ''}
-          />
+          <div className="mb-2">
+            <ArticleWriterAndUpdatedAt
+              user={article.user}
+              updatedAt={article.updatedAt + ''}
+            />
+          </div>
         </Typography>
         <Stack
           direction="row"
@@ -66,12 +84,14 @@ export default function ArticleComponent({ article }: IArticleComponent) {
           style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}
         >
           {article.tagList.map((tag) => (
-            <Link
-              key={tag.id}
-              to={`/@${article.user.username}?tag=${tag.name}`}
-            >
-              <Chip className="hover:cursor-pointer" label={tag.name} />
-            </Link>
+            <S.ArticleTags key={tag.id}>
+              <Link
+                className="flex items-center justify-center"
+                to={`/@${article.user.username}?tag=${tag.name}`}
+              >
+                <Chip className="hover:cursor-pointer" label={tag.name} />
+              </Link>
+            </S.ArticleTags>
           ))}
         </Stack>
       </Box>

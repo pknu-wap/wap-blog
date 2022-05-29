@@ -14,8 +14,8 @@ import { ArticleModule } from './article/article.module';
 import { JwtAuthMiddleware } from '@/middleware';
 import { AuthGuard } from '@/common/guard';
 import { JwtModule } from '@nestjs/jwt';
-import { DatabaseConfigService } from './config/database.config';
-import { S3Module } from './s3/s3.module';
+import { DatabaseConfigService } from '@/config/database.config';
+import { S3Module } from '@/provider/s3/s3.module';
 
 @Module({
   imports: [

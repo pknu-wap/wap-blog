@@ -30,6 +30,7 @@
 
 ```
 VITE_APP_BASE_URL=http://localhost:8080
+VITE_APP_AWS_S3_URL = https://<your bucket>.s3.ap-northeast-2.amazonaws.com/
 ```
 
 ### server/.env
@@ -59,6 +60,7 @@ S3_ACCESS_KEY=
 S3_SECRET_KEY=
 S3_REGION=ap-northeast-2
 S3_BUCKET=
+
 ```
 
 ```

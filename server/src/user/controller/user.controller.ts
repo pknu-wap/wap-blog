@@ -11,8 +11,8 @@ import multer from 'multer';
 export class UserController {
   constructor(
     private readonly userService: UserService,
-    private readonly userProfileService: UserProfileService
-    ) {}
+    private readonly userProfileService: UserProfileService,
+  ) {}
 
   @Public()
   @Get()
@@ -23,7 +23,7 @@ export class UserController {
   // 회원가입 후에 프로필 등록
   @Post('/profile')
   @UseInterceptors(FileInterceptor('file', multerOptions2))
-  async profileUpload(   
+  async profileUpload(
     @GetCurrentUserId() userId: number,
     @UploadedFile() file: Express.Multer.File,
     ){

@@ -1,12 +1,10 @@
 import S from './styled';
 import { IComment } from '../../../interfaces/comment.interface';
 import ArticleWriterAndUpdatedAt from '../../Article/ArticleWriterAndUpdateAt';
-import CommentAPI from '../../../api/comment';
 import { useStore } from '../../../store/store';
-import { useMutation, useQueryClient } from 'react-query';
+import { useQueryClient } from 'react-query';
 import useDeleteComment from '../../../hooks/query/comment/useDeleteComment';
 import { QUERY_KEYS } from '../../../config/queryKeys';
-import { useState } from 'react';
 
 interface CommentItemProps {
   comment: IComment;
@@ -47,12 +45,14 @@ const CommentItem = ({
           updatedAt={comment.updatedAt + ''}
         />
         {comment.user.id === user?.id && (
-          <>
-            <S.CommentDeleteBtn onClick={deleteComment}>❌</S.CommentDeleteBtn>
+          <div className="flex gap-1 mt-2">
+            <S.CommentDeleteBtn onClick={deleteComment}>
+              삭제
+            </S.CommentDeleteBtn>
             <S.CommentUpdateBtn onClick={updateComment}>
               수정
             </S.CommentUpdateBtn>
-          </>
+          </div>
         )}
       </S.CardFooter>
     </S.Card>

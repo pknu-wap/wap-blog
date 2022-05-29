@@ -46,5 +46,5 @@ export class User {
     onDelete: 'CASCADE'
   })
   @JoinColumn()
-  profile: UserProfile
+  profile: UserProfile;
 }

@@ -7,7 +7,7 @@ export class UserProfileService {
   constructor(
     private readonly userRepository: UserProfileRepository,
     private readonly s3Service: S3Service,
-    ) {}
+  ) {}
 
   async profileUp(userId: number, file: Express.Multer.File){
     const fileName = `${Date.now()}-${file.originalname}`;

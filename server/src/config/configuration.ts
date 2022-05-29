@@ -29,6 +29,6 @@ export default () => ({
     secretKey: process.env.S3_SECRET_KEY,
     region: process.env.S3_REGION,
     bucket: process.env.S3_BUCKET,
-    profile_bucket: process.env.S3_PROFILE_BUCKET
+    profile_bucket: process.env.S3_PROFILE_BUCKET,
   },
 });
