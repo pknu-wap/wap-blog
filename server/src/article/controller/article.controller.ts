@@ -25,8 +25,8 @@ export class ArticleController {
 
   @Public()
   @Get('/')
-  getAllArticles(): Promise<Article[]> {
-    return this.articleService.getAllArticles();
+  getAllArticles(@Query('cursor') cursor?: number): Promise<Article[]> {
+    return this.articleService.getAllArticles(cursor);
   }
 
   @Public()

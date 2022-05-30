@@ -1,6 +1,4 @@
 import S from './styled';
-import { Link } from 'react-router-dom';
-import ArticleWriterAndUpdatedAt from '../ArticleWriterAndUpdateAt';
 import useGetAllArticle from '../../../hooks/query/article/useGetAllArticles';
 import ArticleComponent from '../ArticleComponent';
 

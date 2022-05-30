@@ -2,11 +2,41 @@ import { EntityRepository, Repository } from 'typeorm';
 import { Article } from '@/article/entity';
 import { CreateArticleDto, UpdateArticleDto } from '@/article/dto';
 import { User } from '@/user/entity';
+import { HttpException } from '@nestjs/common';
 
 @EntityRepository(Article)
 export class ArticleRepository extends Repository<Article> {
-  async findAllArticles(): Promise<Article[]> {
-    return await this.find({ order: { createdAt: 'DESC' } });
+  async findAllArticles(cursor?: number): Promise<Article[]> {
+    const articles = this.createQueryBuilder('article')
+      .limit(10)
+      .orderBy('article.createdAt', 'DESC')
+      .addOrderBy('article.id', 'DESC')
+      .leftJoin('article.user', 'user')
+      .leftJoinAndSelect('article.tagList', 'tag')
+      .leftJoinAndSelect('article.images', 'article_image')
+      .loadRelationCountAndMap('article.comments_count', 'article.comments')
+      .addSelect([
+        'user.id',
+        'user.username',
+        'user.email',
+        'user.createdAt',
+        'user.updatedAt',
+      ]);
+
+    if (cursor) {
+      const article = await this.findOne({ id: cursor });
+      if (!article) {
+        throw new HttpException('존재하지 않는 Cursor입니다', 404);
+      }
+      articles.andWhere('article.createdAt < :date', {
+        date: article.createdAt,
+      });
+      articles.orWhere('article.createdAt = :date AND article.id < :id', {
+        date: article.createdAt,
+        id: article.id,
+      });
+    }
+    return await articles.getMany();
   }
 
   async findArticles(user: User, tag?: string): Promise<Article[]> {
