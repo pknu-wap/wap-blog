@@ -12,7 +12,6 @@ export class UserProfileService {
   async profileUp(userId: number, file: Express.Multer.File){
     const fileName = `${Date.now()}-${file.originalname}`;
     const res = await this.userRepository.createProfile(userId, fileName);
-    if (res===false)  throw new BadRequestException("exist profile");
     await this.s3Service.putObject(fileName, file, "profile");
     return;
   }
