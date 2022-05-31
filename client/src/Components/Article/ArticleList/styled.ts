@@ -34,6 +34,12 @@ text-lg
 font-light
 `;
 
+const InfiniteScrollTarget = styled.div`
+  visibility: hidden;
+  width: 100%;
+  height: 20px;
+`;
+
 export default {
   ArticleContainer,
   Articles,
@@ -42,4 +48,5 @@ export default {
   ArticleTitle,
   ArticleDescriptonColor,
   ArticleDescripton,
+  InfiniteScrollTarget,
 };

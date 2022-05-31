@@ -8,7 +8,7 @@ import { HttpException } from '@nestjs/common';
 export class ArticleRepository extends Repository<Article> {
   async findAllArticles(cursor?: number): Promise<Article[]> {
     const articles = this.createQueryBuilder('article')
-      .limit(10)
+      .limit(8)
       .orderBy('article.createdAt', 'DESC')
       .addOrderBy('article.id', 'DESC')
       .leftJoin('article.user', 'user')

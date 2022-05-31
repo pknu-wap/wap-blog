@@ -11,11 +11,11 @@ import tw from 'tailwind-styled-components';
 import WAPImage from '/img/WAPImg.png';
 import { PROPERTIES } from '../../../config/properties';
 import S from '../ArticleDetail/styled';
-interface IArticleComponent {
-  article: IArticle;
+interface ArticleComponentProps {
+  article: Omit<IArticle & { comments_count: number }, 'comments'>;
 }
 
-export default function ArticleComponent({ article }: IArticleComponent) {
+export default function ArticleComponent({ article }: ArticleComponentProps) {
   return (
     <Box sx={{ width: '100%', maxWidth: 580 }}>
       <Box sx={{ my: 3, mx: 2 }}>
@@ -77,6 +77,9 @@ export default function ArticleComponent({ article }: IArticleComponent) {
               updatedAt={article.updatedAt + ''}
             />
           </div>
+        </Typography>
+        <Typography component={'span'} color="text.secondary" variant="body2">
+          <div className="mb-2">{article.comments_count}개의 댓글</div>
         </Typography>
         <Stack
           direction="row"

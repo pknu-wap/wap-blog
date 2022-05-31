@@ -21,12 +21,12 @@ const useIntersectionObserver = ({
       },
     );
 
-    observer.observe(targetElement.current);
+    observer.observe(targetElement && targetElement.current);
 
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [onIntersect]);
 
   return targetElement;
 };

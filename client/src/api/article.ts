@@ -15,7 +15,7 @@ const ArticleAPI = {
   getUserArticleByTag: async (
     username: string,
     tag?: string,
-  ): Promise<IArticle[]> => {
+  ): Promise<ArticleListType> => {
     const response = await client.get(`/article/user/${username}`, {
       params: { tag },
     });
