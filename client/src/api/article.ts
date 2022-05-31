@@ -1,8 +1,8 @@
-import { IArticle } from '../interfaces/article.interface';
+import { ArticleListType, IArticle } from '../interfaces/article.interface';
 import client from '../utils/axios';
 
 const ArticleAPI = {
-  getAll: async (cursor?: number): Promise<IArticle[]> => {
+  getAll: async (cursor?: number): Promise<ArticleListType> => {
     const response = await client.get(`/article`, {
       params: { cursor },
     });

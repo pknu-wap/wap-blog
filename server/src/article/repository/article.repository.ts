@@ -14,14 +14,14 @@ export class ArticleRepository extends Repository<Article> {
       .leftJoin('article.user', 'user')
       .leftJoinAndSelect('article.tagList', 'tag')
       .leftJoinAndSelect('article.images', 'article_image')
-      .loadRelationCountAndMap('article.comments_count', 'article.comments')
       .addSelect([
         'user.id',
         'user.username',
         'user.email',
         'user.createdAt',
         'user.updatedAt',
-      ]);
+      ])
+      .loadRelationCountAndMap('article.comments_count', 'article.comments');
 
     if (cursor) {
       const article = await this.findOne({ id: cursor });
