@@ -32,6 +32,21 @@ body {
   color: ${(props) => props.theme.textColor};
   background-color:${(props) => props.theme.bgColor};
 	height: 200vh;
+	&::-webkit-scrollbar {
+  	width: 20px;
+	}
+	&::-webkit-scrollbar-track {
+		background-color: #e4e4e4;
+	}
+	&::-webkit-scrollbar-thumb {
+		border-radius: 100px;
+		border: 5px solid transparent;
+		background-clip: content-box;
+		background-color: #8070d4;
+	}
+	&::-webkit-scrollbar-thumb:hover {
+		background-color: #5749d2
+	}
 }
 a{
 	text-decoration:none;

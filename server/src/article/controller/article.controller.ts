@@ -25,7 +25,7 @@ export class ArticleController {
 
   @Public()
   @Get('/')
-  getAllArticles(@Query('cursor') cursor?: number): Promise<Article[]> {
+  getAllArticles(@Query('cursor') cursor?: number) {
     return this.articleService.getAllArticles(cursor);
   }
 
@@ -40,8 +40,9 @@ export class ArticleController {
   getArticles(
     @Param('username') username: string,
     @Query('tag') tag?: string,
-  ): Promise<Article[]> {
-    return this.articleService.getArticles(username, tag);
+    @Query('cursor') cursor?: number,
+  ) {
+    return this.articleService.getArticles(username, tag, cursor);
   }
 
   @Post('/')

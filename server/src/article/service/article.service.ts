@@ -14,13 +14,14 @@ export class ArticleService {
     private readonly tagService: TagService,
   ) {}
 
-  async getAllArticles(cursor?: number): Promise<Article[]> {
+  async getAllArticles(cursor?: number) {
     return await this.articleRepository.findAllArticles(cursor);
   }
 
-  async getArticles(username: string, tag?: string) {
+  async getArticles(username: string, tag?: string, cursor?: number) {
     const user = await this.userRepository.findByName(username);
-    return await this.articleRepository.findArticles(user, tag);
+    if (!user) throw new HttpException('존재하지 않는 user입니다', 404);
+    return await this.articleRepository.findArticles(user.id, tag, cursor);
   }
 
   async getArticleById(articleId: number): Promise<Article> {
