@@ -34,7 +34,7 @@ export class User {
   createdAt: Date;
 
   @UpdateDateColumn()
-  updateAt: Date;
+  updatedAt: Date;
 
   @OneToMany(() => Article, article => article.user)
   articles: Article[];

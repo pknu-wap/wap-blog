@@ -1,9 +1,11 @@
-import { IArticle } from '../interfaces/article.interface';
+import { ArticleListType, IArticle } from '../interfaces/article.interface';
 import client from '../utils/axios';
 
 const ArticleAPI = {
-  getAll: async (): Promise<IArticle[]> => {
-    const response = await client.get(`/article`);
+  getAll: async (cursor?: number): Promise<ArticleListType> => {
+    const response = await client.get(`/article`, {
+      params: { cursor },
+    });
     return response.data;
   },
   getById: async (id: number): Promise<IArticle> => {
@@ -13,7 +15,7 @@ const ArticleAPI = {
   getUserArticleByTag: async (
     username: string,
     tag?: string,
-  ): Promise<IArticle[]> => {
+  ): Promise<ArticleListType> => {
     const response = await client.get(`/article/user/${username}`, {
       params: { tag },
     });

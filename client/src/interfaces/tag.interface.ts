@@ -3,7 +3,9 @@ export interface ITag {
   name: string;
 }
 
+export type TagListType = (ITag & { articles_count: number })[];
+
 export interface IUserTagsResponse {
-  tagList: { id: number; name: string; articles_count: number }[];
+  tagList: TagListType;
   allCount: number;
 }

@@ -14,8 +14,8 @@ export class ArticleService {
     private readonly tagService: TagService,
   ) {}
 
-  async getAllArticles(): Promise<Article[]> {
-    return await this.articleRepository.findAllArticles();
+  async getAllArticles(cursor?: number): Promise<Article[]> {
+    return await this.articleRepository.findAllArticles(cursor);
   }
 
   async getArticles(username: string, tag?: string) {

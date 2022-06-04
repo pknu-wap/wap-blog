@@ -15,3 +15,9 @@ export interface IArticle {
   createdAt: Date;
   updatedAt: Date;
 }
+
+// 이거는 IArticle에다가 comments_count를 넣고 Omit을 이용해서 comments 부분을 제거한 것
+export type ArticleListType = Omit<
+  IArticle & { comments_count: number },
+  'comments'
+>[];
