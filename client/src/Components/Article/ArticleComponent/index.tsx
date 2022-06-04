@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import { IArticle } from '../../../interfaces/article.interface';
 import ArticleWriterAndUpdatedAt from '../ArticleWriterAndUpdateAt';
 import { Link } from 'react-router-dom';
-import tw from 'tailwind-styled-components';
 import WAPImage from '/img/WAPImg.png';
 import { PROPERTIES } from '../../../config/properties';
 import S from '../ArticleDetail/styled';

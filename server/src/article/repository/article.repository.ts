@@ -6,21 +6,14 @@ import { HttpException } from '@nestjs/common';
 
 @EntityRepository(Article)
 export class ArticleRepository extends Repository<Article> {
-  async findAllArticles(cursor?: number): Promise<Article[]> {
+  async findAllArticles(cursor?: number) {
     const articles = this.createQueryBuilder('article')
-      .limit(8)
       .orderBy('article.createdAt', 'DESC')
       .addOrderBy('article.id', 'DESC')
       .leftJoin('article.user', 'user')
       .leftJoinAndSelect('article.tagList', 'tag')
       .leftJoinAndSelect('article.images', 'article_image')
-      .addSelect([
-        'user.id',
-        'user.username',
-        'user.email',
-        'user.createdAt',
-        'user.updatedAt',
-      ])
+      .addSelect(['user.id', 'user.username', 'user.email'])
       .loadRelationCountAndMap('article.comments_count', 'article.comments');
 
     if (cursor) {
@@ -36,22 +29,38 @@ export class ArticleRepository extends Repository<Article> {
         id: article.id,
       });
     }
-    return await articles.getMany();
+    return await articles.limit(8).getMany();
   }
 
-  async findArticles(user: User, tag?: string): Promise<Article[]> {
+  async findArticles(userId: number, tag?: string, cursor?: number) {
     const articles = this.createQueryBuilder('article')
-      .leftJoinAndSelect('article.user', 'user')
-      .where('article.fk_user_id = :id', { id: user.id })
+      .orderBy('article.createdAt', 'DESC')
+      .addOrderBy('article.id', 'DESC')
+      .leftJoin('article.user', 'user')
       .leftJoinAndSelect('article.tagList', 'tag')
-      .leftJoinAndSelect('article.comments', 'comments')
-      .addOrderBy('comments.createdAt', 'DESC')
-      .leftJoinAndSelect('comments.user', 'comment_user')
-      .leftJoinAndSelect('article.images', 'article_image');
+      .leftJoinAndSelect('article.images', 'article_image')
+      .addSelect(['user.id', 'user.username', 'user.email'])
+      .where('article.fk_user_id = :userId', { userId: userId })
+      .loadRelationCountAndMap('article.comments_count', 'article.comments');
+
     if (tag) {
       articles.andWhere('tag.name = :name', { name: tag });
     }
-    return await articles.orderBy('article.createdAt', 'DESC').getMany();
+
+    if (cursor) {
+      const article = await this.findOne({ id: cursor });
+      if (!article) {
+        throw new HttpException('존재하지 않는 Cursor입니다', 404);
+      }
+      articles.andWhere('article.createdAt < :date', {
+        date: article.createdAt,
+      });
+      articles.orWhere('article.createdAt = :date AND article.id < :id', {
+        date: article.createdAt,
+        id: article.id,
+      });
+    }
+    return await articles.limit(8).getMany();
   }
 
   async findArticleById(id: number): Promise<Article> {
