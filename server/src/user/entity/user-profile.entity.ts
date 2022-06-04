@@ -18,15 +18,18 @@ export class UserProfile {
   @Column()
   fileName: string;
 
-  @Column()
+  @Column({ nullable: true })
   fk_user_id: number;
-  // 여기서는 user_image 테이블 생기고
-  // 노트북에서 image 테이블 생김
-  // 테이블하고 컬럼 둘다 수정사항이 원하는 대로 안됨
-  // mysql 쪽인지 typeorm 쪽인지 뭔가 버그 있음
+  @JoinColumn({ name: 'fk_user_id' })
+  // 외래키 기본은 참조 테이블의 primarykey 를 참조함
+  // joincolumn만 써도 컬럼생기기는 하는데 순서상 만들고 외래키 지정이 맞다
+  // + 생겨도 typeorm에서 인식못함
 
   @OneToOne(() => User, user => user.profile, {
-    nullable: true,
+    // cascade: true, 양쪽이 참조할 때 사용한다 보면 될 듯
+    onDelete: 'CASCADE'
   })
   user: User;
+  // 일대다, 일대일, 다대다 설정과 joincolum(외래키 설정)은 무관한데
+  // 외래키를 설정한다는 것은 어떤 관계든 관계가 있다는 것이여서 같이 한다.
 }
