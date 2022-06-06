@@ -1,4 +1,4 @@
-import { S3Service } from '@/provider/s3/s3.service'
+import { S3Service } from '@/provider/s3/s3.service';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { UserProfileRepository } from '../repository';
 
@@ -9,18 +9,18 @@ export class UserProfileService {
     private readonly s3Service: S3Service,
   ) {}
 
-  async profileUp(userId: number, file: Express.Multer.File){
+  async profileUp(userId: number, file: Express.Multer.File) {
     const fileName = `${Date.now()}-${file.originalname}`;
     const res = await this.userRepository.createProfile(userId, fileName);
-    await this.s3Service.putObject(fileName, file, "profile");
+    await this.s3Service.putObject(fileName, file, 'profile');
     return;
   }
 
-  async profileDel(userId: number){
+  async profileDel(userId: number) {
     await this.userRepository.deleteProfile(userId);
   }
 
-  async profileGet(userId: number){
+  async profileGet(userId: number) {
     return await this.userRepository.getPfname(userId);
   }
 }
