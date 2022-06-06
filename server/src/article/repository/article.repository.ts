@@ -66,11 +66,17 @@ export class ArticleRepository extends Repository<Article> {
   async findArticleById(id: number): Promise<Article> {
     const article = this.createQueryBuilder('article')
       .where('article.id = :id', { id })
-      .leftJoinAndSelect('article.user', 'user')
+      .leftJoin('article.user', 'user')
+      .addSelect(['user.id', 'user.username', 'user.email'])
       .leftJoinAndSelect('article.tagList', 'tag')
       .leftJoinAndSelect('article.comments', 'comments')
       .addOrderBy('comments.createdAt', 'DESC')
-      .leftJoinAndSelect('comments.user', 'comment_user')
+      .leftJoin('comments.user', 'comment_user')
+      .addSelect([
+        'comment_user.id',
+        'comment_user.username',
+        'comment_user.email',
+      ])
       .leftJoinAndSelect('article.images', 'article_image');
     return await article.getOne();
   }

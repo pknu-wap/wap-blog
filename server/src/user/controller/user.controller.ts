@@ -1,7 +1,14 @@
 import { GetCurrentUserId, Public } from '@/common/decorator';
 import { UserService, UserProfileService } from '@/user/service/index';
 import { multerOptions2 } from '@/utils/multerOptions';
-import { Controller, Get, Post, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Delete,
+  UseInterceptors,
+  UploadedFile,
+} from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
 import multer from 'multer';
@@ -26,21 +33,17 @@ export class UserController {
   async profileUpload(
     @GetCurrentUserId() userId: number,
     @UploadedFile() file: Express.Multer.File,
-  ){
+  ) {
     return await this.userProfileService.profileUp(userId, file);
   }
 
   @Delete('/profile')
-  async profileDelete(
-    @GetCurrentUserId() userId: number
-  ){
+  async profileDelete(@GetCurrentUserId() userId: number) {
     return await this.userProfileService.profileDel(userId);
   }
 
   @Get('/profile')
-  async profileGet(
-    @GetCurrentUserId() userId: number
-  ){
+  async profileGet(@GetCurrentUserId() userId: number) {
     return await this.userProfileService.profileGet(userId);
   }
 }
