@@ -8,6 +8,7 @@ import useGetArticleDetail from '../../../hooks/query/article/useGetArticleDetai
 import useDeleteArticle from '../../../hooks/query/article/useDeleteArticle';
 import { PROPERTIES } from '../../../config/properties';
 import { Chip } from '@mui/material';
+import WAPImage from '/img/WAPImg.png';
 
 const ArticleDetail = () => {
   const AWS_S3_URL = PROPERTIES.AWS_S3_URL;
@@ -56,7 +57,7 @@ const ArticleDetail = () => {
           ))}
         </S.ArticleTags>
         <S.ArticleBody>{data?.body}</S.ArticleBody>
-        <div>
+        <div className="w-full flex justify-center items-center">
           {data?.images?.map((image) => (
             <div key={image.id}>
               <img src={AWS_S3_URL + image.fileName} alt="" />
